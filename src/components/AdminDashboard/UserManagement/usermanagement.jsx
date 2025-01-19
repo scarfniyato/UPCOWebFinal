@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-const usermanagement = () => {
-  return (
-    <div>usermanagement</div>
-  )
-}
+const UserManagement = () => {
+  console.log("UserManagement component rendered");
+  return <div>UserManagement Component</div>;
+};
 
-export default usermanagement
+export default UserManagement;

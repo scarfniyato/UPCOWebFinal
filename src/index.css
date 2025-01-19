@@ -3,3 +3,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.head {
+    @apply font-main bg-white p-4 font-bold text-xl text-fcolor rounded-xl shadow-md;
+}
+
+.fbold {
+    @apply font-bold font-main text-fcolor;
+}
+
+.fnormal {
+    @apply font-normal font-main text-fcolor;
+}

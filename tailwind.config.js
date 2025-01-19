@@ -2,7 +2,7 @@
 
 export default {
   content: ["./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}"],
+    "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     screens: {
       xs: "375px",
@@ -16,6 +16,7 @@ export default {
         blue: "#02CAD6",
         white: "#FFFFFF",
         lblue: "#E2F1FF",
+        fcolor: "#333333",
       },
       fontFamily: {
         main: ["Montserrat"],
