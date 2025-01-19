@@ -1,59 +1,65 @@
 /*MAP CSS*/
 .map-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
-  }
-  
-  .error-message {
-    color: red;
-    font-size: 16px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /*Scattered shadow effects for top 10 rankings */
-  .marker-shadow-1 {
-    box-shadow: 0 0 50px 20px rgba(255, 0, 0, 0.9); /*rank 1 */
-  }
-  
-  .marker-shadow-2 {
-    box-shadow: 0 0 50px 20px rgba(255, 69, 0, 0.9); /*rank 2 */
-  }
-  
-  .marker-shadow-3 {
-    box-shadow: 0 0 50px 20px rgba(255, 215, 0, 0.9); /*rank 3 */
-  }
-  
-  .marker-shadow-4 {
-    box-shadow: 0 0 50px 20px rgba(173, 255, 47, 0.9); /*rank 4 */
-  }
-  
-  .marker-shadow-5 {
-    box-shadow: 0 0 50px 20px rgba(127, 255, 0, 0.9); /*rank 5 */
-  }
-  
-  .marker-shadow-6 {
-    box-shadow: 0 0 50px 20px rgba(50, 205, 50, 0.9); /*rank 6 */
-  }
-  
-  .marker-shadow-7 {
-    box-shadow: 0 0 50px 20px rgba(34, 139, 34, 0.9); /*rank 7 */
-  }
-  
-  .marker-shadow-8 {
-    box-shadow: 0 0 50px 20px rgba(0, 100, 0, 0.9); /*rank 8 */
-  }
-  
-  .marker-shadow-9 {
-    box-shadow: 0 0 50px 20px rgba(0, 128, 128, 0.9); /*rank 9 */
-  }
-  
-  .marker-shadow-10 {
-    box-shadow: 0 0 50px 20px rgba(47, 79, 79, 0.9); /*rank 10 */
-  }
-  
-  
-  
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.error-message {
+  color: red;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/*Scattered shadow effects for top 10 rankings */
+.marker-shadow-1 {
+  box-shadow: 0 0 50px 20px rgba(255, 0, 0, 0.9);
+  /*rank 1 */
+}
+
+.marker-shadow-2 {
+  box-shadow: 0 0 50px 20px rgba(255, 69, 0, 0.9);
+  /*rank 2 */
+}
+
+.marker-shadow-3 {
+  box-shadow: 0 0 50px 20px rgba(255, 215, 0, 0.9);
+  /*rank 3 */
+}
+
+.marker-shadow-4 {
+  box-shadow: 0 0 50px 20px rgba(173, 255, 47, 0.9);
+  /*rank 4 */
+}
+
+.marker-shadow-5 {
+  box-shadow: 0 0 50px 20px rgba(127, 255, 0, 0.9);
+  /*rank 5 */
+}
+
+.marker-shadow-6 {
+  box-shadow: 0 0 50px 20px rgba(50, 205, 50, 0.9);
+  /*rank 6 */
+}
+
+.marker-shadow-7 {
+  box-shadow: 0 0 50px 20px rgba(34, 139, 34, 0.9);
+  /*rank 7 */
+}
+
+.marker-shadow-8 {
+  box-shadow: 0 0 50px 20px rgba(0, 100, 0, 0.9);
+  /*rank 8 */
+}
+
+.marker-shadow-9 {
+  box-shadow: 0 0 50px 20px rgba(0, 128, 128, 0.9);
+  /*rank 9 */
+}
+
+.marker-shadow-10 {
+  box-shadow: 0 0 50px 20px rgba(47, 79, 79, 0.9);
+  /*rank 10 */
+}

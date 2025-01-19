@@ -61,79 +61,56 @@ const Map = () => {
   };
 
   return (
-    <div className="map-container">
-      {error && <div className="error-message">{error}</div>}
-      <MapContainer
-        center={[imageHeight / 2, imageWidth / 2]}
-        zoom={0}
-        minZoom={-1}
-        scrollWheelZoom
-        style={{
-          height: `${imageHeight}px`,
-          width: `${imageWidth}px`,
-          margin: '0 auto',
-        }}
-        crs={L.CRS.Simple}
-        maxBounds={bounds}
-        maxBoundsViscosity={1.0}
-      >
-        <ImageOverlay url={mapBackground} bounds={bounds} />
-        {markerData.map((marker) => {
-          const customMarker = getCustomMarker(marker.id);
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="text-2xl font-bold mb-5 text-fcolor">CvSU - Main Campus Map</h1>
+      <div className="h-[500px] w-[160%] max-w-[1200px] border border-lblue rounded-lg overflow-hidden shadow-lg">
+        {error && <div className="text-red-500 text-center p-3">{error}</div>}
+        <MapContainer
+          center={[imageHeight / 2, imageWidth / 2]}
+          zoom={0}
+          minZoom={-1}
+          scrollWheelZoom
+          style={{ height: '100%', width: '100%' }}
+          crs={L.CRS.Simple}
+          maxBounds={bounds}
+          maxBoundsViscosity={1.0}
+        >
+          <ImageOverlay url={mapBackground} bounds={bounds} />
+          {markerData.map((marker) => {
+            const customMarker = getCustomMarker(marker.id);
 
-          return (
-            <Marker
-              key={marker.id}
-              position={[marker.lat, marker.lng]}
-              icon={customMarker || L.icon({ iconUrl: '../../../assets/locationPin.png', iconSize: [30, 40] })}
-            >
-              <Popup>
-                <h3>{marker.name}</h3>
-                {top10Data.find((college) => college.id === marker.id) ? (
-                  <>
-                    <p>
-                      <strong>Total Waste Generated:</strong>{' '}
-                      {top10Data.find((college) => college.id === marker.id)?.totalKg} kg
-                    </p>
-                    <p>
-                      <strong>Month:</strong> January
-                    </p>
-                    <p>
-                      <strong>Year:</strong> 2026
-                    </p>
-                  </>
-                ) : (
-                  <p>No data available</p>
-                )}
-              </Popup>
-            </Marker>
-          );
-        })}
-      </MapContainer>
+            return (
+              <Marker
+                key={marker.id}
+                position={[marker.lat, marker.lng]}
+                icon={customMarker || L.icon({ iconUrl: '../../../assets/locationPin.png', iconSize: [30, 40] })}
+              >
+                <Popup>
+                  <h3>{marker.name}</h3>
+                  {top10Data.find((college) => college.id === marker.id) ? (
+                    <>
+                      <p>
+                        <strong>Total Waste Generated:</strong>{' '}
+                        {top10Data.find((college) => college.id === marker.id)?.totalKg} kg
+                      </p>
+                      <p>
+                        <strong>Month:</strong> January
+                      </p>
+                      <p>
+                        <strong>Year:</strong> 2026
+                      </p>
+                    </>
+                  ) : (
+                    <p>No data available</p>
+                  )}
+                </Popup>
+              </Marker>
+            );
+          })}
+        </MapContainer>
+      </div>
     </div>
   );
 };
 
 export default Map;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

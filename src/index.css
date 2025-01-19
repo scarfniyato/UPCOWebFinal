@@ -21,5 +21,5 @@
 }
 
 .box {
-    @apply flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5
+    @apply flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-xl p-5
 }

@@ -137,8 +137,8 @@ function WasteQualityChart() {
   return (
     <div style={{ color: '#333333', padding: '20px' }}>
       
-      <div className="dropdowns" style={{ margin: '10px 0', textAlign: 'left' }}>
-        <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
+      <div className="Dropdowns" style={{ margin: '0 0', textAlign: 'left' }}>
+        <div className="Dropdown" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
 
           <div className='text-md flex-auto font-bold justify-center'>Solid Waste Generated in CvSU - Main Campus</div>
         <div className="col-md-3 d-flex align-items-center">

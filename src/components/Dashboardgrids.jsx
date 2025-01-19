@@ -4,6 +4,7 @@ import WaterCharts from './AdminDashboard/EnviManagement/EnviCharts/water_charts
 import AirCharts from './AdminDashboard/EnviManagement/EnviCharts/air_charts'
 import WasteChart from './AdminDashboard/EnviManagement/EnviCharts/waste_charts'
 import Top10 from "./PublicPage/Map/top10TableList"
+import Map from './PublicPage/Map/Map'
 
 const Dashboardgrids = () => {
   return (
@@ -56,9 +57,10 @@ const Dashboardgrids = () => {
         <div className='box'>
           <Top10 />
         </div>
-        <div className='box'>2</div>
+        <div className='box'>
+          <Map />
+        </div>
       </div>
-
     </div>
   );
 }
