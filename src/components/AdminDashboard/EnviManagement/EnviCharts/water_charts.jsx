@@ -177,7 +177,7 @@ function WaterQualityChart() {
           display: true,
           text: 'Parameters',
           font: {
-            size: 14
+            size: 15
           }
         },
         ticks: {
@@ -201,22 +201,23 @@ function WaterQualityChart() {
   };
 
   return (
-    <div style={{ color: '#333333' }}>
-      <h4><strong>Water Quality in CvSU - Main Campus</strong></h4>
+    <div className='text-fcolor'>
 
       {/* Filters: Month Range and Year */}
-      <div className="dropdowns" style={{ margin: '20px 0', textAlign: 'left' }}>
-        <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '20px' }}>
+      <div className="dropdowns" style={{ margin: '10px 0', textAlign: 'left' }}>
+        <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
 
+          <div className='text-md flex-auto font-bold justify-center'>Water Quality in CvSU - Main Campus</div>
+          {/* Dropdown for selecting year range */}
           <div>
-          <div className="dropdown" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="dropdown" style={{ display: 'flex', alignItems: 'center'}}>
           <label htmlFor="yearSelect" style={{ marginBottom: '5px' }}></label>
           <select
             id="yearSelect"
-            className="form-select"
+            className="form-select dropdown"
             value={selectedYear || ''}
             onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}
-            style={{ fontSize: '16px', padding: '4px', width: '200px' }} // Increased width
+            style={{ fontSize: '10px', padding: '2px', width: '55px'}} // Increased width
           >
             <option value="" disabled>Select Year</option>
             {availableYears.map((year, index) => (
@@ -230,14 +231,14 @@ function WaterQualityChart() {
 
           {/* Dropdown for selecting month range */}
           <div>
-          <div className="dropdown" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="dropdown" style={{ display: 'flex', alignItems: 'center' }}>
           <label htmlFor="monthRangeSelect" style={{ marginBottom: '5px' }}></label>
           <select
             id="monthRangeSelect"
-            className="form-select"
+            className="form-select dropdown"
             value={selectedMonthRange}
             onChange={(e) => setSelectedMonthRange(e.target.value)}
-            style={{ fontSize: '16px', padding: '4px', width: '200px' }} // Increased width
+            style={{ fontSize: '10px', padding: '2px', width: '110px' }} // Increased width
           >
             {monthOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -249,7 +250,7 @@ function WaterQualityChart() {
           </div>
         </div>
         </div>
-
+    <div>
               {/* Loading and Error States */}
       {isLoading ? (
         <p>Loading data...</p>
@@ -283,6 +284,7 @@ function WaterQualityChart() {
           </div>
         </>
       )}
+    </div>
     </div>
   );
 }

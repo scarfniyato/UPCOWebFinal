@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdAccountCircle } from "react-icons/md";
 import WaterCharts from './AdminDashboard/EnviManagement/EnviCharts/water_charts'
+import AirCharts from './AdminDashboard/EnviManagement/EnviCharts/air_charts'
 
 const Dashboardgrids = () => {
   return (
@@ -38,7 +39,9 @@ const Dashboardgrids = () => {
         <div className='flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5'>
           <WaterCharts />
         </div>
-        <div className='flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5'>2</div>
+        <div className='flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5'>
+          <AirCharts />
+        </div>
       </div>
     </div>
   );

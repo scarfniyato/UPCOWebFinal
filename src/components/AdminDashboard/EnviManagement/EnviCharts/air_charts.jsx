@@ -423,17 +423,19 @@ function AirQualityChart() {
 
   return (
     <div className="chart-container" style={{ color: '#333333' }}>
-      <h4><strong>Air Quality in CvSU - Main Campus</strong></h4>
       
-      <div className="row mb-4">
-        <div className="col-md-8 d-flex align-items-center">
-          <label htmlFor="monthSelect" style={{ marginTop: '15px', marginRight: '10px', whiteSpace: 'nowrap' }}>Select Month: </label>
+      {/* Dropdown for selecting month range */}
+      <div className="dropdowns" style={{ margin: '10px 0', textAlign: 'left' }}>
+        <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
+          <div className='text-md flex-auto font-bold justify-center'>Air Quality in CvSU - Main Campus</div>
+          <div className="Dropdown" style={{ display: 'flex', alignItems: 'center' }}>
+          <label htmlFor="monthSelect" style={{ marginTop: '15px', marginRight: '10px', whiteSpace: 'nowrap' }}></label>
           <select
             id="monthSelect"
-            className="form-select"
+            className="form-select dropdown"
             value={selectedMonth}
             onChange={handleMonthChange}
-            style={{ marginRight: '20px', padding: '4px', marginTop: '15px' }}
+            style={{ fontSize: '10px', padding: '2px', width: '85px'}}
             disabled={loadingData || !selectedYear}
           >
             <option value="">All Months</option>
@@ -444,14 +446,18 @@ function AirQualityChart() {
             ))}
           </select>
 
-          <label htmlFor="yearSelect" style={{ marginTop: '15px',marginRight: '10px', whiteSpace: 'nowrap' }}>Select Year:</label>
+          {/* Dropdown for selecting year range */}
+
+          <div>
+          <div className="Dropdown" style={{ display: 'flex', alignItems: 'center'}}>
+          <label htmlFor="yearSelect" style={{ marginTop: '15px',marginRight: '10px', whiteSpace: 'nowrap' }}></label>
           <select
             id="yearSelect"
-            className="form-select"
+            className="form-select dropdown"
             value={selectedYear}
             onChange={handleYearChange}
             disabled={loadingYears}
-            style={{ padding: '4px', marginTop: '15px' }}
+            style={{ fontSize: '10px', padding: '2px', width: '55px'}}
           >
             <option value="">All Years</option>
             {availableYears.map((year) => (
@@ -460,8 +466,10 @@ function AirQualityChart() {
               </option>
             ))}
           </select>
+          </div>
+          </div>
         </div>
-      </div>
+      </div></div>
 
       {/* Display Error Message */}
       {error && <p className="error-message">{error}</p>}
@@ -470,7 +478,7 @@ function AirQualityChart() {
       {(loadingYears || loadingData) && <p>Loading data...</p>}
 
       {/* Bar Chart */}
-      <div className="chart-wrapper" style={{ height: '500px' }}>
+      <div className="chart-wrapper" style={{ height: '250px' }}> {/* Adjust the height here */}
         {!loadingData && !error && (
           <Bar data={chartData} options={options} />
         )}

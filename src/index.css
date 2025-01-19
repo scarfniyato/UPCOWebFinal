@@ -15,3 +15,7 @@
 .fnormal {
     @apply font-normal font-main text-fcolor;
 }
+
+.dropdown {
+    @apply font-main text-fcolor border-fcolor rounded-lg font-bold bg-lblue border;
+}
