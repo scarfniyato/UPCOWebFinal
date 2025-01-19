@@ -1,0 +1,36 @@
+.solid-waste-table {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .filter-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .filter-dropdown, .filter-button, .add-data-button {
+    margin: 0 10px;
+    padding: 5px 10px;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .no-data {
+    text-align: center;
+    color: #999;
+  }
+  
+
+  
+  
+  

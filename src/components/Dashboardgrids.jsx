@@ -2,6 +2,8 @@ import React from 'react';
 import { MdAccountCircle } from "react-icons/md";
 import WaterCharts from './AdminDashboard/EnviManagement/EnviCharts/water_charts'
 import AirCharts from './AdminDashboard/EnviManagement/EnviCharts/air_charts'
+import WasteChart from './AdminDashboard/EnviManagement/EnviCharts/waste_charts'
+import Top10 from "./PublicPage/Map/top10TableList"
 
 const Dashboardgrids = () => {
   return (
@@ -12,21 +14,21 @@ const Dashboardgrids = () => {
       </div>
 
       <div className='flex gap-4 mt-4'>
-        <div className='flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5'>
+        <div className='box'>
             <div className='flex-col flex text-center'>
                 <div className='fbold text-6xl'>98</div>
                 <div className='fnormal text-sm'>Public Page Total Visits</div>
             </div>
         </div>
 
-        <div className='flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5'>
+        <div className='box'>
             <div className='flex-col flex text-center'>
                 <div className='fbold text-5xl'>1,391.1 kg</div>
                 <div className='fnormal text-xs'><br/>Total Solid Waste Generated This Month</div>
             </div>
         </div>
 
-        <div className='flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5'>
+        <div className='box'>
             <div className='flex-col flex text-center'>
                 <div className='fbold text-5xl'>Good</div>
                 <div className='fnormal text-sm'>Air Quality For The Month</div>
@@ -36,13 +38,27 @@ const Dashboardgrids = () => {
       </div>
 
       <div className='flex gap-4 mt-4'>
-        <div className='flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5'>
+        <div className='box'>
           <WaterCharts />
         </div>
-        <div className='flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5'>
+        <div className='box'>
           <AirCharts />
         </div>
       </div>
+
+      <div className='flex gap-4 mt-4'>
+        <div className='box'>
+          <WasteChart />
+        </div>
+      </div>
+
+      <div className='flex gap-4 mt-4'>
+        <div className='box'>
+          <Top10 />
+        </div>
+        <div className='box'>2</div>
+      </div>
+
     </div>
   );
 }

@@ -19,3 +19,7 @@
 .dropdown {
     @apply font-main text-fcolor border-fcolor rounded-lg font-bold bg-lblue border;
 }
+
+.box {
+    @apply flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-md p-5
+}

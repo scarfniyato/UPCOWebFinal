@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+*{
+  font-family: 'Montserrat', sans-serif !important;;
+}
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../../../src/assets/bg.png');
+    margin: 0;
+    padding: 0;
+    /* For dynamic background images, prefer inline styles in JSX */
+  }
+  
+  /* General Hero Section Styles */
+  section {
+    margin-top: 60px; /* Push content below the fixed navbar */
+    display: flex; /* Arrange children in a row */
+    align-items: center; /* Vertically center the content */
+    justify-content: center; /* Center the left and right containers */
+    height: 100vh; /* Full viewport height */
+    background-size: cover; /* Ensure background covers the section */
+    background-position: center; /* Center the background image */
+    color: white; /* Text color */
+  
+  }
+
+  .leftHero, .rightHero {
+    justify-content: center; /* Center the content within each container */
+    align-items: center; /* Vertically center the content within each container */
+    padding:  0 60px; /* Add padding to the left and right */
+  }
+
+  .leftHero h1 {
+    font-size: 2.3rem; /* Adjust heading size */
+    line-height: 1.4;
+    font-weight: bolder;
+    margin-bottom: 50px;
+  }
+
+  .leftHero p {
+    font-size: 1.1rem; /* Adjust paragraph size */
+    line-height: 1.6;
+    font-weight: 600;
+    margin-bottom: 50px;
+  }
+
+  section h1, section p { 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Add shadow to the text */
+  }
+
+  .leftHero button {
+    background-color: white;
+    color: #003F68;
+    margin-top: 15px;
+    border: none;
+    outline: none;
+    padding: 12px 0;
+    border-radius: 15px;
+    width: 100%; /* Full width for smaller screens */
+    max-width: 150px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow to the button */
+  }
+
+  .leftHero button:hover {
+    background-color: #013253;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow to the button */
+  }
+
+  .leftHero button:active {
+    transform: scale(0.98); /* Shrink slightly on button press */
+  }
+
+  .rightHero img {
+    max-width: 100%; /* Make sure the image fits inside the container */
+    height: auto;
+    max-height: 560px; /* Limit the image height */
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    section {
+      flex-direction: column; /* Stack the left and right containers */
+      text-align: center; /* Center text for smaller screens */
+    }
+
+    .leftHero, .rightHero {
+      padding: 40px; /* Reduce padding for smaller screens */
+    }
+
+    .leftHero h1 {
+      margin-top: 40px; /* Adjust heading margin for smaller screens */
+      font-size: 2.4rem; /* Adjust heading size for smaller screens */
+    }
+
+    .leftHero p {
+      font-size: 1.1rem; /* Adjust paragraph size for smaller screens */
+    }
+
+    .leftHero button {
+      max-width: 100%; /* Full width for smaller screens */
+    }
+
+    .rightHero img {
+      display: none; /* Hide the image for smaller screens */
+    }
+  }
+
+
+  @media (max-width: 508px) {
+    section {
+      flex-direction: column; /* Stack the left and right containers */
+      text-align: center; /* Center text for smaller screens */
+    }
+
+    .leftHero, .rightHero {
+      padding: 20px; /* Reduce padding for smaller screens */
+    }
+
+    .leftHero h1 {
+      margin-top: 40px; /* Adjust heading margin for smaller screens */
+      font-size: 1.9rem; /* Adjust heading size for smaller screens */
+    }
+
+    .leftHero p {
+      font-size: 0.9rem; /* Adjust paragraph size for smaller screens */
+    }
+
+    .leftHero button {
+      max-width: 100%; /* Full width for smaller screens */
+    }
+
+    .rightHero img {
+      display: none; /* Hide the image for smaller screens */
+    }
+  }
+  
+  .container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .state-of-environment {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  
+  .state-of-environment h2 {
+    margin-top: 0;
+  }
+  
+  .state-of-environment img {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .environmental-policies {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  
+  .environmental-policies h2 {
+    margin-top: 0;
+  }
+  
+  .policy-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .policy-card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 10px;
+    width: 200px;
+    border-radius: 8px;
+  }
+  
+  .footer {
+    background-color: #003A55;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer img {
+    max-width: 50px;
+    margin: 10px 0;
+  }
+  
+

@@ -136,17 +136,19 @@ function WasteQualityChart() {
 
   return (
     <div style={{ color: '#333333', padding: '20px' }}>
-      <h4><strong>Solid Waste Generated in CvSU - Main Campus</strong></h4>
       
-      <div className="row mb-4">
+      <div className="dropdowns" style={{ margin: '10px 0', textAlign: 'left' }}>
+        <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
+
+          <div className='text-md flex-auto font-bold justify-center'>Solid Waste Generated in CvSU - Main Campus</div>
         <div className="col-md-3 d-flex align-items-center">
-          <label htmlFor="yearSelect" style={{marginTop: '15px', marginRight: '10px', whiteSpace: 'nowrap' }}>Select Year:</label>
+          <label htmlFor="yearSelect" style={{marginTop: '15px', marginRight: '10px', whiteSpace: 'nowrap' }}></label>
           <select
             id="yearSelect"
-            className="form-select"
+            className="form-select dropdown"
             value={selectedYear}
             onChange={handleYearChange}
-            style={{ padding: '4px', marginTop: '15px' }}
+            style={{ fontSize: '13px', padding: '2px', width: '60px'}}
           >
             <option value="">All Years</option>
             {availableYears.map((year) => (
@@ -156,9 +158,9 @@ function WasteQualityChart() {
             ))}
           </select>
         </div>
-      </div>
+      </div></div>
       
-      <div style={{ width: '100%', height: '400px' }}>
+      <div style={{ width: '900px', height: '400px' }}> {/* Adjust the width and height here */}
         <Line data={chartData} options={options} />
       </div>
     </div>
