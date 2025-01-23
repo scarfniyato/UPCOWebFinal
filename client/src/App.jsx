@@ -12,6 +12,7 @@ import EnviWaste from './components/AdminDashboard/EnviManagement/EnviWaste';
 import AddWaste from './components/AdminDashboard/EnviManagement/AddEnviData/AddWaste';
 import AddAir from './components/AdminDashboard/EnviManagement/AddEnviData/AddAir';
 import AddWater from './components/AdminDashboard/EnviManagement/AddEnviData/AddWater';
+import AirQualityResult from './components/AdminDashboard/EnviManagement/ForDashboard/airqualityresult';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -33,6 +34,8 @@ function App() {
           <Route path="accountmanagement" element={<AccountManagement />} />
           <Route path="userManagement" element={<UserManagement />} />
           <Route path="*" element={<div>Page Not Found</div>} />
+
+          <Route path="airresult" element={<AirQualityResult />} />          
         </Route>
       </Routes>
     </BrowserRouter>

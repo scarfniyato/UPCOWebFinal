@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'; 
 import { MdAccountCircle } from "react-icons/md";
 import WaterCharts from './AdminDashboard/EnviManagement/EnviCharts/water_charts'
 import AirCharts from './AdminDashboard/EnviManagement/EnviCharts/air_charts'
 import WasteChart from './AdminDashboard/EnviManagement/EnviCharts/waste_charts'
+import AirQualityResult from './AdminDashboard/EnviManagement/ForDashboard/airqualityresult';
 import Top10 from "./PublicPage/Map/top10TableList"
 import Map from './PublicPage/Map/Map'
 
@@ -31,9 +32,7 @@ const Dashboardgrids = () => {
 
         <div className='box'>
             <div className='flex-col flex text-center'>
-                <div className='fbold text-5xl'>Good</div>
-                <div className='fnormal text-sm'>Air Quality For The Month</div>
-                <p className='text-xs text-fcolor'>(based on AQI of the US Environmental Protection)</p>
+          <AirQualityResult />
             </div>
         </div>  
       </div>
