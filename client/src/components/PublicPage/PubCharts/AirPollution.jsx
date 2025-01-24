@@ -1,15 +1,22 @@
 import React from 'react'
 import Navbar from '../navbar2'
+import AirChart from '../../AdminDashboard/EnviManagement/EnviCharts/air_charts'
 
 const AirPollution = () => {
   return (
     <div>
         <Navbar />
-        <section>
-        <div className='text-center text-dark fbold'>
+        <section className='flex flex-col w-full'>
+        <div className='text-center text-dark fbold border-bottom w-5/6'>
         <h5>Cavite State University - Indang Campus</h5>
-        <p1 className='text-4xl'>State of the Environment</p1>
-        <hr/>
+        <p1 className='text-4xl mt-5'>State of the Environment</p1>
+        <div className='text-left mt-20'>
+            State of the Enironment/Air Pollution
+        </div>
+        </div>
+        <hr className='border border-dark'/>
+        <div className='bg-white p-5 rounded-xl m-5 w-5/6'>
+        <AirChart />
         </div>
         </section>
     </div>
