@@ -45,57 +45,114 @@ const getAqiCategory = (pollutant, value) => {
 
 // Function to get the worst category among the pollutants
 const getWorstCategory = (categories) => {
-  const categoryPriority = ['Good', 'Satisfactory', 'Moderately Polluted', 'Poor', 'Very Poor', 'Severe'];
+  const categoryPriority = [
+    'Good',
+    'Satisfactory',
+    'Moderately Polluted',
+    'Poor',
+    'Very Poor',
+    'Severe'
+  ];
   return categories.reduce((worst, current) => {
-    return categoryPriority.indexOf(current) > categoryPriority.indexOf(worst) ? current : worst;
+    return categoryPriority.indexOf(current) > categoryPriority.indexOf(worst)
+      ? current
+      : worst;
   }, 'Good');
 };
 
+// Helper array to sort months if they're stored as strings
+const monthsOrder = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
 function AirQualityResult() {
   const [concludedStatus, setConcludedStatus] = useState('');
+  const [latestYear, setLatestYear] = useState(null);
+  const [latestMonth, setLatestMonth] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchLatestData = async () => {
       try {
-        // Fetch available years
+        // 1. Fetch available years
         const yearsResponse = await axios.get('http://localhost:3001/available_year_air');
-        const sortedYears = yearsResponse.data.sort((a, b) => b - a); // Sort years in descending order
-        const latestYear = sortedYears[0]; // Get the latest year
+        const sortedYears = yearsResponse.data.sort((a, b) => b - a); // Sort years descending
+        const year = sortedYears[0]; // Latest year
+        setLatestYear(year);
 
-        // Fetch data for the latest year
+        if (!year) {
+          setError('No years available');
+          setLoading(false);
+          return;
+        }
+
+        // 2. Fetch ALL data for that latest year
         const dataResponse = await axios.get('http://localhost:3001/airquality_data', {
-          params: { year: latestYear }
+          params: { year }
         });
 
-        const data = dataResponse.data;
-
-        if (data.length === 0) {
+        const dataForYear = dataResponse.data;
+        if (dataForYear.length === 0) {
           setError('No data available for the latest year.');
           setLoading(false);
           return;
         }
 
-        // Aggregating data for the latest year
+        // 3. Sort data by month to find the "latest" month
+        //    (If months are numeric, just sort by b.month - a.month)
+        dataForYear.sort((a, b) =>
+          monthsOrder.indexOf(b.month) - monthsOrder.indexOf(a.month)
+        );
+
+        const latest = dataForYear[0]; // The single latest record
+        if (!latest) {
+          setError('No data found for the latest month.');
+          setLoading(false);
+          return;
+        }
+
+        setLatestMonth(latest.month);
+
+        // OPTIONAL: If you want to compute an average for all records within that month,
+        //           filter the array to get only the same month, then average them.
+        //           If you just want that single record, skip this step.
+
+        const sameMonthData = dataForYear.filter(
+          (item) => item.month === latest.month
+        );
+
+        // 4. Compute aggregator (or single record values) for that month
         const aggregated = {
-          CO: (data.reduce((sum, item) => sum + (item.CO || 0), 0) / data.length).toFixed(2),
-          NO2: (data.reduce((sum, item) => sum + (item.NO2 || 0), 0) / data.length).toFixed(2),
-          SO2: (data.reduce((sum, item) => sum + (item.SO2 || 0), 0) / data.length).toFixed(2),
+          CO: (
+            sameMonthData.reduce((sum, item) => sum + (item.CO || 0), 0) /
+            sameMonthData.length
+          ).toFixed(2),
+          NO2: (
+            sameMonthData.reduce((sum, item) => sum + (item.NO2 || 0), 0) /
+            sameMonthData.length
+          ).toFixed(2),
+          SO2: (
+            sameMonthData.reduce((sum, item) => sum + (item.SO2 || 0), 0) /
+            sameMonthData.length
+          ).toFixed(2),
         };
 
-        // Get the category for each pollutant
+        // 5. Get the category for each pollutant
         const categories = [
           getAqiCategory('CO', parseFloat(aggregated.CO)),
           getAqiCategory('NO2', parseFloat(aggregated.NO2)),
-          getAqiCategory('SO2', parseFloat(aggregated.SO2)),
+          getAqiCategory('SO2', parseFloat(aggregated.SO2))
         ];
 
-        // Determine the worst category from the pollutants
+        // 6. Determine the worst category
         const worstCategory = getWorstCategory(categories);
         setConcludedStatus(worstCategory);
+
       } catch (err) {
-        setError('Failed to fetch data');
+        console.error(err);
+        setError('Failed to fetch data.');
       } finally {
         setLoading(false);
       }
@@ -111,11 +168,16 @@ function AirQualityResult() {
       ) : error ? (
         <p>{error}</p>
       ) : (
-          <p>
-            <div className='fbold text-5xl'>{concludedStatus}</div>
-            <div className='fnormal text-sm'>Air Quality For The Month</div>
-            <p className='text-xs text-fcolor'>(based on AQI of the US Environmental Protection)</p>
+        <>
+          <div className='fbold text-5xl'>{concludedStatus}</div>
+          {/* Display the latest month & year we found */}
+          <div className='fnormal text-sm'>
+            Air Quality For {latestMonth} {latestYear}
+          </div>
+          <p className='text-xs text-fcolor'>
+            (Based on AQI of the US Environmental Protection)
           </p>
+        </>
       )}
     </div>
   );

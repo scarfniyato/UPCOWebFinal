@@ -3,7 +3,7 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import axios from 'axios';
 
-function WasteQualityChart() {
+function WasteQualityChart({ onYearChange }) {
   const [allData, setAllData] = useState([]);
   const [availableYears, setAvailableYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState('');
@@ -35,6 +35,13 @@ function WasteQualityChart() {
     }
   }, [selectedYear, allData]);
 
+  useEffect(() => {
+    // Only call if the parent gave us a callback
+    if (onYearChange) {
+      onYearChange(selectedYear);
+    }
+  }, [selectedYear, onYearChange]);
+
   const formatChartData = (data, year) => {
     const months = [
       "January", "February", "March", "April", "May", "June",
@@ -42,32 +49,32 @@ function WasteQualityChart() {
     ];
 
     const datasets = [
-      { 
-        label: 'Residuals', 
-        data: [], 
-        borderColor: '#ffbb2a', 
-        backgroundColor: 'rgba(255, 239, 205, 0.5)', 
-        fill: true, 
-        pointRadius: 3, 
-        pointBackgroundColor: '#FF9F1A' 
+      {
+        label: 'Residuals',
+        data: [],
+        borderColor: '#ffbb2a',
+        backgroundColor: 'rgba(255, 239, 205, 0.5)',
+        fill: true,
+        pointRadius: 3,
+        pointBackgroundColor: '#FF9F1A'
       },
-      { 
-        label: 'Biodegradables', 
-        data: [], 
-        borderColor: '#2489e1', 
-        backgroundColor: 'rgba(23, 131, 230, 0.5)', 
-        fill: true, 
-        pointRadius: 3, 
-        pointBackgroundColor: '#2489e1' 
+      {
+        label: 'Biodegradables',
+        data: [],
+        borderColor: '#2489e1',
+        backgroundColor: 'rgba(23, 131, 230, 0.5)',
+        fill: true,
+        pointRadius: 3,
+        pointBackgroundColor: '#2489e1'
       },
-      { 
-        label: 'Recyclables', 
-        data: [], 
-        borderColor: '#4d8833', 
-        backgroundColor: 'rgba(87, 141, 60, 0.3)',  
-        fill: true, 
-        pointRadius: 3, 
-        pointBackgroundColor: '#4d8833' 
+      {
+        label: 'Recyclables',
+        data: [],
+        borderColor: '#4d8833',
+        backgroundColor: 'rgba(87, 141, 60, 0.3)',
+        fill: true,
+        pointRadius: 3,
+        pointBackgroundColor: '#4d8833'
       }
     ];
 
@@ -136,7 +143,7 @@ function WasteQualityChart() {
   return (
     <div style={{ color: '#333333', padding: '20px' }}>
 
-      <div className="Dropdowns" style={{ margin: '0 0', textAlign: 'left' }}>
+      <div className="Dropdowns" data-html2canvas-ignore="true" style={{ margin: '0 0', textAlign: 'left' }}>
         <div className="Dropdown" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
 
           <div className='text-md flex-auto font-bold justify-center'>Solid Waste Generated in CvSU - Main Campus</div>
