@@ -23,3 +23,7 @@
 .box {
     @apply flex bg-white flex-auto justify-center items-center shadow-md w-full rounded-xl p-5
 }
+
+.btn1 {
+    @apply bg-dark text-white font-main font-bold text-xl rounded-lg p-2 cursor-pointer;
+}

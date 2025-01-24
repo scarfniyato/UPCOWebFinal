@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {Table,TableBody,TableCell,TableHead,TableRow,Typography,Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle,} from "@mui/material";
+import { MdAccountCircle } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const UserManagement = () => {
     const [accounts, setAccounts] = useState([]);
@@ -59,13 +61,19 @@ const UserManagement = () => {
 
     return (
         <div>
-            <div>
-                <h1>User Management</h1>
-                <Button href="/admin-dashboard/user-management/addAccount">Add Account</Button>
+            <div className='flex gap-x-64 w-full'>
+                <div className='flex-1 flex items-center head'>User Management</div>
+                <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
             </div>
+            <div className="bg-white mt-6 p-6 rounded-xl shadow-md">
+                <div className="btn1 w-40 text-center mb-4">
+                    <Link to="/index">
+                    <Button color="white">Add Account</Button></Link>
+                </div>
+            <div>
             <Table>
                 <TableHead>
-                    <TableRow>
+                    <TableRow className="bg-gray-200">
                         <TableCell>Name</TableCell>
                         <TableCell>Email</TableCell>
                         <TableCell>Date Created</TableCell> {/* New column */}
@@ -87,7 +95,7 @@ const UserManagement = () => {
                     ))}
                 </TableBody>
             </Table>
-
+            </div>
             <Dialog open={openDialog} onClose={handleCancelDelete}>
                 <DialogTitle>Confirm Delete</DialogTitle>
                 <DialogContent>
@@ -100,7 +108,7 @@ const UserManagement = () => {
                     <Button onClick={handleConfirmDelete} >Delete this account</Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </div></div>
     );
 };
 
