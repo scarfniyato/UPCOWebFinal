@@ -56,12 +56,18 @@ function AddWaste() {
     })
       .then(result => {
         console.log(result);
-        navigate('/');
+        navigate('/enviwaste');
+        alert("Data Added Successfully!");
       })
       .catch(err => {
-        console.log(err);
-        setError('Failed to create data. Please try again.');
-      });
+        // If the server sends back a response with a custom error, display that
+        if (err.response && err.response.data && err.response.data.error) {
+          setError();
+          alert("Data for this year and month already exists.");
+        } else {
+          setError('Failed to create data. Please try again.');
+        }
+      });    
   };
 
   return (

@@ -55,12 +55,19 @@ function AddAir() {
     })
       .then(result => {
         console.log(result);
-        navigate('/');
+        navigate('/enviair');
+        alert("Data Added Successfully!");
       })
       .catch(err => {
+        // Check if the server sent a custom error message
+        if (err.response && err.response.data && err.response.data.error) {
+          setError();
+          alert("Data for this year and month already exists.");
+        } else {
+          setError('Failed to create data. Please try again.');
+        }
         console.log(err);
-        setError('Failed to create data. Please try again.');
-      });
+      });    
   };
 
   return (
