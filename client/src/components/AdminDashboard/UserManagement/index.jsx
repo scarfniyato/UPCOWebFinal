@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { MdAccountCircle } from "react-icons/md"; 
+import { Link } from "react-router-dom";
 
 function AddUserAccount() {
     const paperStyle = { padding: "2rem", margin: "50px auto", borderRadius: "1rem", boxShadow: "5px 5px 25px" };
@@ -33,23 +35,15 @@ function AddUserAccount() {
     };
 
     return (
-        <Grid align="center">
-            <Paper
-                style={paperStyle}
-                sx={{
-                    width: {
-                        xs: "80vw",
-                        sm: "50vw",
-                        md: "40vw",
-                        lg: "30vw",
-                        xl: "20vw",
-                    },
-                    height: "auto",
-                }}
-            >
+        <div>
+        <div className='flex gap-x-64 w-full'>
+            <div className='flex-1 flex items-center head'>User Management</div>
+            <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
+        </div>
+        <div className="className='w-full rounded-xl bg-white mt-6 p-6 shadow-md'">
                 <form onSubmit={handleSubmit}>
-                    <Typography style={heading}>
-                        <strong>Add Account</strong>
+                    <Typography variant="h6" gutterBottom style={{ fontFamily: "Montserrat" }}>
+                        <strong>Add User Account</strong>
                     </Typography>
                     <TextField
                         onChange={(e) => setName(e.target.value)}
@@ -79,12 +73,18 @@ function AddUserAccount() {
                         label="Enter Password"
                         type="password"
                     />
-                    <Button className="btn" type="submit" variant="contained" fullWidth>
+                    
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                        style={{ marginTop: "20px",  fontFamily: "Montserrat", backgroundColor: "#003A55", color: "#FFFFFF" }}
+                    >
                         Create Account
                     </Button>
                 </form>
-            </Paper>
-        </Grid>
+        </div>
+    </div>
     );
 }
 
