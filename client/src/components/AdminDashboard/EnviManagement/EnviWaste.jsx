@@ -38,6 +38,14 @@ const EnviWaste = () => {
     });
   };
 
+  const getCurrentDateFormatted = () => {
+    const now = new Date();
+    const year = now.getFullYear().toString().slice(2); // Get last two digits of the year
+    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed, add 1 to make it 1-indexed
+    const day = now.getDate().toString().padStart(2, '0');
+    return `${year}${month}${day}`;
+  };
+
   const downloadReport = async () => {
     try {
       // 0) Hide last column in the table
@@ -116,7 +124,7 @@ const EnviWaste = () => {
       pdf.setFontSize(10);
       pdf.text(`Waste Table Data For ${reportMonth_Table || 'All Months'} - ${reportYear_Table || 'All Years'}`, 20, subHeaderY);
 
-      const tableStartY = 105 + chartHeight + 15; // adding 10 pixels space
+      const tableStartY = 105 + chartHeight + 10; // adding 10 pixels space
 
       const tableProps = pdf.getImageProperties(tableImgData);
       const tableScaledHeight = (tableProps.height * pdfWidth) / tableProps.width;
@@ -154,8 +162,9 @@ const EnviWaste = () => {
       pdf.setFontSize(10);
       pdf.text("Generated on: " + new Date().toLocaleString(), 20, pdfHeight - 20);
 
-      // 7) Finally, save the PDF
-      pdf.save('WasteQualityReport.pdf');
+    const formattedDate = getCurrentDateFormatted();
+    const filename = `${formattedDate}_WasteReport.pdf`;
+    pdf.save(filename);
 
     } catch (error) {
       console.error("Error generating PDF:", error);
