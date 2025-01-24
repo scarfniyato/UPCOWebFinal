@@ -7,13 +7,12 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url('../../../src/assets/bg.png');
+    background-image: url('../../../src/assets/landingPage_bg.png');
     margin: 0;
     padding: 0;
     /* For dynamic background images, prefer inline styles in JSX */
   }
-  
-  /* General Hero Section Styles */
+
   section {
     margin-top: 60px; /* Push content below the fixed navbar */
     display: flex; /* Arrange children in a row */
@@ -23,8 +22,9 @@ body {
     background-size: cover; /* Ensure background covers the section */
     background-position: center; /* Center the background image */
     color: white; /* Text color */
-  
   }
+  
+
 
   .leftHero, .rightHero {
     justify-content: center; /* Center the content within each container */
@@ -140,64 +140,281 @@ body {
       display: none; /* Hide the image for smaller screens */
     }
   }
-  
-  .container {
-    padding: 20px;
-    text-align: center;
+
+/* Styles for the container holding the three dataContainers */
+.pollutions {
+  display: flex;
+  justify-content: center; /* Centers the items horizontally */
+  gap: 50px;
+  align-items: center;      /* Centers the items vertically */
+  flex-wrap: wrap;          /* Allows items to wrap to the next row on smaller screens */
+}
+
+/* Styling for the dataContainer */
+.dataContainer2 {
+  flex: 1 1 230px;         /* Ensures all containers have the same base size */
+  max-width: 310px;        /* Limits the maximum width of the container */
+  text-align: center;      /* Centers content within the container */
+  padding: 0 30px;           /* Optional: Adds padding inside each container */
+  box-sizing: border-box;  /* Ensures padding doesn't affect width calculation */
+}
+
+/* Styling for the image */
+.dataContainer2 img {
+  max-width: 100%;         /* Makes the image scale relative to its container */
+  height: auto;            /* Maintains aspect ratio */
+  padding: 10px 0;         /* Adds spacing around the image */
+  margin: 0 auto;          /* Centers the image horizontally */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .pollutions {
+    gap: 40px;             /* Reduces the gap between items on smaller screens */
   }
-  
-  .state-of-environment {
-    background-color: white;
-    padding: 20px;
-    margin: 20px 0;
+
+  .dataContainer2 {
+    flex: 1 1 200px;         /* Ensures all containers have the same base size */
+    max-width: 280px;      /* Shrinks the maximum width of the containers */
   }
-  
-  .state-of-environment h2 {
-    margin-top: 0;
+
+  .dataContainer2 img {
+    max-width: 180px;      /* Shrinks the image size on smaller screens */
   }
-  
-  .state-of-environment img {
-    width: 100%;
-    max-width: 500px;
+}
+
+@media (max-width: 480px) {
+  .pollutions {
+    gap: 20px;              /* Reduces the gap further */
   }
-  
-  .environmental-policies {
-    background-color: white;
-    padding: 20px;
-    margin: 20px 0;
+
+  .dataContainer2 {
+    flex: 1 1 170px;  
+    max-width: 230px;       /* Allows the container to span full width */
   }
-  
-  .environmental-policies h2 {
-    margin-top: 0;
+
+  .dataContainer2 img {
+    max-width: 150px;      /* Further shrinks the image size */
   }
-  
-  .policy-cards {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+}
+
+
+/* Container styling */
+.public-policies-container {
+  padding: 20px;
+}
+
+/* Row styling */
+.card-row {
+  display: flex;
+  flex-wrap: wrap; /* Allows the cards to wrap to the next row on smaller screens */
+  gap: 20px;       /* Adds space between the cards */
+  justify-content: center; /* Centers the cards */
+  margin: 10px 0;
+}
+
+/* Card styling */
+.card {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1 1 calc(33.33% - 20px); /* Makes each card take up one-third of the row with a gap */
+  max-width: 300px;             /* Ensures the cards don't grow too large */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+}
+
+/* Card content */
+.card-content {
+  text-align: center;
+}
+
+/* Card preview (iframe) */
+.card-preview {
+  width: 100%;   /* Makes the iframe responsive */
+  height: 200px; /* Adjust the height for smaller screens */
+  margin-bottom: 10px;
+}
+
+/* Card title */
+.card-title {
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .card {
+    flex: 1 1 calc(50% - 20px); /* Each card takes up half the width on medium screens */
+    max-width: 100%;           /* Cards adjust to the available space */
   }
-  
-  .policy-card {
-    background-color: #f0f0f0;
-    padding: 20px;
-    margin: 10px;
-    width: 200px;
-    border-radius: 8px;
+
+  .card-preview {
+    height: 150px; /* Adjust iframe height for smaller screens */
   }
-  
-  .footer {
-    background-color: #003A55;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-  }
-  
-  .footer img {
-    max-width: 50px;
+}
+
+@media (max-width: 480px) {
+  .card {
+    flex: 1 1 100%; /* Each card takes up the full width on small screens */
     margin: 10px 0;
   }
-  
 
+  .card-preview {
+    height: 120px; /* Further reduce iframe height for mobile screens */
+  }
+}
+
+
+
+
+
+/* General Footer Styles */
+.contactSection {
+  background-color: #003a55;
+  color: white;
+  padding: 20px 40px;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative; /* Required for pseudo-element positioning */
+}
+
+/* Logo Section */
+.contact-logo img {
+  max-width: 240px;
+  height: auto;
+}
+
+/* Contact Information Section */
+.contact-info {
+  text-align: left;
+  flex: 1;
+  margin: 0 40px;
+  position: relative;
+}
+
+.contact-cta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 55%; /* Center the line horizontally */
+  transform: translateX(-50%); /* Adjust the line to be perfectly centered */
+  height: 100%;
+  width: 2px; /* Line width */
+  background-color: white; /* Line color */
+}
+
+@media (max-width: 1250px) {
+  .contact-cta::after {
+    display: none; /* Hide the line on smaller screens */
+  }
+}
+
+
+
+.contact-info h2 {
+  margin-bottom: 15px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.contact-info p {
+  margin:  0;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.contact-info h5 {
+  margin-bottom: 15px;
+}
+
+.contactItem {
+  display: flex; /* Align items in a row */
+  align-items: center; /* Vertically center the icon and text */
+  gap: 10px; /* Add spacing between the icon and text */
+  margin-bottom: 20px; /* Add space between each contact item */
+  margin-left: 10px;
+}
+
+.contactItem img {
+  margin-right: 10px;
+}
+
+.contactItem div {
+  display: flex;
+  flex-direction: column; /* Keep text stacked (p above h5) */
+  flex-grow: 1; /* Ensure it fills the available space */
+}
+
+.contactItem p {
+  margin: 0;
+  font-size: 12px; /* Adjust font size for better readability */
+  font-weight: 600; /* Make labels bold */
+}
+
+.contactItem h5 {
+  margin: 0;
+  font-weight: 600;
+}
+
+
+
+.contact-cta {
+  text-align: center;
+  flex: 1;
+  margin: 0 20px;
+}
+
+.contact-cta h2 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cta-content {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;   /* Center items horizontally */
+}
+
+.contact-cta .cta-icon {
+  max-width: 110px; /* Adjust icon size */
+  height: auto;
+  margin-bottom: 15px; /* Add space below the icon */
+}
+
+.email-btn {
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.email-btn:hover {
+  background-color: #0056b3;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-info,
+  .contact-cta {
+    margin: 20px 0;
+  }
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './navBarStyle.css'; // Import styles
 import logo from '../../../src/assets/logo.png'; // Import logo
 
-function Navbar() {
+function NavbarSimple() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home'); // State to track active section
 
@@ -56,16 +56,6 @@ function Navbar() {
                 State of the Environment
               </a>
             </li>
-            <li>
-              <a href="#policies" className={activeSection === 'policies' ? 'active' : ''}>
-                Environmental Policies
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>
-                Contact
-              </a>
-            </li>
           </ul>
         </div>
 
@@ -80,4 +70,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavbarSimple;

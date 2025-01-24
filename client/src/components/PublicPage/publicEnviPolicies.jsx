@@ -19,27 +19,28 @@ const PublicEnviPolicies = () => {
     }, []);
 
     return (
-        <div className="public-policies-container">
-            <h1>Environmental Policies</h1>
-            <div className="card-grid">
+        <div className="public-policies-container" style={{ }}>
+            <div className="card-row" style={{ margin: '10px 0' }}>
                 {files.length > 0 ? (
                     files.map((file) => {
                         //Generate embeddable preview link
                         const embedLink = file.link.replace('/view', '/preview');
 
                         return (
-                            <div key={file._id} className="card">
+                            <div key={file._id} className="card" style={{ border: '1px solid #ccc', borderRadius: '5px' }}>
                                 <div className="card-content">
                                     <iframe
                                         src={embedLink}
                                         className="card-preview"
                                         title={file.title}
                                         allow="fullscreen"
+                                        style={{ width: '230px', height: '250px', margin: '10px 0' }} // Increase the height here
                                     ></iframe>
-                                    <h3 className="card-title">{file.title}</h3>
+                                    <h3 className="card-title" style={{ margin: '10px 0' }}><strong>{file.title}</strong></h3>
                                     <button
-                                        className="read-more-btn"
+                                        className="btn"
                                         onClick={() => window.open(file.link, '_blank')}
+                                        style={{ padding: '10px 20px', marginBottom: '15px' }}
                                     >
                                         Read more
                                     </button>
@@ -56,4 +57,3 @@ const PublicEnviPolicies = () => {
 };
 
 export default PublicEnviPolicies;
-

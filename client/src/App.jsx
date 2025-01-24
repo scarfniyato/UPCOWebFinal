@@ -16,6 +16,10 @@ import AddAccount from './components/AdminDashboard/UserManagement/index';
 import Login from './components/Login/index';
 import ForgotPassword from './components/Login/ForgotPassword/index';
 import ResetPassword from './components/Login/ResetPassword/index';
+import LandingPage from './components/PublicPage/index';
+import AirPollution from './components/PublicPage/PubCharts/AirPollution';
+import LandPollution from './components/PublicPage/PubCharts/LandPollution';
+import WaterPollution from './components/PublicPage/PubCharts/WaterPollution';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -43,6 +47,12 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="forgotpass" element={<ForgotPassword />} />
           <Route path="resetpass" element={<ResetPassword />} />
+        </Route>
+        <Route>
+          <Route path="landing" element={<LandingPage />} />
+          <Route path="airpollution" element={<AirPollution />} />
+          <Route path="landpollution" element={<LandPollution />} />
+          <Route path="waterpollution" element={<WaterPollution />} />
         </Route>
       </Routes>
     </BrowserRouter>

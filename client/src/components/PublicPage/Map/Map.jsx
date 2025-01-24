@@ -4,9 +4,12 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 import mapBackground from '../../../assets/CvSUMapCropped.png';
+import locationPin from '../../../assets/locationPin.png';
 
 const Map = () => {
   const [top10Data, setTop10Data] = useState([]);
+  const [latestMonth, setLatestMonth] = useState('');
+  const [latestYear, setLatestYear] = useState('');
   const [error, setError] = useState(null);
 
   const imageWidth = 1200;
@@ -30,11 +33,29 @@ const Map = () => {
     { id: 10, name: 'College of Education', lat: 242, lng: 915 },
   ];
 
+  const fetchLatestData = async () => {
+    try {
+      // Fetch the latest available month and year
+      const response = await fetch('http://localhost:3001/api/latest-waste-data');
+      if (!response.ok) throw new Error('Failed to fetch latest data.');
+      const { month, year } = await response.json();
+      setLatestMonth(month);
+      setLatestYear(year);
+    } catch (error) {
+      console.error('Error fetching latest data:', error);
+      setError('Failed to load latest data. Please try again later.');
+    }
+  };
+
   const colorCoding = ['#FF0000', '#FF4500', '#FFD700', '#ADFF2F', '#7FFF00', '#32CD32', '#228B22', '#006400', '#008080', '#2F4F4F'];
 
   const fetchTop10Data = async () => {
+    if (!latestMonth || !latestYear) return;
+
     try {
-      const response = await fetch('http://localhost:3001/api/top10-waste-generators?month=January&year=2026');
+      const response = await fetch(
+        `http://localhost:3001/api/top10-waste-generators?month=${latestMonth}&year=${latestYear}`
+      );
       if (!response.ok) throw new Error('Failed to fetch top 10 data.');
       const data = await response.json();
       setTop10Data(data);
@@ -45,70 +66,95 @@ const Map = () => {
   };
 
   useEffect(() => {
-    fetchTop10Data();
+    fetchLatestData();
   }, []);
+
+  useEffect(() => {
+    fetchTop10Data();
+  }, [latestMonth, latestYear]);
 
   const getCustomMarker = (id) => {
     const index = top10Data.findIndex((college) => college.id === id);
     if (index === -1) return null;
 
     const color = colorCoding[index];
+
     return L.divIcon({
       className: 'custom-marker',
-      html: `<div style="width: 10px; height: 10px; border-radius: 50%; background-color: yellow; border: 3px solid ${color}; box-shadow: 0 0 70px 30px ${color};"></div>`,
-      iconSize: [50, 50],
+      html: `
+        <div style="position: relative; width: 50px; height: 70px;">
+          <div style="
+            position: absolute;
+            top: 20%;
+            left: 28%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            border: 3px solid ${color};
+            box-shadow: 0 0 70px 45px ${color}80; 
+          "></div>
+          <img src="${locationPin}" alt="Location Pin" style="
+            position: absolute;
+            top: -5%;
+            left: 28%;
+            transform: translate(-50%, 0);
+            width: 30px;
+            height: 40px;
+          "/>
+        </div>
+      `,
+      iconSize: [30, 70],
     });
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1 className="text-2xl font-bold mb-5 text-fcolor">CvSU - Main Campus Map</h1>
-      <div className="h-[500px] w-[160%] max-w-[1200px] border border-lblue rounded-lg overflow-hidden shadow-lg">
-        {error && <div className="text-red-500 text-center p-3">{error}</div>}
-        <MapContainer
-          center={[imageHeight / 2, imageWidth / 2]}
-          zoom={0}
-          minZoom={-1}
-          scrollWheelZoom
-          style={{ height: '100%', width: '100%' }}
-          crs={L.CRS.Simple}
-          maxBounds={bounds}
-          maxBoundsViscosity={1.0}
-        >
-          <ImageOverlay url={mapBackground} bounds={bounds} />
-          {markerData.map((marker) => {
-            const customMarker = getCustomMarker(marker.id);
+    <div style={{ display: 'flex', justifyContent: 'right', padding: '20px' }}>
+      {error && <div className="error-message">{error}</div>}
+      <MapContainer
+        center={[imageHeight / 2.3, imageWidth / 1.5]}
+        zoom={0}
+        minZoom={-1}
+        scrollWheelZoom
+        style={{
+          height: '550px',
+          width: '1000px',
+        }}
+        crs={L.CRS.Simple}
+        maxBounds={bounds}
+        maxBoundsViscosity={1.0}
+      >
+        <ImageOverlay url={mapBackground} bounds={bounds} />
+        {markerData.map((marker) => {
+          const customMarker = getCustomMarker(marker.id);
 
-            return (
-              <Marker
-                key={marker.id}
-                position={[marker.lat, marker.lng]}
-                icon={customMarker || L.icon({ iconUrl: '../../../assets/locationPin.png', iconSize: [30, 40] })}
-              >
-                <Popup>
-                  <h3>{marker.name}</h3>
-                  {top10Data.find((college) => college.id === marker.id) ? (
-                    <>
-                      <p>
-                        <strong>Total Waste Generated:</strong>{' '}
-                        {top10Data.find((college) => college.id === marker.id)?.totalKg} kg
-                      </p>
-                      <p>
-                        <strong>Month:</strong> January
-                      </p>
-                      <p>
-                        <strong>Year:</strong> 2026
-                      </p>
-                    </>
-                  ) : (
-                    <p>No data available</p>
-                  )}
-                </Popup>
-              </Marker>
-            );
-          })}
-        </MapContainer>
-      </div>
+          return (
+            <Marker
+              key={marker.id}
+              position={[marker.lat, marker.lng]}
+              icon={customMarker || L.icon({ iconUrl: locationPin, iconSize: [30, 40] })}
+            >
+              <Popup>
+                <h3>{marker.name}</h3>
+                {top10Data.find((college) => college.id === marker.id) ? (
+                  <>
+                    <p>
+                      <strong>Total Waste Generated:</strong>{' '}
+                      {top10Data.find((college) => college.id === marker.id)?.totalKg} kg
+                    </p>
+                    <p>
+                      <strong>Month:</strong> {latestMonth}
+                    </p>
+                    <p>
+                      <strong>Year:</strong> {latestYear}
+                    </p>
+                  </>
+                ) : (
+                  <p>No data available</p>
+                )}
+              </Popup>
+            </Marker>
+          );
+        })}
+      </MapContainer>
     </div>
   );
 };
