@@ -4,14 +4,18 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/shared/layout';
 import Dashboard from './components/dashboard';
 import PublicPageManagement from './components/AdminDashboard/PublicPageManagement/EnviPolicy';
-import AccountManagement from './components/AdminDashboard/AccountManagement/accountmanagement';
-import UserManagement from './components/AdminDashboard/UserManagement/usermanagement';
+import AccountManagement from './components/AdminDashboard/AccountManagement/changePassword';
+import UserManagement from './components/AdminDashboard/UserManagement/userManagement copy';
 import EnviWater from './components/AdminDashboard/EnviManagement/EnviWater';
 import EnviAir from './components/AdminDashboard/EnviManagement/EnviAir';
 import EnviWaste from './components/AdminDashboard/EnviManagement/EnviWaste';
 import AddWaste from './components/AdminDashboard/EnviManagement/AddEnviData/AddWaste';
 import AddAir from './components/AdminDashboard/EnviManagement/AddEnviData/AddAir';
 import AddWater from './components/AdminDashboard/EnviManagement/AddEnviData/AddWater';
+import AddAccount from './components/AdminDashboard/UserManagement/index';
+import Login from './components/Login/index';
+import ForgotPassword from './components/Login/ForgotPassword/index';
+import ResetPassword from './components/Login/ResetPassword/index';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -32,7 +36,13 @@ function App() {
           <Route path="EnviPolicy" element={<PublicPageManagement />} />
           <Route path="accountmanagement" element={<AccountManagement />} />
           <Route path="userManagement" element={<UserManagement />} />
+          <Route path="index" element={<AddAccount />} />
           <Route path="*" element={<div>Page Not Found</div>} />
+        </Route>
+        <Route>
+          <Route path="login" element={<Login />} />
+          <Route path="forgotpass" element={<ForgotPassword />} />
+          <Route path="resetpass" element={<ResetPassword />} />
         </Route>
       </Routes>
     </BrowserRouter>
