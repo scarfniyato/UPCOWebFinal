@@ -138,7 +138,7 @@ function WaterQualityTable() {
     return (
         <div className="" style={{ color: '#333333' }}>
             {/* Filters: Month Range and Year */}
-            <div className="dropdowns" style={{ margin: '20px 0', textAlign: 'left' }}>
+            <div className="dropdowns" data-html2canvas-ignore="true" style={{ margin: '20px 0', textAlign: 'left' }}>
                 <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '20px' }}>
                     {/* Dropdown for selecting year */}
                     <div className="dropdown" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -160,7 +160,7 @@ function WaterQualityTable() {
                     </div>
 
                     
-                    <div className="dropdown" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div className="dropdown" data-html2canvas-ignore="true" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <label htmlFor="monthRangeSelect" style={{ marginBottom: '5px' }}>Month:</label>
                         <select
                             id="monthRangeSelect"

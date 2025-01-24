@@ -19,7 +19,7 @@ const monthOrder = {
   December: 12
 };
 
-const AirQualityTable = () => {
+function AirQualityTable({ onMonthYearChange }) {
   const [years, setYears] = useState([]);
   const [months] = useState([
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -90,6 +90,13 @@ const AirQualityTable = () => {
 
     fetchLatestData();
   }, [BACKEND_URL]);
+
+  useEffect(() => {
+    // Only call if the parent gave us a callback
+    if (onMonthYearChange) {
+      onMonthYearChange(selectedMonth, selectedYear);
+    }
+  }, [selectedMonth, selectedYear, onMonthYearChange]);
 
   // Fetch data whenever selectedYear or selectedMonth changes
   useEffect(() => {
@@ -227,7 +234,7 @@ const AirQualityTable = () => {
       ) : (
         <>
           {/* Dropdowns for Year and Month */}
-          <div className="dropdowns my-4 text-left">
+          <div className="dropdowns my-4 text-left" data-html2canvas-ignore="true">
             <div className="dropdown-row d-flex flex-wrap gap-3">
               {/* Year Dropdown */}
               <div className="dropdown d-flex align-items-center gap-2">
@@ -298,7 +305,7 @@ const AirQualityTable = () => {
                   </tr>
 
                   {/* Actions Row */}
-                  <tr>
+                  <tr data-html2canvas-ignore="true">
                     <td className="text-center "><strong>Actions</strong></td>
                     <td className="text-center">
                       <div className="d-flex justify-content-center gap-2 flex-wrap">
