@@ -98,7 +98,7 @@ function WasteTable() {
     const residual = parseFloat(item.residual) || 0;
     const biodegradable = parseFloat(item.biodegradable) || 0;
     const recyclable = parseFloat(item.recyclable) || 0;
-    return (residual + biodegradable + recyclable).toFixed(2);
+    return (residual + biodegradable + recyclable).toFixed(1);
   };
 
   return (

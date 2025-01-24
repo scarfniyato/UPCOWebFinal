@@ -40,7 +40,7 @@ function WasteQualityChart() {
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
-    
+
     const datasets = [
       { 
         label: 'Residuals', 
@@ -76,7 +76,7 @@ function WasteQualityChart() {
       const residualTotal = monthData.reduce((acc, cur) => acc + (cur.residual || 0), 0);
       const biodegradableTotal = monthData.reduce((acc, cur) => acc + (cur.biodegradable || 0), 0);
       const recyclableTotal = monthData.reduce((acc, cur) => acc + (cur.recyclable || 0), 0);
-      
+
       datasets[0].data.push(residualTotal);
       datasets[1].data.push(biodegradableTotal);
       datasets[2].data.push(recyclableTotal);
@@ -87,7 +87,6 @@ function WasteQualityChart() {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
     interaction: {
       mode: 'index',
       intersect: false,
@@ -99,7 +98,7 @@ function WasteQualityChart() {
         intersect: false
       },
       legend: {
-        position: 'bottom',
+        display: false,  // Disable the default legend
       },
       title: {
         display: true,
@@ -128,7 +127,7 @@ function WasteQualityChart() {
         }
       }
     }
-  };  
+  };
 
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
@@ -136,32 +135,51 @@ function WasteQualityChart() {
 
   return (
     <div style={{ color: '#333333', padding: '20px' }}>
-      
+
       <div className="Dropdowns" style={{ margin: '0 0', textAlign: 'left' }}>
         <div className="Dropdown" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
 
           <div className='text-md flex-auto font-bold justify-center'>Solid Waste Generated in CvSU - Main Campus</div>
-        <div className="col-md-3 d-flex align-items-center">
-          <label htmlFor="yearSelect" style={{marginTop: '15px', marginRight: '10px', whiteSpace: 'nowrap' }}></label>
-          <select
-            id="yearSelect"
-            className="form-select dropdown"
-            value={selectedYear}
-            onChange={handleYearChange}
-            style={{ fontSize: '13px', padding: '2px', width: '60px'}}
-          >
-            <option value="">All Years</option>
-            {availableYears.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
+          <div className="col-md-3 d-flex align-items-center">
+            <label htmlFor="yearSelect" style={{ marginTop: '15px', marginRight: '10px', whiteSpace: 'nowrap' }}></label>
+            <select
+              id="yearSelect"
+              className="form-select dropdown"
+              value={selectedYear}
+              onChange={handleYearChange}
+              style={{ fontSize: '13px', padding: '2px', width: '60px' }}
+            >
+              <option value="">All Years</option>
+              {availableYears.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div></div>
-      
+      </div>
+
       <div style={{ width: '900px', height: '400px' }}> {/* Adjust the width and height here */}
         <Line data={chartData} options={options} />
+      </div>
+
+      {/* Custom Legend */}
+      <div className="chart-legend" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px' }}>
+        {chartData.datasets.map((dataset) => (
+          <div key={dataset.label} className="legend-item" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span
+              className="legend-color"
+              style={{
+                backgroundColor: dataset.borderColor,
+                width: '20px',
+                height: '20px',
+                display: 'inline-block',
+              }}
+            ></span>
+            {dataset.label}
+          </div>
+        ))}
       </div>
     </div>
   );

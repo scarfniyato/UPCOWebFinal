@@ -4,6 +4,7 @@ import WaterCharts from './AdminDashboard/EnviManagement/EnviCharts/water_charts
 import AirCharts from './AdminDashboard/EnviManagement/EnviCharts/air_charts'
 import WasteChart from './AdminDashboard/EnviManagement/EnviCharts/waste_charts'
 import AirQualityResult from './AdminDashboard/EnviManagement/ForDashboard/airqualityresult';
+import TotalWaste from './AdminDashboard/EnviManagement/ForDashboard/totalwaste';
 import Top10 from "./PublicPage/Map/top10TableList"
 import Map from './PublicPage/Map/Map'
 
@@ -25,8 +26,7 @@ const Dashboardgrids = () => {
 
         <div className='box'>
             <div className='flex-col flex text-center'>
-                <div className='fbold text-5xl'>1,391.1 kg</div>
-                <div className='fnormal text-xs'><br/>Total Solid Waste Generated This Month</div>
+            <TotalWaste />
             </div>
         </div>
 

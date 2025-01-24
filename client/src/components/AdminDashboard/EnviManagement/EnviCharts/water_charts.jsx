@@ -131,7 +131,7 @@ function WaterQualityChart() {
   // Chart options with dynamic title based on selected month range and year
   const options = {
     responsive: true,
-    animation: false, // Disable animations
+    animation: true, // Disable animations
     interaction: {
       mode: 'index',
       intersect: false,
