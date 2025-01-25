@@ -11,7 +11,7 @@ const LandPollution = () => {
             <h5>Cavite State University - Indang Campus</h5>
             <p1 className='text-4xl mt-5'>State of the Environment</p1>
             <div className='text-left mt-20'>
-                State of the Enironment/Air Pollution
+                State of the Environment / Air Pollution
             </div>
             </div>
             <hr className='border border-dark'/>

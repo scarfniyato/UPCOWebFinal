@@ -16,6 +16,8 @@ import locIcon from '../../../src/assets/locIcon.png';
 import land from '../../../src/assets/land.png';
 import water from '../../../src/assets/water.png';
 import air from '../../../src/assets/air.png';
+import leftLeaves from '../../../src/assets/leftLeaves.png';
+import rightLeaves from '../../../src/assets/rightLeaves.png'
 
 function PublicPage() {
   const [latestMonth, setLatestMonth] = useState('');
@@ -43,6 +45,9 @@ function PublicPage() {
   return (
     <div>
       <Navbar />
+      <div className="leaves">
+      <img src={leftLeaves} className="leftLeaves" />
+      <img src={rightLeaves} className="rightLeaves" />
       <section id="home" className="hero" style={{ backgroundImage: `url(${cvsuBg})` }}>
         <div className="leftHero">
           <h1>
@@ -96,10 +101,10 @@ function PublicPage() {
           <div className="dataContainer" style={{ padding: '30px 0' }}>
             <div className="dataContainer2">
               <img src={air} alt="Air Pollution" />
-              <div className="btn">
+              <button className="btn">
               <Link to="/airpollution">
                 Air Pollution</Link>
-                </div>
+                </button>
               </div>
           </div>
 
@@ -107,10 +112,10 @@ function PublicPage() {
             <div className="dataContainer2">
               <img src={water} alt="Water Pollution" />
               
-              <div className="btn">
+              <button className="btn">
               <Link to="/waterpollution">
               Water Pollution</Link>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -121,12 +126,14 @@ function PublicPage() {
           <h1>Environmental Policies </h1>
           <h3>of University Pollution Control Office</h3>
         </div>
-        <div className="dataContainer">
+        <button className="dataContainer">
           <PublicEnviPolicies />
-        </div>
+        </button>
       </div>
 
-      <footer id="contact" className="contactSection">
+    </div>
+
+    <footer id="contact" className="contactSection">
         <div className="contact-container">
           {/* Logo Section */}
           <div className="contact-logo">
@@ -140,8 +147,8 @@ function PublicPage() {
             <div className="contactItem">
               <img src={emaillIcon} alt="Email Icon" />
               <div>
-                <p>Email:</p>
-                <h5>contact@gmail.com</h5>
+                <p> Email: </p>
+                <h5>pco@cvsu.edu.ph</h5>
               </div>
             </div>
 
@@ -149,25 +156,26 @@ function PublicPage() {
               <img src={phoneIcon} alt="Phone Icon" />
               <div>
                 <p>Phone:</p>
-                <h5>09123456789</h5>
+                <h5>0997 364 2045</h5>
               </div>
             </div>
 
             <div className="contactItem">
               <img src={locIcon} alt="Location Icon" />
               <div>
-                <p>Location:</p>
+                <p> Location: </p>
                 <h5>CvSU-Main Campus</h5>
               </div>
             </div>
           </div>
+          
 
           {/* Call-to-Action Section */}
           <div className="contact-cta">
             <h2>Have a question or feedback? Reach out to us</h2>
             <div className="cta-content">
               <img src={emailIcon} alt="Email Icon" className="cta-icon" />
-              <button className="email-btn">Email Us</button>
+            <button className="email-btn" onClick={() => window.location.href = "mailto:pco@cvsu.edu.ph"}>Email Us</button>
             </div>
           </div>
         </div>

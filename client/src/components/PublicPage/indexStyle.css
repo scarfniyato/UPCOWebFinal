@@ -3,6 +3,33 @@
   font-family: 'Montserrat', sans-serif !important;;
 }
 
+/* Styling for the leftLeaves image */
+.leftLeaves {
+  position: absolute;
+  top: 0;
+  left: 0; /* Positions it on the far left */
+  height: 100vh; /* Makes it cover the full height of the viewport */
+  width: auto;
+  z-index: 1;
+  pointer-events: none; /* Ensures the image doesn’t interfere with user interaction */
+  background-size: cover;
+  background-position: left center;
+}
+
+/* Styling for the rightLeaves image */
+.rightLeaves {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh; /* Makes it cover the full height of the viewport */
+  width: auto;
+  z-index: 1; 
+  pointer-events: none; /* Ensures the image doesn’t interfere with user interaction */
+  background-size: cover;
+  background-position: right center;
+}
+
+
 body {
     background-size: cover;
     background-repeat: no-repeat;
@@ -10,11 +37,12 @@ body {
     background-image: url('../../../src/assets/landingPage_bg.png');
     margin: 0;
     padding: 0;
-    /* For dynamic background images, prefer inline styles in JSX */
+    position: relative;
+    
   }
 
   section {
-    margin-top: 60px; /* Push content below the fixed navbar */
+    margin-top: 40px; /* Push content below the fixed navbar */
     display: flex; /* Arrange children in a row */
     align-items: center; /* Vertically center the content */
     justify-content: center; /* Center the left and right containers */
@@ -216,11 +244,11 @@ body {
 /* Card styling */
 .card {
   margin: 10px;
-  padding: 10px;
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   flex: 1 1 calc(33.33% - 20px); /* Makes each card take up one-third of the row with a gap */
-  max-width: 300px;             /* Ensures the cards don't grow too large */
+  max-width: 380px;             /* Ensures the cards don't grow too large */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
 }
 

@@ -19,7 +19,7 @@ const PublicEnviPolicies = () => {
     }, []);
 
     return (
-        <div className="public-policies-container" style={{ }}>
+        <div className="public-policies-container" style={{ width: '100%', margin: '0 auto' }}>
             <div className="card-row" style={{ margin: '10px 0' }}>
                 {files.length > 0 ? (
                     files.map((file) => {
@@ -34,9 +34,10 @@ const PublicEnviPolicies = () => {
                                         className="card-preview"
                                         title={file.title}
                                         allow="fullscreen"
-                                        style={{ width: '230px', height: '250px', margin: '10px 0' }} // Increase the height here
+                                        sandbox="allow-scripts allow-same-origin"
+                                        style={{ width: '320px', height: '300px', margin: '20px 0' }} // Increase the height here
                                     ></iframe>
-                                    <h3 className="card-title" style={{ margin: '10px 0' }}><strong>{file.title}</strong></h3>
+                                    <h3 className="card-title" style={{ margin: '10px 10px' }}><strong>{file.title}</strong></h3>
                                     <button
                                         className="btn"
                                         onClick={() => window.open(file.link, '_blank')}
