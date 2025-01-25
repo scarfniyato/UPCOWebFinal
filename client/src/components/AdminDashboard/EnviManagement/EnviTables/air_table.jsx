@@ -237,7 +237,7 @@ function AirQualityTable({ onMonthYearChange }) {
           <div className="dropdowns my-4 text-left" data-html2canvas-ignore="true">
             <div className="dropdown-row d-flex flex-wrap gap-3">
               {/* Year Dropdown */}
-              <div className="dropdown d-flex align-items-center gap-2">
+              <div className=" d-flex align-items-center gap-2">
                 <label htmlFor="year" className="mb-1">Year:</label>
                 <select
                   id="year"
@@ -257,7 +257,7 @@ function AirQualityTable({ onMonthYearChange }) {
               </div>
 
               {/* Month Dropdown */}
-              <div className="dropdown d-flex align-items-center gap-2">
+              <div className=" align-items-center gap-2">
                 <label htmlFor="month" className="mb-1">Month:</label>
                 <select
                   id="month"

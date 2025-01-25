@@ -167,7 +167,7 @@ function WasteQualityChart({ onYearChange }) {
         </div>
       </div>
 
-      <div style={{ width: '900px', height: '400px' }}> {/* Adjust the width and height here */}
+      <div style={{ width: '100%', height: '100%' }}> {/* Adjust the width and height here */}
         <Line data={chartData} options={options} />
       </div>
 

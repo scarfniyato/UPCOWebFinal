@@ -71,7 +71,7 @@ function AddAir() {
   };
 
   return (
-    <div className='bg'>
+    <div>
       <div className="dataContainer" >
       <div className='text-center'>
         <form onSubmit={handleSubmit}>
