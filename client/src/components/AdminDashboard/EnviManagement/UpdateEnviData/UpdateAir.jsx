@@ -41,7 +41,7 @@ function UpdateAir() {
         if (
             isNaN(CO) ||
             isNaN(NO2) ||
-            isNaN(SO2) 
+            isNaN(SO2)
         ) {
             return "All values must be valid numbers.";
         }
@@ -49,7 +49,7 @@ function UpdateAir() {
         if (
             CO === '' ||
             NO2 === '' ||
-            SO2 === '' 
+            SO2 === ''
         ) {
             return "All fields must be filled.";
         }
@@ -77,7 +77,8 @@ function UpdateAir() {
         axios.put(`http://localhost:3001/update_air/${id}`, payload)
             .then(result => {
                 console.log(result);
-                navigate('/');
+                navigate('/enviair');
+                alert("Data Updated Successfully!")
             })
             .catch(err => {
                 console.log(err);
@@ -88,61 +89,58 @@ function UpdateAir() {
     return (
         <div className='bg'>
             <div className="dataContainer" >
-            <div className='text-center'>
-                <form onSubmit={handleUpdate}>
-                    <h4><strong>Update Air Quality Data </strong></h4> <p>(Do not include comma in values) </p>
-                    {error && <p className="text-danger">{error}</p>}
-                    <div className='mb-2'>
-                        <label>Year:</label>
-                        <input type="text" placeholder='Enter Year' className='form-control'
-                            value={year}
-                            onChange={(e) => setYear(e.target.value)} />
-                    </div>
-                    <div className='mb-2'>
-                        <label>Month:</label>
-                        <select className='form-control' value={month} onChange={(e) => setMonth(e.target.value)}>
-                            <option value="">Select Month</option>
-                            <option value="January">January</option>
-                            <option value="February">February</option>
-                            <option value="March">March</option>
-                            <option value="April">April</option>
-                            <option value="May">May</option>
-                            <option value="June">June</option>
-                            <option value="July">July</option>
-                            <option value="August">August</option>
-                            <option value="September">September</option>
-                            <option value="October">October</option>
-                            <option value="November">November</option>
-                            <option value="December">December</option>
-                        </select>
-                    </div>
-                    <div className="mb-3">
+                <div className='text-center'>
+                    <form onSubmit={handleUpdate}>
+                        <h4><strong>Update Air Quality Data </strong></h4> <p>(Do not include comma in values) </p>
+                        {error && <p className="text-danger">{error}</p>}
+
+                        <div className='mb-2'>
+                            <label>Year:</label>
+                            <input
+                                type="text"
+                                className='form-control'
+                                value={year}
+                                readOnly  // makes it non-editable
+                            />
+                        </div>
+
+                        <div className='mb-2'>
+                            <label>Month:</label>
+                            <input
+                                type="text"
+                                className='form-control'
+                                value={month}
+                                readOnly  // makes it non-editable
+                            />
+                        </div>
+
+                        <div className="mb-3">
+                        </div>
+                        <div className='mb-2'>
+                            <label>CO: </label>
+                            <input type="text" placeholder='Enter Data' className='form-control'
+                                value={CO}
+                                onChange={(e) => setCO(e.target.value)}
+                            />
+                        </div>
+                        <div className='mb-2'>
+                            <label>NO2: </label>
+                            <input type="text" placeholder='Enter Data' className='form-control'
+                                value={NO2}
+                                onChange={(e) => setNO2(e.target.value)}
+                            />
+                        </div>
+                        <div className='mb-2'>
+                            <label>SO2:</label>
+                            <input type="text" placeholder='Enter Data' className='form-control'
+                                value={SO2}
+                                onChange={(e) => setSO2(e.target.value)}
+                            />
+                        </div>
+                        <button className='btn'>Submit</button>
+                    </form>
+                </div>
             </div>
-                    <div className='mb-2'>
-                        <label>CO: </label>
-                        <input type="text" placeholder='Enter Data' className='form-control'
-                            value={CO}
-                            onChange={(e) => setCO(e.target.value)}
-                        />
-                    </div>
-                    <div className='mb-2'>
-                        <label>NO2: </label>
-                        <input type="text" placeholder='Enter Data' className='form-control'
-                            value={NO2}
-                            onChange={(e) => setNO2(e.target.value)}
-                        />
-                    </div>
-                    <div className='mb-2'>
-                        <label>SO2:</label>
-                        <input type="text" placeholder='Enter Data' className='form-control'
-                            value={SO2}
-                            onChange={(e) => setSO2(e.target.value)}
-                        />
-                    </div>
-                    <button className='btn'>Submit</button>
-                </form>
-            </div>
-        </div>
         </div>
     );
 }

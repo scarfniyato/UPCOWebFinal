@@ -77,7 +77,8 @@ function UpdateWaste() {
         axios.put(`http://localhost:3001/update_solidwaste/${id}`, payload)
             .then(result => {
                 console.log(result);
-                navigate('/');
+                navigate('/EnviWaste');
+                alert("Data Updated Successfully!")
             })
             .catch(err => {
                 console.log(err);
@@ -89,65 +90,68 @@ function UpdateWaste() {
         <div className="bg">
             <div className="dataContainer" >
                 <div className="text-center">
-                <form onSubmit={handleUpdate}>
-                    <h4><strong>Update Solid Waste Data</strong></h4>
-                    <p>(Do not include commas in values)</p>
-                    {error && <p className="text-danger">{error}</p>}
-                    <div className='mb-2'>
-                        <label>Year:</label>
-                        <input 
-                            type="text" 
-                            placeholder='Enter Year' 
-                            className='form-control'
-                            value={year}
-                            onChange={(e) => setYear(e.target.value)} 
-                        />
-                    </div>
-                    <div className='mb-2'>
-                        <label>Month:</label>
-                        <input  
-                            type="text" 
-                            placeholder='Enter Month' 
-                            className='form-control'
-                            value={month}
-                            onChange={(e) => setMonth(e.target.value)}
-                        />
-                    </div>
-                    <div className='mb-2'>
-                        <label>Residual (kg):</label>
-                        <input 
-                            type="number" 
-                            placeholder='Enter Quantity' 
-                            className='form-control'
-                            value={residual}
-                            onChange={(e) => setResidual(e.target.value)}
-                            min="0"
-                        />
-                    </div>
-                    <div className='mb-2'>
-                        <label>Biodegradable (kg):</label>
-                        <input 
-                            type="number" 
-                            placeholder='Enter Quantity' 
-                            className='form-control'
-                            value={biodegradable}
-                            onChange={(e) => setBiodegradable(e.target.value)}
-                            min="0"
-                        />
-                    </div>
-                    <div className='mb-2'>
-                        <label>Recyclable (kg):</label>
-                        <input 
-                            type="number" 
-                            placeholder='Enter Quantity' 
-                            className='form-control'
-                            value={recyclable}
-                            onChange={(e) => setRecyclable(e.target.value)}
-                            min="0"
-                        />
-                    </div>
-                    <button className='btn'>Submit</button>
-                </form>
+                    <form onSubmit={handleUpdate}>
+                        <h4><strong>Update Solid Waste Data</strong></h4>
+                        <p>(Do not include commas in values)</p>
+                        {error && <p className="text-danger">{error}</p>}
+
+                        {/* Year - display only */}
+                        <div className='mb-2'>
+                            <label>Year:</label>
+                            <input
+                                type="text"
+                                className='form-control'
+                                value={year}
+                                readOnly  // makes it non-editable
+                            />
+                        </div>
+
+                      {/* Month - display only */}
+                      <div className='mb-2'>
+                            <label>Month:</label>
+                            <input
+                                type="text"
+                                className='form-control'
+                                value={month}
+                                readOnly  
+                            />
+                        </div>
+
+                        <div className='mb-2'>
+                            <label>Residual (kg):</label>
+                            <input
+                                type="number"
+                                placeholder='Enter Quantity'
+                                className='form-control'
+                                value={residual}
+                                onChange={(e) => setResidual(e.target.value)}
+                                min="0"
+                            />
+                        </div>
+                        <div className='mb-2'>
+                            <label>Biodegradable (kg):</label>
+                            <input
+                                type="number"
+                                placeholder='Enter Quantity'
+                                className='form-control'
+                                value={biodegradable}
+                                onChange={(e) => setBiodegradable(e.target.value)}
+                                min="0"
+                            />
+                        </div>
+                        <div className='mb-2'>
+                            <label>Recyclable (kg):</label>
+                            <input
+                                type="number"
+                                placeholder='Enter Quantity'
+                                className='form-control'
+                                value={recyclable}
+                                onChange={(e) => setRecyclable(e.target.value)}
+                                min="0"
+                            />
+                        </div>
+                        <button className='btn'>Submit</button>
+                    </form>
                 </div>
             </div>
         </div>

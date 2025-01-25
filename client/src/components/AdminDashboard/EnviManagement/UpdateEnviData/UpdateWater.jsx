@@ -17,18 +17,6 @@ function UpdateWater() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const [options_source_tank] = useState([
-        "U-mall Water Tank",
-        "Main Water Tank",
-    ]);
-
-    // Define month options
-    const [options_month] = useState([
-        { value: "", label: "Select Month Range" },
-        { value: "January-June", label: "January - June" },
-        { value: "July-December", label: "July - December" },
-    ]);
-
     useEffect(() => {
         axios.get(`http://localhost:3001/get_water/${id}`)
             .then(result => {
@@ -116,7 +104,8 @@ function UpdateWater() {
         axios.put(`http://localhost:3001/update_water/${id}`, payload)
             .then(result => {
                 console.log(result);
-                navigate('/');
+                navigate('/enviwater');
+                alert("Data Updated Successfully!")
             })
             .catch(err => {
                 console.log(err);
@@ -143,42 +132,30 @@ function UpdateWater() {
                                                 placeholder='Enter Year'
                                                 className='form-control'
                                                 value={year}
-                                                onChange={(e) => setYear(e.target.value)}
+                                                readOnly 
                                             />
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
                                             <label className="fbold pr-2">Month Range:</label>
-                                            <select
+                                            <input
+                                                type="text"
                                                 className='form-control'
                                                 value={month}
-                                                onChange={(e) => setMonth(e.target.value)}
-                                            >
-                                                {options_month.map((option, index) => (
-                                                    <option key={index} value={option.value}>
-                                                        {option.label}
-                                                    </option>
-                                                ))}
-                                            </select>
+                                                readOnly 
+                                            />
                                         </div>
 
                                         <div className="col-md-6 mb-3">
                                             <label htmlFor="sourceTankSelect" className="form-label fbold pr-2">
                                                 Source Tank:
                                             </label>
-                                            <select
-                                                id="sourceTankSelect"
-                                                className="form-select"
+                                            <input
+                                                type="text"
+                                                className='form-control'
                                                 value={source_tank}
-                                                onChange={(e) => setSource_tank(e.target.value)}
-                                            >
-                                                <option value="">Select Source Tank</option>
-                                                {options_source_tank.map((source, index) => (
-                                                    <option key={index} value={source}>
-                                                        {source}
-                                                    </option>
-                                                ))}
-                                            </select>
+                                                readOnly 
+                                            />
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
