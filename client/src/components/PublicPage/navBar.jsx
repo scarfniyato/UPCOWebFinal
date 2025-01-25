@@ -1,13 +1,37 @@
-import React, { useState } from 'react';
-import './navBarStyle.css'; // Import styles specific to the navbar
-import logo from '../../../src/assets/logo.png'; // Import logo dynamically
+import React, { useState, useEffect } from 'react';
+import './navBarStyle.css'; // Import styles
+import logo from '../../../src/assets/logo.png'; // Import logo
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home'); // State to track active section
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('section'); // Select all sections with the 'section' tag
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.6, // Trigger when 60% of the section is visible
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id); // Set the active section based on the section's id
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sections.forEach((section) => observer.observe(section)); // Observe all sections
+
+    return () => observer.disconnect(); // Cleanup on component unmount
+  }, []);
 
   return (
     <nav className="navbar">
@@ -22,10 +46,26 @@ function Navbar() {
         {/* Navigation Links */}
         <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#state-of-environment">State of the Environment</a></li>
-            <li><a href="#policies">Environmental Policies</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li>
+              <a href="#home" className={activeSection === 'home' ? 'active' : ''}>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#state-of-environment" className={activeSection === 'state-of-environment' ? 'active' : ''}>
+                State of the Environment
+              </a>
+            </li>
+            <li>
+              <a href="#policies" className={activeSection === 'policies' ? 'active' : ''}>
+                Environmental Policies
+              </a>
+            </li>
+            <li>
+              <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>
+                Contact
+              </a>
+            </li>
           </ul>
         </div>
 

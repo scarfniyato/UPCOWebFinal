@@ -8,7 +8,18 @@ const Top10TableList = () => {
   const [availableYears, setAvailableYears] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const colorCoding = ['#FF3333', '#FF581A', '#FAD300', '#8BE600', '#66CC00', '#47D247', '#2DB82D', '#00B300', '#009999', '#437070'];
+  const colorCoding = [
+    '#FFE6E6', // Softer Light Red
+    '#FFE5D0', // Softer Light Orange
+    '#FFF9D6', // Softer Light Yellow
+    '#EBFFCC', // Softer Light Lime Green
+    '#D8FFD8', // Softer Light Green
+    '#CCF7E4', // Softer Mint Green
+    '#D6EAD6', // Softer Light Forest Green
+    '#CCE8D8', // Softer Soft Teal Green
+    '#D6F0F0', // Softer Light Teal
+    '#CFE8E8', // Softer Light Grayish Teal
+  ]
 
   const fetchTop10Data = async () => {
     setIsLoading(true);
@@ -53,52 +64,53 @@ const Top10TableList = () => {
 
   return (
     <div className="top10-table-list">
-      <div className="filter-section">
-      <div className='fbold text-sm'>Top 10 Solid Waste Generators</div>
-        <div className="filter-controls">
-          <label>
+      <div className="filter-section row mb-4">
+        <div className="filter-controls" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap:' 10px' }}>
+          <div style={{ marginRight: '20px', display: 'flex', alignItems: 'center'}}>
+            <label htmlFor="monthSelect" style={{ marginRight: '10px', whiteSpace: 'nowrap' }}>Select Month: </label>
             <select
+              id="monthSelect"
+              className="form-select"
               value={month}
               onChange={(e) => setMonth(e.target.value)}
-              className="filter-select dropdown text-xs gap-2"
+              style={{textAlign: 'center', textAlignLast: 'center', width: '150px' }}
             >
               {[
-                'January','February','March','April','May','June','July','August','September','October','November','December',
+                'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
               ].map((m) => (
-                <option key={m} value={m}>
+                <option key={m} value={m} style={{ textAlign: 'center' }}>
                   {m}
                 </option>
               ))}
             </select>
-          </label>
-          <label>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <label htmlFor="yearSelect" style={{ marginRight: '10px', whiteSpace: 'nowrap' }}>Select Year:</label>
             <select
+              id="yearSelect"
+              className="form-select"
               value={year}
               onChange={(e) => setYear(e.target.value)}
-              className="filter-select dropdown text-xs gap-2"
+              style={{ textAlign: 'center', textAlignLast: 'center', width: '150px' }}
             >
               {availableYears.map((availableYear) => (
-                <option key={availableYear} value={availableYear}>
+                <option key={availableYear} value={availableYear} style={{ textAlign: 'center' }}>
                   {availableYear}
                 </option>
               ))}
             </select>
-          </label>
-          <button onClick={fetchTop10Data} className="filter-button dropdown text-xs">
-            Filter
-          </button>
+          </div>
         </div>
       </div>
-      <div className='overflow-x-auto'>
-      <table className="min-w-full bg-white border border-none border-separate border-spacing-1 w-full">
-        <thead className='fbold text-xs bg-dark'>
-          <tr className='text-white'>
-            <th className='rounded-xl'>No.</th>
-            <th className='rounded-xl'>College</th>
-            <th className='rounded-xl p-2'>Total Solid Waste Generated (kg)</th>
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th style={{ textAlign: 'center' }}>No.</th>
+            <th style={{ textAlign: 'center' }}>College</th>
+            <th style={{ textAlign: 'center' }}>Total Solid Waste Generated (kg)</th>
           </tr>
         </thead>
-        <tbody className='fnormal text-xs'>
+        <tbody>
           {isLoading ? (
             <tr>
               <td colSpan="3" style={{ textAlign: 'center' }}>
@@ -107,10 +119,10 @@ const Top10TableList = () => {
             </tr>
           ) : data.length > 0 ? (
             data.map((item, index) => (
-              <tr key={index} style={{ backgroundColor: colorCoding[index] }} className='text-white'>
-                <td className='rounded-xl px-4 py-2 text-center border-b'>{index + 1}</td>
-                <td className='rounded-xl px-4 py-2 border-b'>{item.name}</td>
-                <td className='rounded-xl px-4 py-2 text-center border-b'>{item.totalKg} kg</td>
+              <tr key={index} style={{ backgroundColor: colorCoding[index] }}>
+                <td style={{ textAlign: 'center' }}>{index + 1}</td>
+                <td style={{ textAlign: 'center' }}>{item.name}</td>
+                <td style={{ textAlign: 'center' }}>{item.totalKg} kg</td>
               </tr>
             ))
           ) : (
@@ -122,7 +134,6 @@ const Top10TableList = () => {
           )}
         </tbody>
       </table>
-      </div>
     </div>
   );
 };
