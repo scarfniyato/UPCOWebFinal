@@ -17,7 +17,7 @@ function EnviAir() {
              <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
            </div>
    
-           <div className="flex gap-x-64 w-full items-center justify-center">
+          <div className="flex gap-x-64 w-full items-center justify-center">
              <div className="img_btn_container flex flex-1 flex-row mt-2 gap-1 w-full ">
             <Link to="/enviwaste" className="img_btn">
               <img src={land_icon} alt="Land Pollution" />
@@ -28,8 +28,8 @@ function EnviAir() {
             <Link to="/enviwater" className="img_btn">
               <img src={water_icon} alt="Water Pollution" />
             </Link>
+              </div>
           </div>
-        </div>
 
         <div className="dataContainer" style={{ padding:'50px', overflowY: 'auto'}}>
           <AirQualityChart />
