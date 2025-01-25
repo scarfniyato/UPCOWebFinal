@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function AddAir() {
+const AddAir = () => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [CO, setCO] = useState('');
@@ -153,6 +153,6 @@ function AddAir() {
       </div>
     </div>
   );
-}
+};
 
 export default AddAir;

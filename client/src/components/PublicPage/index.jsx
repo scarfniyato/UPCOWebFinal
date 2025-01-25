@@ -73,11 +73,12 @@ function PublicPage() {
         </div>
 
         <div className="dataContainer" style={{ padding: '30px' }}>
-          <h5>CvSU Main Campus - Map</h5>
+          {/* <h5>CvSU Main Campus - Map</h5>
           <p style={{ marginBottom: '-10px' }}>
             Month:  <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 5px' }}></span>
             Year: <strong>{latestYear || 'Loading...'} </strong>
-          </p>
+          </p> */}
+
           <Map />
         </div>
 

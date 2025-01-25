@@ -184,6 +184,7 @@ const EnviAir = () => {
             <button className="btn flex-none" onClick={downloadReport}>Download Report</button>
           </div>
         </div>
+      </div>
 
         <div id="air-quality-chart">
           <div className="dataContainer" style={{ padding: '50px', overflowY: 'auto' }}>
@@ -205,8 +206,7 @@ const EnviAir = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+  )
+};
 
 export default EnviAir;

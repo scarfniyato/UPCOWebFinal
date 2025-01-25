@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { MdAccountCircle, MdDeleteForever } from "react-icons/md";
-
+import { Link } from "react-router-dom";
 axios.defaults.baseURL = 'http://localhost:3001'; // Point to the backend server
 import './style.css'; // Add styling as needed
 
@@ -75,7 +75,7 @@ const EnviPolicy = () => {
         <div className="envi-policy-container">
                 <div className='flex gap-x-64 w-full'>
                     <div className='flex-1 flex items-center head'>Public Page Management</div>
-                    <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
+                    <div className='items-center flex-none'><Link to="/accountmanagement"><MdAccountCircle size={50}/></Link></div>
                 </div>
 
                 <div className='Main Box bg-white mt-11 p-6 rounded-2xl shadow-lg'>
