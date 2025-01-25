@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../style.css"
 
-function WasteTable() {
+function WasteTable({ onMonthYearChange }) {
   // State variables
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -78,20 +78,12 @@ function WasteTable() {
     fetchFilteredUsers();
   }, [selectedMonth, selectedYear]);
 
-  // Handle Delete Action per Entry
-  const handleDelete = async (id) => {
-    if (window.confirm(`Are you sure you want to delete this waste entry?`)) {
-      try {
-        await axios.delete(`http://localhost:3001/delete_solidwaste/${id}`);
-        // Remove the deleted record from state
-        setFilteredUsers((prevData) => prevData.filter((item) => item._id !== id));
-        alert("Waste entry deleted successfully.");
-      } catch (error) {
-        console.error("Error deleting waste data:", error);
-        alert("Failed to delete the entry. Please try again.");
-      }
+  useEffect(() => {
+    // Only call if the parent gave us a callback
+    if (onMonthYearChange) {
+      onMonthYearChange(selectedMonth, selectedYear);
     }
-  };
+  }, [selectedMonth, selectedYear, onMonthYearChange]);
 
   // Function to calculate total waste
   const calculateTotal = (item) => {
@@ -107,9 +99,11 @@ function WasteTable() {
 
       {loadingYears && <p>Loading available years...</p>}
 
-      <div className="row mb-4">
+      <div className="row mb-4" data-html2canvas-ignore="true">
         <div className="col-md-8 d-flex align-items-center fbold">
-          <label htmlFor="monthSelect" style={{ marginRight: '10px', whiteSpace: 'nowrap' }}>Select Month: </label>
+          <label htmlFor="monthSelect" style={{ marginRight: '10px', whiteSpace: 'nowrap' }}>
+            Select Month:
+          </label>
           <select
             id="monthSelect"
             className="form-select dropdown"
@@ -125,7 +119,9 @@ function WasteTable() {
             ))}
           </select>
 
-          <label htmlFor="yearSelect" style={{ marginRight: '10px', whiteSpace: 'nowrap' }}>Select Year:</label>
+          <label htmlFor="yearSelect" style={{ marginRight: '10px', whiteSpace: 'nowrap' }}>
+            Select Year:
+          </label>
           <select
             id="yearSelect"
             className="form-select dropdown"
@@ -177,12 +173,6 @@ function WasteTable() {
                         <Link to={`/update/solidwaste/${item._id}`} className="update-btn">
                           Update
                         </Link>
-                        <button
-                          className="delete-btn"
-                          onClick={() => handleDelete(item._id)}
-                        >
-                          Delete
-                        </button>
                       </td>
                     </tr>
                   ))

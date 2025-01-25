@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function AddAir() {
+const AddAir = () => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [CO, setCO] = useState('');
@@ -55,12 +55,19 @@ function AddAir() {
     })
       .then(result => {
         console.log(result);
-        navigate('/');
+        navigate('/enviair');
+        alert("Data Added Successfully!");
       })
       .catch(err => {
+        // Check if the server sent a custom error message
+        if (err.response && err.response.data && err.response.data.error) {
+          setError();
+          alert("Data for this year and month already exists.");
+        } else {
+          setError('Failed to create data. Please try again.');
+        }
         console.log(err);
-        setError('Failed to create data. Please try again.');
-      });
+      });    
   };
 
   return (
@@ -146,6 +153,6 @@ function AddAir() {
       </div>
     </div>
   );
-}
+};
 
 export default AddAir;

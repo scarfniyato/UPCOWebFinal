@@ -110,6 +110,37 @@ app.post("/admin-login", async (req, res) => {
 //---------------------------CHARTS---------------------------------
 
 //---------------------------AIR---------------------------------
+
+app.post("/add_airquality", async (req, res) => {
+    try {
+      const { year, month, CO, NO2, SO2 } = req.body;
+  
+      // 1) Check if a record with the same year and month already exists
+      const existing = await userModel5.findOne({ year, month });
+      if (existing) {
+        // 2) If it exists, return an error response (HTTP 400 - Bad Request)
+        return res.status(400).json({ error: "Data for this year and month already exists." });
+      }
+  
+      // 3) If it doesn't exist, create the new record
+      const newAirQuality = await userModel5.create({
+        year,
+        month,
+        CO,
+        NO2,
+        SO2
+      });
+  
+      // 4) Return success response (HTTP 201 - Created)
+      return res.status(201).json(newAirQuality);
+    } catch (err) {
+      console.error(err);
+      // 5) Return a generic error response if something else goes wrong
+      return res.status(500).json({ error: "Failed to create data. Please try again." });
+    }
+  });
+
+  
 app.delete('/delete_air/:id', (req, res) => {
     const id = req.params.id;
     userModel5.findByIdAndDelete({_id:id})
@@ -166,13 +197,6 @@ app.get('/airquality_data', async (req, res) => {
     }
 });
 
-app.post("/add_airquality", (req, res) => {
-    userModel5.create(req.body)
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
-
-
 // Add this route to fetch distinct years for air table
 app.get('/available_year_air', async (req, res) => {
     try {
@@ -187,11 +211,55 @@ app.get('/available_year_air', async (req, res) => {
 //---------------------------WATER---------------------------------
 
 
-app.post("/add_waterquality", (req, res) => {
-    userModel4.create(req.body)
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
+app.post("/add_waterquality", async (req, res) => {
+    try {
+      const {
+        year,
+        month,
+        source_tank,
+        pH,
+        Color,
+        FecalColiform,
+        TSS,
+        Chloride,
+        Nitrate,
+        Phosphate
+      } = req.body;
+  
+      // 1) Check if a record with the same year & month already exists
+      const existing = await userModel4.findOne({ year, month });
+      if (existing) {
+        // 2) If it does, return an error
+        return res
+          .status(400)
+          .json({ error: "Data for this year and month already exists." });
+      }
+  
+      // 3) If it doesn’t exist, create the new document
+      const newWaterData = await userModel4.create({
+        year,
+        month,
+        source_tank,
+        pH,
+        Color,
+        FecalColiform,
+        TSS,
+        Chloride,
+        Nitrate,
+        Phosphate
+      });
+  
+      // 4) Respond with success (HTTP 201)
+      return res.status(201).json(newWaterData);
+    } catch (err) {
+      console.error(err);
+      // 5) Return a generic error if something else went wrong
+      return res
+        .status(500)
+        .json({ error: "Failed to create data. Please try again." });
+    }
+  });
+  
 
 app.get('/available_years', async (req, res) => {
     try {
@@ -202,7 +270,6 @@ app.get('/available_years', async (req, res) => {
         res.status(500).json({ error: "Server Error" });
     }
 });
-
 
 app.get('/waterquality_data', async (req, res) => {
     try {
@@ -283,21 +350,46 @@ app.get('/available_year_waste', async (req, res) => {
     }
 });
 
-app.post("/add_solidwaste", (req, res) => {
-    userModel3.create(req.body)
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
+app.post("/add_solidwaste", async (req, res) => {
+    try {
+      const { year, month, residual, biodegradable, recyclable } = req.body;
+  
+      // 1) Check if a record with the same year and month already exists
+      const existing = await userModel3.findOne({ year, month });
+      if (existing) {
+        // 2) If it exists, return an error response
+        return res
+          .status(400)
+          .json({ error: "Data for this year and month already exists." });
+      }
+  
+      // 3) If it doesn't exist, create the new record
+      const newWaste = await userModel3.create({
+        year,
+        month,
+        residual,
+        biodegradable,
+        recyclable,
+      });
+  
+      // 4) Send success response
+      return res.status(201).json(newWaste);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "An error occurred while creating data." });
+    }
+  });
+  
 
 app.get('/filterUsers', (req, res) => {
     const { month, year } = req.query;
 
     let filter = {};
     if (month) {
-        filter.month = month;  // assuming the user model has a 'month' field
+        filter.month = month;  // assuming the model has a 'month' field
     }
     if (year) {
-        filter.year = year; // assuming the user model has a 'year' field
+        filter.year = year; // assuming the model has a 'year' field
     }
 
     userModel3.find(filter)

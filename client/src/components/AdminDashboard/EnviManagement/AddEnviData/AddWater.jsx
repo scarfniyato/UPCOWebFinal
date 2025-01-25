@@ -77,15 +77,33 @@ function AddWater() {
         }
         setError(''); // Clear any existing errors
 
-        axios.post("http://localhost:3001/add_waterquality", { year, month, source_tank, pH, Color, FecalColiform, TSS, Chloride, Nitrate, Phosphate })
-            .then(result => {
-                console.log(result);
-                navigate('/');
-            })
-            .catch(err => {
-                console.log(err);
-                setError('Failed to create data. Please try again.');
-            });
+        axios.post("http://localhost:3001/add_waterquality", { 
+            year, 
+            month, 
+            source_tank, 
+            pH, 
+            Color, 
+            FecalColiform, 
+            TSS, 
+            Chloride, 
+            Nitrate, 
+            Phosphate 
+        })
+          .then(result => {
+            console.log(result);
+            navigate('/enviwater');
+            alert("Data Added Successfully!");
+          })
+          .catch(err => {
+            // Check if the server responded with a custom error field
+            if (err.response && err.response.data && err.response.data.error) {
+              setError();
+              alert("Data for this year and month already exists.");
+            } else {
+              setError('Failed to create data. Please try again.');
+            }
+            console.error(err);
+          });        
     };
 
     return (

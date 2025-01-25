@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Button, TextField, Typography, Grid, Paper } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";   
 
 const ChangePassword = () => {
@@ -42,7 +42,7 @@ const ChangePassword = () => {
         <>
         <div className='flex gap-x-64 w-full'>
             <div className='flex-1 flex items-center head'>Account Management</div>
-            <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
+            <div className='items-center flex-none'><Link to="/accountmanagement"><MdAccountCircle size={50}/></Link></div>
         </div>
         <div className='w-full rounded-xl bg-white mt-6 p-6 shadow-md'>
                 

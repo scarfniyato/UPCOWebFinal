@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"; // For programmatic navigation
 const PARAMETERS = ["pH", "Color", "FecalColiform", "TSS", "Chloride", "Nitrate", "Phosphate"];
 const SOURCE_TANKS = ["U-mall Water Tank", "Main Water Tank"];
 
-function WaterQualityTable() {
+function WaterQualityTable({ onMonthYearChange }) {
     // State variables
     const [allData, setAllData] = useState([]);
     const [selectedMonthRange, setSelectedMonthRange] = useState("January-June");
@@ -110,21 +110,12 @@ function WaterQualityTable() {
         aggregate();
     }, [allData]);
 
-    // Handle Delete Action per Tank
-    const handleDelete = async (tankId, tankName) => {
-        if (window.confirm(`Are you sure you want to delete the data for "${tankName}"?`)) {
-            try {
-                const response = await axios.delete(`http://localhost:3001/delete_water/${tankId}`);
-                console.log(response.data);
-                // Remove the deleted record from the state
-                setAllData(prevData => prevData.filter(item => item._id !== tankId));
-                alert("Waste entry deleted successfully.");
-            } catch (error) {
-                console.error("Error deleting water quality data:", error);
-                alert("Failed to delete the entry. Please try again.");
-            }
+    useEffect(() => {
+        // Only call if the parent gave us a callback
+        if (onMonthYearChange) {
+          onMonthYearChange(selectedMonthRange, selectedYear);
         }
-    };
+      }, [selectedMonthRange, selectedYear, onMonthYearChange]);
 
     // Handle Update Action per Tank
     const handleUpdate = (tankId) => {
@@ -138,7 +129,7 @@ function WaterQualityTable() {
     return (
         <div className="" style={{ color: '#333333' }}>
             {/* Filters: Month Range and Year */}
-            <div className="dropdowns" style={{ margin: '20px 0', textAlign: 'left' }}>
+            <div className="dropdowns" data-html2canvas-ignore="true" style={{ margin: '20px 0', textAlign: 'left' }}>
                 <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '20px' }}>
                     {/* Dropdown for selecting year */}
                     <div className="dropdown" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -160,7 +151,7 @@ function WaterQualityTable() {
                     </div>
 
                     
-                    <div className="dropdown" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div className="dropdown" data-html2canvas-ignore="true" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <label htmlFor="monthRangeSelect" style={{ marginBottom: '5px' }}>Month:</label>
                         <select
                             id="monthRangeSelect"
@@ -207,7 +198,7 @@ function WaterQualityTable() {
                             </tr>
                         ))}
                         {/* Actions Row */}
-                        <tr>
+                        <tr data-html2canvas-ignore="true">
                             <td><strong>Actions</strong></td>
                             {SOURCE_TANKS.map((tank, idx) => {
                                 const tankData = tank === "U-mall Water Tank" ? uMallData : mainTankData;
@@ -220,12 +211,6 @@ function WaterQualityTable() {
                                                     onClick={() => handleUpdate(tankData._id)}
                                                 >
                                                     Update
-                                                </button>
-                                                <button
-                                                    className="delete-btn"
-                                                    onClick={() => handleDelete(tankData._id, tank)}
-                                                >
-                                                    Delete
                                                 </button>
                                             </>
                                         ) : (

@@ -89,12 +89,14 @@ function UpdateAir() {
     return (
         <div className='bg'>
             <div className="dataContainer" >
-                <div className='text-center'>
-                    <form onSubmit={handleUpdate}>
-                        <h4><strong>Update Air Quality Data </strong></h4> <p>(Do not include comma in values) </p>
-                        {error && <p className="text-danger">{error}</p>}
+            <div className='text-center'>
+                <form onSubmit={handleUpdate}>
+                <h4 className="text-2xl font-bold mb-4 text-center">Update Air Quality Data</h4>
+            <p className="text-center mb-4">(Do not include commas in values)</p>
+            {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
 
-                        <div className='mb-2'>
+            {/* Year */}
+            <div className="mb-4">
                             <label>Year:</label>
                             <input
                                 type="text"
@@ -102,9 +104,9 @@ function UpdateAir() {
                                 value={year}
                                 readOnly  // makes it non-editable
                             />
-                        </div>
+            </div>
 
-                        <div className='mb-2'>
+            <div className="mb-4">
                             <label>Month:</label>
                             <input
                                 type="text"
@@ -112,34 +114,51 @@ function UpdateAir() {
                                 value={month}
                                 readOnly  // makes it non-editable
                             />
-                        </div>
+            </div>
 
-                        <div className="mb-3">
-                        </div>
-                        <div className='mb-2'>
-                            <label>CO: </label>
-                            <input type="text" placeholder='Enter Data' className='form-control'
-                                value={CO}
-                                onChange={(e) => setCO(e.target.value)}
-                            />
-                        </div>
-                        <div className='mb-2'>
-                            <label>NO2: </label>
-                            <input type="text" placeholder='Enter Data' className='form-control'
-                                value={NO2}
-                                onChange={(e) => setNO2(e.target.value)}
-                            />
-                        </div>
-                        <div className='mb-2'>
-                            <label>SO2:</label>
-                            <input type="text" placeholder='Enter Data' className='form-control'
-                                value={SO2}
-                                onChange={(e) => setSO2(e.target.value)}
-                            />
-                        </div>
-                        <button className='btn'>Submit</button>
-                    </form>
-                </div>
+
+            {/* CO */}
+            <div className="mb-4">
+              <label className="block mb-2 font-bold">NO2:</label>
+              <input
+                type="text"
+                placeholder="Enter Data"
+                className="form-control w-full p-2 border border-gray-300 rounded"
+                value={CO}
+                onChange={(e) => setNO2(e.target.value)}
+              />
+            </div>
+
+            {/* NO2 */}
+            <div className="mb-4">
+              <label className="block mb-2 font-bold">NO2:</label>
+              <input
+                type="text"
+                placeholder="Enter Data"
+                className="form-control w-full p-2 border border-gray-300 rounded"
+                value={NO2}
+                onChange={(e) => setNO2(e.target.value)}
+              />
+            </div>
+
+            {/* SO2 */}
+            <div className="mb-4">
+              <label className="block mb-2 font-bold">SO2:</label>
+              <input
+                type="text"
+                placeholder="Enter Data"
+                className="form-control w-full p-2 border border-gray-300 rounded"
+                value={SO2}
+                onChange={(e) => setSO2(e.target.value)}
+              />
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-center">
+              <button className="btn w-full p-2 bg-blue-500 text-white rounded">Submit</button>
+            </div>
+                </form>
+
             </div>
         </div>
     );

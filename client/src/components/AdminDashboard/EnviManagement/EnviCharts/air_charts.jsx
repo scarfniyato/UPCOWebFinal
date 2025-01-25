@@ -84,7 +84,7 @@ const monthOrder = {
   'December': 12
 };
 
-function AirQualityChart() {
+function AirQualityChart({ onMonthYearChange2 }) {
   // Reference to store the original data for toggling
   const originalChartData = useRef({
     CO: 0,
@@ -190,6 +190,13 @@ function AirQualityChart() {
 
     fetchLatestData();
   }, [BACKEND_URL]);
+
+  useEffect(() => {
+    // Only call if the parent gave us a callback
+    if (onMonthYearChange2) {
+      onMonthYearChange2(selectedMonth, selectedYear);
+    }
+  }, [selectedMonth, selectedYear, onMonthYearChange2]);
 
   useEffect(() => {
     // Fetch data whenever selectedYear or selectedMonth changes
@@ -425,7 +432,7 @@ function AirQualityChart() {
     <div className="chart-container" style={{ color: '#333333' }}>
       
       {/* Dropdown for selecting month range */}
-      <div className="dropdowns" style={{ margin: '10px 0', textAlign: 'left' }}>
+      <div className="dropdowns" style={{ margin: '10px 0', textAlign: 'left' }} data-html2canvas-ignore="true">
         <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
           <div className='text-md flex-auto font-bold justify-center'>Air Quality in CvSU - Main Campus</div>
           <div className="Dropdown" style={{ display: 'flex', alignItems: 'center' }}>
