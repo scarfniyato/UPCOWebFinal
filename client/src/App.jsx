@@ -36,6 +36,11 @@ function App() {
           <Route path="forgotpass" element={<ForgotPassword />} />
           <Route path="resetpass" element={<ResetPassword />} />
 
+          <Route path="/" element={<LandingPage />} />
+          <Route path="airpollution" element={<AirPollution />} />
+          <Route path="landpollution" element={<LandPollution />} />
+          <Route path="waterpollution" element={<WaterPollution />} />
+        
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="EnviWaste" element={<EnviWaste />}/> 
@@ -52,12 +57,6 @@ function App() {
           <Route path="userManagement" element={<UserManagement />} />
           <Route path="index" element={<AddAccount />} />
           <Route path="*" element={<div>Page Not Found</div>} />
-        </Route>
-        <Route>
-          <Route path="landing" element={<LandingPage />} />
-          <Route path="airpollution" element={<AirPollution />} />
-          <Route path="landpollution" element={<LandPollution />} />
-          <Route path="waterpollution" element={<WaterPollution />} />
         </Route>
         <Route>
           <Route path="landing" element={<LandingPage />} />
