@@ -115,7 +115,7 @@ const EnviAir = () => {
   
       const tableProps = pdf.getImageProperties(tableImgData);
       const tableAspectRatio = tableProps.height / tableProps.width;
-      const tableDisplayHeight = contentWidth * tableAspectRatio;
+      const tableDisplayHeight = contentWidth * tableAspectRatio + 50;
       const availableHeight = pdfHeight - tableStartY - margin;
   
       // Check if table fits on the current page
