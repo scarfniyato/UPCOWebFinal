@@ -22,7 +22,7 @@ function AddUserAccount() {
             .then((response) => {
                 if (response.status === 201) {
                     console.log("User created successfully.");
-                    navigate("/admin-login");
+                    navigate("/dashboard/users");
                 }
             })
             .catch((err) => {

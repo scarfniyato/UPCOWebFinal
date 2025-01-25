@@ -55,7 +55,7 @@ const AddAir = () => {
     })
       .then(result => {
         console.log(result);
-        navigate('/enviair');
+        navigate('/dashboard/air');
         alert("Data Added Successfully!");
       })
       .catch(err => {

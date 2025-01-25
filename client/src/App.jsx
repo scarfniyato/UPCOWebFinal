@@ -31,7 +31,7 @@ function AppRouter() {
         {/* Auth-related Routes */}
         <Route path="login" element={<Login />} />
         <Route path="forgotpass" element={<ForgotPassword />} />
-        <Route path="resetpass" element={<ResetPassword />} />
+        <Route path="/password-reset/:userId/:token" element={<ResetPassword />} />
 
         <Route path="/" element={<LandingPage />} />
         <Route path="airpollution" element={<AirPollution />} />

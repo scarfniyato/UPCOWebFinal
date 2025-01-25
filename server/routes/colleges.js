@@ -19,6 +19,19 @@ router.get('/colleges', (req, res) => {
   res.json(colleges);
 });
 
+// Get the latest month and year with data
+router.get('/latest-waste-data', async (req, res) => {
+  try {
+    const latestData = await College.findOne().sort({ year: -1, month: -1 });
+    if (!latestData) return res.status(404).json({ message: 'No data available' });
+
+    res.json({ month: latestData.month, year: latestData.year });
+  } catch (error) {
+    console.error('Error fetching latest waste data:', error);
+    res.status(500).json({ message: 'Failed to fetch latest data' });
+  }
+});
+
 // Save waste data
 router.post('/waste-data', async (req, res) => {
   try {

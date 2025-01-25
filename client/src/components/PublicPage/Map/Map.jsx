@@ -106,64 +106,8 @@ const Map = () => {
     });
   };
 
-  const years = [2021, 2022, 2023]; // Example years
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; // Example months
-  const [selectedYear, setSelectedYear] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState('');
-
-  const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
-  };
-
-  const handleMonthChange = (e) => {
-    setSelectedMonth(e.target.value);
-  };
-
   return (
-
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-      <h1 className="text-center mb-2 fbold text-xl">CvSU - Main Map</h1>
-      
-      <div className="dropdowns my-4 text-left" data-html2canvas-ignore="true" style={{ display: 'flex', gap: '20px' }}>
-        {/* Year Dropdown */}
-        <div className="d-flex align-items-center gap-2">
-          <label htmlFor="year" className="mb-1 pr-2 fbold">Year:</label>
-          <select
-            id="year"
-            value={selectedYear}
-            onChange={handleYearChange}
-            className="form-select"
-            style={{ padding: '4px' }}
-          >
-            <option value="">Select Year</option>
-            {years.map(year => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Month Dropdown */}
-        <div className="d-flex align-items-center gap-2">
-          <label htmlFor="month" className="mb-1 pr-2 fbold">Month:</label>
-          <select
-            id="month"
-            value={selectedMonth}
-            onChange={handleMonthChange}
-            className="form-select"
-            style={{ padding: '4px' }}
-          >
-            <option value="">Select Month</option>
-            {months.map(month => (
-              <option key={month} value={month}>
-                {month}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
+    <div style={{ display: 'flex', justifyContent: 'right', padding: '20px' }}>
       {error && <div className="error-message">{error}</div>}
       <MapContainer
         center={[imageHeight / 2.3, imageWidth / 1.5]}

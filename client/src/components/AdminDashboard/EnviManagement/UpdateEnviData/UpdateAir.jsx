@@ -77,7 +77,7 @@ function UpdateAir() {
         axios.put(`http://localhost:3001/update_air/${id}`, payload)
             .then(result => {
                 console.log(result);
-                navigate('/enviair');
+                navigate('/dashboard/air');
                 alert("Data Updated Successfully!")
             })
             .catch(err => {

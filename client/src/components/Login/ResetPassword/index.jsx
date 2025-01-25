@@ -33,7 +33,7 @@ const ResetPassword = () => {
         { password }
       );
       setMessage(data.message || "Password reset successfully");
-      setTimeout(() => navigate("/admin-login"), 2000); // Redirect to login after 2 seconds
+      setTimeout(() => navigate("/login"), 2000); // Redirect to login after 2 seconds
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     }

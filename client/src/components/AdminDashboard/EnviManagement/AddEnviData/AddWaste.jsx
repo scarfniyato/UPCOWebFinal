@@ -55,7 +55,7 @@ function AddWaste() {
     })
       .then(result => {
         console.log(result);
-        navigate('/enviwaste');
+        navigate('/dashboard/waste');
         alert("Data Added Successfully!");
       })
       .catch(err => {

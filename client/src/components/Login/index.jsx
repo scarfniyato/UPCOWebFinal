@@ -27,7 +27,7 @@ const Login = () => {
             .post("http://localhost:3001/admin-login", { email, password })
             .then((response) => {
                 if (response.data === "Success") {
-                    navigate("/admin-dashboard"); // Redirect to /dashboard on success
+                    navigate("/dashboard"); // Redirect to /dashboard on success
                 } else {
                     setError("Login failed: " + response.data.error);
                 }
@@ -74,11 +74,9 @@ const Login = () => {
                         <Link to="/forgotpass" className="link">
                             Forgot password?
                         </Link>
-                        <Link to="/">
                         <button type="submit" className="btn">
                             Sign in
                         </button>
-                        </Link>
                     </form>
                 </div>
             </div>

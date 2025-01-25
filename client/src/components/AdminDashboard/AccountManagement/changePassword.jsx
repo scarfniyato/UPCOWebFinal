@@ -30,7 +30,7 @@ const ChangePassword = () => {
 
             if (response.status === 200) {
                 setSuccess("Password updated successfully!");
-                setTimeout(() => navigate("/admin-dashboard"), 2000); //Redirect after 2 seconds
+                setTimeout(() => navigate("/login"), 2000); //Redirect after 2 seconds
             }
         } catch (err) {
             console.error("Error:", err.response);

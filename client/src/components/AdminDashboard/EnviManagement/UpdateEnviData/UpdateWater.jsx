@@ -104,7 +104,7 @@ function UpdateWater() {
     axios.put(`http://localhost:3001/update_water/${id}`, payload)
       .then(result => {
         console.log(result);
-        navigate('/enviwater');
+        navigate('/dashboard/water');
         alert("Data Updated Successfully!")
       })
       .catch(err => {

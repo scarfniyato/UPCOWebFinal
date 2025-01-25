@@ -77,7 +77,7 @@ function UpdateWaste() {
         axios.put(`http://localhost:3001/update_solidwaste/${id}`, payload)
             .then(result => {
                 console.log(result);
-                navigate('/EnviWaste');
+                navigate('/dashboard/waste');
                 alert("Data Updated Successfully!")
             })
             .catch(err => {
@@ -126,7 +126,7 @@ function UpdateWaste() {
                 type="number"
                 placeholder="Enter Quantity"
                 className="form-control w-full p-2 border border-gray-300 rounded"
-                value={recyclable}
+                value={residual}
                 onChange={(e) => setResidual(e.target.value)}
                 min="0"
               />

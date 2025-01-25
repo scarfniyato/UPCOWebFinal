@@ -91,7 +91,7 @@ function AddWater() {
         })
           .then(result => {
             console.log(result);
-            navigate('/enviwater');
+            navigate('/dashboard/water');
             alert("Data Added Successfully!");
           })
           .catch(err => {
