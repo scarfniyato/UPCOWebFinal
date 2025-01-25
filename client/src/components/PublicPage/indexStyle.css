@@ -29,7 +29,6 @@
   background-position: right center;
 }
 
-
 body {
     background-size: cover;
     background-repeat: no-repeat;
@@ -42,7 +41,8 @@ body {
   }
 
   section {
-    margin-top: 40px; /* Push content below the fixed navbar */
+    margin-top: 20px; /* Push content below the fixed navbar */
+    margin-bottom: 20px;
     display: flex; /* Arrange children in a row */
     align-items: center; /* Vertically center the content */
     justify-content: center; /* Center the left and right containers */
@@ -52,8 +52,6 @@ body {
     color: white; /* Text color */
   }
   
-
-
   .leftHero, .rightHero {
     justify-content: center; /* Center the content within each container */
     align-items: center; /* Vertically center the content within each container */
@@ -250,6 +248,7 @@ body {
   flex: 1 1 calc(33.33% - 20px); /* Makes each card take up one-third of the row with a gap */
   max-width: 380px;             /* Ensures the cards don't grow too large */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+  margin-bottom: 20px;
 }
 
 /* Card content */
@@ -293,15 +292,12 @@ body {
   }
 }
 
-
-
-
-
 /* General Footer Styles */
 .contactSection {
   background-color: #003a55;
   color: white;
-  padding: 20px 40px;
+  padding: 100px 20px; /* Added more padding */
+  position: relative; /* Ensure proper layout */
 }
 
 .contact-container {
@@ -398,6 +394,7 @@ body {
   text-align: center;
   flex: 1;
   margin: 0 20px;
+  padding: '5%';
 }
 
 .contact-cta h2 {
