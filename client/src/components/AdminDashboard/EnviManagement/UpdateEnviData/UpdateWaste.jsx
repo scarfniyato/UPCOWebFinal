@@ -77,7 +77,8 @@ function UpdateWaste() {
         axios.put(`http://localhost:3001/update_solidwaste/${id}`, payload)
             .then(result => {
                 console.log(result);
-                navigate('/');
+                navigate('/EnviWaste');
+                alert("Data Updated Successfully!")
             })
             .catch(err => {
                 console.log(err);
@@ -89,6 +90,7 @@ function UpdateWaste() {
         <div className="bg">
             <div className="dataContainer" >
                 <div className="text-center">
+
                 <form onSubmit={handleUpdate}>
                 <h4 className="text-2xl font-bold mb-4 text-center">Update Waste Data</h4>
             <p className="text-center mb-4">(Do not include commas in values)</p>
@@ -102,7 +104,31 @@ function UpdateWaste() {
                 placeholder="Enter Year"
                 className="form-control w-full p-2 border border-gray-300 rounded"
                 value={year}
-                onChange={(e) => setYear(e.target.value)}
+                readOnly  
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block mb-2 font-bold">Month:</label>
+              <input
+                type="text"
+                placeholder="Enter Month"
+                className="form-control w-full p-2 border border-gray-300 rounded"
+                value={month}
+                readOnly  
+              />
+            </div>
+
+            {/* Residual */}
+            <div className="mb-4">
+              <label className="block mb-2 font-bold">Residual (kg):</label>
+              <input
+                type="number"
+                placeholder="Enter Quantity"
+                className="form-control w-full p-2 border border-gray-300 rounded"
+                value={recyclable}
+                onChange={(e) => setResidual(e.target.value)}
+                min="0"
               />
             </div>
 
@@ -137,6 +163,7 @@ function UpdateWaste() {
               <button className="btn w-full p-2 bg-blue-500 text-white rounded">Submit</button>
             </div>
                 </form>
+
                 </div>
             </div>
         </div>

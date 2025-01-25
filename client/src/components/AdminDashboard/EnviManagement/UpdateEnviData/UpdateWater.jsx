@@ -17,18 +17,6 @@ function UpdateWater() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const [options_source_tank] = useState([
-        "U-mall Water Tank",
-        "Main Water Tank",
-    ]);
-
-    // Define month options
-    const [options_month] = useState([
-        { value: "", label: "Select Month Range" },
-        { value: "January-June", label: "January - June" },
-        { value: "July-December", label: "July - December" },
-    ]);
-
     useEffect(() => {
         axios.get(`http://localhost:3001/get_water/${id}`)
             .then(result => {
@@ -116,7 +104,8 @@ function UpdateWater() {
         axios.put(`http://localhost:3001/update_water/${id}`, payload)
             .then(result => {
                 console.log(result);
-                navigate('/');
+                navigate('/enviwater');
+                alert("Data Updated Successfully!")
             })
             .catch(err => {
                 console.log(err);
@@ -130,6 +119,7 @@ function UpdateWater() {
             <div className="dataContainer max-w-4xl p-8 bg-white shadow-md rounded-md">
                 <div className='justify-center'>
                                 <form onSubmit={handleUpdate}>
+
                                 <h4 className="text-2xl font-bold mb-4 text-center">Update Water Quality Data</h4>
             <p className="text-center mb-4">(Do not include commas in values)</p>
             {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
@@ -141,40 +131,30 @@ function UpdateWater() {
                 placeholder="Enter Year"
                 className="form-control w-full p-2 border border-gray-300 rounded"
                 value={year}
-                onChange={(e) => setYear(e.target.value)}
+                readOnly
               />
             </div>
 
             <div className="mb-4">
-              <label className="block mb-2 font-bold">Month Range:</label>
-              <select
-                className="form-control w-full p-2 border border-gray-300 rounded"
-                value={month}
-                onChange={(e) => setMonth(e.target.value)}
-              >
-                <option value="">Select Month Range</option>
-                {options_month.map((option, index) => (
-                  <option key={index} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+                                             <label className="fbold pr-2">Month Range:</label>
+                                            <input
+                                                type="text"
+                                                className='form-control'
+                                                value={month}
+                                                readOnly 
+                                            />
             </div>
 
             <div className="mb-4">
-              <label className="block mb-2 font-bold">Source Tank:</label>
-              <select
-                className="form-control w-full p-2 border border-gray-300 rounded"
-                value={source_tank}
-                onChange={(e) => setSource_tank(e.target.value)}
-              >
-                <option value="">Select Source Tank</option>
-                {options_source_tank.map((source, index) => (
-                  <option key={index} value={source}>
-                    {source}
-                  </option>
-                ))}
-              </select>
+                                            <label htmlFor="sourceTankSelect" className="form-label fbold pr-2">
+                                                Source Tank:
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className='form-control'
+                                                value={source_tank}
+                                                readOnly 
+                                            />
             </div>
 
             <div className="mb-4">

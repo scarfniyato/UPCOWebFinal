@@ -41,7 +41,7 @@ function UpdateAir() {
         if (
             isNaN(CO) ||
             isNaN(NO2) ||
-            isNaN(SO2) 
+            isNaN(SO2)
         ) {
             return "All values must be valid numbers.";
         }
@@ -49,7 +49,7 @@ function UpdateAir() {
         if (
             CO === '' ||
             NO2 === '' ||
-            SO2 === '' 
+            SO2 === ''
         ) {
             return "All fields must be filled.";
         }
@@ -77,7 +77,8 @@ function UpdateAir() {
         axios.put(`http://localhost:3001/update_air/${id}`, payload)
             .then(result => {
                 console.log(result);
-                navigate('/');
+                navigate('/enviair');
+                alert("Data Updated Successfully!")
             })
             .catch(err => {
                 console.log(err);
@@ -96,13 +97,35 @@ function UpdateAir() {
 
             {/* Year */}
             <div className="mb-4">
-              <label className="block mb-2 font-bold">Year:</label>
+                            <label>Year:</label>
+                            <input
+                                type="text"
+                                className='form-control'
+                                value={year}
+                                readOnly  // makes it non-editable
+                            />
+            </div>
+
+            <div className="mb-4">
+                            <label>Month:</label>
+                            <input
+                                type="text"
+                                className='form-control'
+                                value={month}
+                                readOnly  // makes it non-editable
+                            />
+            </div>
+
+
+            {/* CO */}
+            <div className="mb-4">
+              <label className="block mb-2 font-bold">NO2:</label>
               <input
                 type="text"
-                placeholder="Enter Year"
+                placeholder="Enter Data"
                 className="form-control w-full p-2 border border-gray-300 rounded"
-                value={year}
-                onChange={(e) => setYear(e.target.value)}
+                value={CO}
+                onChange={(e) => setNO2(e.target.value)}
               />
             </div>
 
@@ -135,8 +158,8 @@ function UpdateAir() {
               <button className="btn w-full p-2 bg-blue-500 text-white rounded">Submit</button>
             </div>
                 </form>
+
             </div>
-        </div>
         </div>
     );
 }
