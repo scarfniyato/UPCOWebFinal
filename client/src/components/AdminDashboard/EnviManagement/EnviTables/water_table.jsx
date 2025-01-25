@@ -119,7 +119,7 @@ function WaterQualityTable({ onMonthYearChange }) {
 
     // Handle Update Action per Tank
     const handleUpdate = (tankId) => {
-        navigate(`/update/water/${tankId}`);
+        navigate(`/dashboard/update/water/${tankId}`);
     };
 
     // Organize data by tank

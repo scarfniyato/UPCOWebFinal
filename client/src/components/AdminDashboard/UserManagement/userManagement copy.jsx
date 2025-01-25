@@ -63,11 +63,11 @@ const UserManagement = () => {
         <div>
             <div className='flex gap-x-64 w-full'>
                 <div className='flex-1 flex items-center head'>User Management</div>
-                <div className='items-center flex-none'><Link to="/accountmanagement"><MdAccountCircle size={50}/></Link></div>
+                <div className='items-center flex-none'><Link to="/dashboard/accounts"><MdAccountCircle size={50}/></Link></div>
             </div>
             <div className="bg-white mt-6 p-6 rounded-xl shadow-md">
                 <div className="btn1 w-40 text-center mb-4">
-                    <Link to="/index">
+                    <Link to="/dashboard/index">
                     <Button color="white">Add Account</Button></Link>
                 </div>
             <div>

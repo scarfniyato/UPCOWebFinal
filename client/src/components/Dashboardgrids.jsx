@@ -1,5 +1,6 @@
 import React from 'react'; 
 import { MdAccountCircle } from "react-icons/md";
+import { Link } from 'react-router-dom';
 import WaterCharts from './AdminDashboard/EnviManagement/EnviCharts/water_charts'
 import AirCharts from './AdminDashboard/EnviManagement/EnviCharts/air_charts'
 import WasteChart from './AdminDashboard/EnviManagement/EnviCharts/waste_charts'
@@ -13,7 +14,7 @@ const Dashboardgrids = () => {
     <div>
       <div className='flex gap-x-64 w-full'>
         <div className='flex-1 flex items-center head'>Welcome to CvSU-Main State of the Environment Dashboard!</div>
-        <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
+        <div className='items-center flex-none'><Link to="/dashboard/accounts"><MdAccountCircle size={50}/></Link></div>
       </div>
 
       <div className='flex gap-4 mt-4'>

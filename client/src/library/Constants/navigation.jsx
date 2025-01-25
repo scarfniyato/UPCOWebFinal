@@ -6,31 +6,31 @@ export const Dashboard_Sidebar_Links = [
     {
         key: 'dashboard',
         label: 'Dashboard',
-        path: '/',
+        path: '/dashboard',
         icon: <MdDashboard/>
     },
     {
         key: 'environmental data management',
         label: 'Environmental Data Management',
-        path: '/EnviWaste',
+        path: '/dashboard/waste',
         icon: <BsClipboardDataFill/>
     },
     {
         key: 'public page management',
         label: 'Public Page Management',
-        path: '/EnviPolicy',
+        path: '/dashboard/policy',
         icon: <MdEditDocument/>
     },
     {
         key: 'account management',
         label: 'Account Management',
-        path: '/accountmanagement',
+        path: '/dashboard/accounts',
         icon: <MdManageAccounts/>
     },
     {
         key: 'user management',
         label: 'User Management',
-        path: '/usermanagement',
+        path: '/dashboard/users',
         icon: <MdSupervisorAccount/>
     }
 

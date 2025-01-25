@@ -170,7 +170,7 @@ function WasteTable({ onMonthYearChange }) {
                       <td className="py-2 px-4">{item.recyclable ?? "N/A"}</td>
                       <td className="py-2 px-4">{calculateTotal(item)}</td>
                       <td className="flex items-center justify-center">
-                        <Link to={`/update/solidwaste/${item._id}`} className="update-btn">
+                        <Link to={`/dashboard/update/solidwaste/${item._id}`} className="update-btn">
                           Update
                         </Link>
                       </td>

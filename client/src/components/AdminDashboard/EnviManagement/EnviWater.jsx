@@ -217,18 +217,18 @@ const EnviWater = () => {
       <div className="p-2">
         <div className='flex gap-x-64 w-full'>
           <div className='flex-1 flex items-center head'>Environmental Data Management</div>
-          <div className='items-center flex-none'><Link to="/accountmanagement"><MdAccountCircle size={50}/></Link></div>
+          <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
         </div>
 
         <div className="flex gap-x-64 w-full items-center justify-center">
           <div className="img_btn_container flex flex-1 flex-row mt-2 gap-1 w-full ">
-            <Link to="/enviwaste" className="img_btn">
+            <Link to="/dashboard/waste" className="img_btn">
               <img src={land_icon} alt="Land Pollution" />
             </Link>
-            <Link to="/enviair" className="img_btn">
+            <Link to="/dashboard/air" className="img_btn">
               <img src={air_icon} alt="Air Pollution" />
             </Link>
-            <Link to="/enviwater" className="active_link">
+            <Link to="/dashboard/water" className="active_link">
               <img src={waterActive_icon} alt="Water Pollution" />
             </Link>
           </div>
@@ -246,7 +246,7 @@ const EnviWater = () => {
         </div>
 
         <div className="addData_btn">
-          <Link to="/addwater" className="btn">
+          <Link to="/dashboard/addwater" className="btn">
             Add New Data
           </Link>
         </div>

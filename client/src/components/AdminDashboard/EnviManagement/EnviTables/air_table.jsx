@@ -200,7 +200,7 @@ function AirQualityTable({ onMonthYearChange }) {
       return;
     }
     // Navigate to the update page with the ID
-    navigate(`/update/air/${id}`);
+    navigate(`/dashboard/update/air/${id}`);
   };
 
   return (

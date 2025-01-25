@@ -48,7 +48,7 @@ function NavbarSimple() {
         <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
         <ul>
           <li>
-            <Link to="/landing" className={activeSection === 'home' ? 'active' : ''}>
+            <Link to="/" className={activeSection === 'home' ? 'active' : ''}>
               Home
             </Link>
           </li>
