@@ -117,22 +117,6 @@ function WaterQualityTable({ onMonthYearChange }) {
         }
       }, [selectedMonthRange, selectedYear, onMonthYearChange]);
 
-    // Handle Delete Action per Tank
-    const handleDelete = async (tankId, tankName) => {
-        if (window.confirm(`Are you sure you want to delete the data for "${tankName}"?`)) {
-            try {
-                const response = await axios.delete(`http://localhost:3001/delete_water/${tankId}`);
-                console.log(response.data);
-                // Remove the deleted record from the state
-                setAllData(prevData => prevData.filter(item => item._id !== tankId));
-                alert("Waste entry deleted successfully.");
-            } catch (error) {
-                console.error("Error deleting water quality data:", error);
-                alert("Failed to delete the entry. Please try again.");
-            }
-        }
-    };
-
     // Handle Update Action per Tank
     const handleUpdate = (tankId) => {
         navigate(`/update/water/${tankId}`);
@@ -227,12 +211,6 @@ function WaterQualityTable({ onMonthYearChange }) {
                                                     onClick={() => handleUpdate(tankData._id)}
                                                 >
                                                     Update
-                                                </button>
-                                                <button
-                                                    className="delete-btn"
-                                                    onClick={() => handleDelete(tankData._id, tank)}
-                                                >
-                                                    Delete
                                                 </button>
                                             </>
                                         ) : (
