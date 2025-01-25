@@ -264,12 +264,13 @@
         padding: 8px 16px;
     }
 }
+
 /* Hide the last column when .hide-last-column is added to the parent container */
 .hide-last-column th:last-child,
 .hide-last-column td:last-child {
-  display: none !important;
+    display: none !important;
 }
+
 .hidden-for-pdf {
     display: none !important;
-  }
-  
+}

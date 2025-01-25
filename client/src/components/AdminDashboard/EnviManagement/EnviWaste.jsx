@@ -180,7 +180,7 @@ const EnviWaste = () => {
       <div className="p-2" id="pdf-content">
         <div className='flex gap-x-64 w-full'>
           <div className='flex-1 flex items-center head'>Environmental Data Management</div>
-          <div className='items-center flex-none'><MdAccountCircle size={50} /></div>
+          <div className='items-center flex-none'><Link to="/accountmanagement"><MdAccountCircle size={50}/></Link></div>
         </div>
 
         <div className="flex gap-x-64 w-full items-center justify-center">

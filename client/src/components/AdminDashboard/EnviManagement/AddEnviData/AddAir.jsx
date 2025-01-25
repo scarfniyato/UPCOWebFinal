@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function AddAir() {
+const AddAir = () => {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [CO, setCO] = useState('');
@@ -71,15 +71,6 @@ function AddAir() {
   };
 
   return (
-<<<<<<< HEAD
-    <div>
-      <div className="dataContainer" >
-      <div className='text-center'>
-        <form onSubmit={handleSubmit}>
-          <h4><strong>Add Air Quality Data</strong></h4>
-          <p>(Do not include commas in values)</p>
-          {error && <p className="text-danger">{error}</p>}
-=======
     <div className="flex flex-col items-center justify-center min-h-screen font-main">
       <div className="dataContainer w-full max-w-md p-8 bg-white shadow-md rounded-md">
         <div className='justify-center'>
@@ -87,7 +78,6 @@ function AddAir() {
             <h4 className="text-2xl font-bold mb-4 text-center">Add Air Quality Data</h4>
             <p className="text-center mb-4">(Do not include commas in values)</p>
             {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
->>>>>>> 95909b570b6523970088bccd4bc47d7305fc26f0
 
             {/* Year */}
             <div className='mb-4'>
@@ -163,6 +153,6 @@ function AddAir() {
       </div>
     </div>
   );
-}
+};
 
 export default AddAir;
