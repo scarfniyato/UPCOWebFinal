@@ -56,6 +56,8 @@ const Dashboardgrids = () => {
         <div className='box'>
           <Top10 />
         </div>
+      </div>
+      <div className='flex gap-4 mt-4'>
         <div className='box'>
           <Map />
         </div>

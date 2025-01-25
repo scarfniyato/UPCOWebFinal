@@ -20,6 +20,9 @@ import LandingPage from './components/PublicPage/index';
 import AirPollution from './components/PublicPage/PubCharts/AirPollution';
 import LandPollution from './components/PublicPage/PubCharts/LandPollution';
 import WaterPollution from './components/PublicPage/PubCharts/WaterPollution';
+import UpdateWater from './components/AdminDashboard/EnviManagement/UpdateEnviData/UpdateWater';
+import UpdateAir from './components/AdminDashboard/EnviManagement/UpdateEnviData/UpdateAir';
+import UpdateWaste from './components/AdminDashboard/EnviManagement/UpdateEnviData/UpdateWaste';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -37,6 +40,9 @@ function App() {
           <Route path="AddWaste" element={<AddWaste />}/>
           <Route path="AddAir" element={<AddAir />}/>
           <Route path="AddWater" element={<AddWater />}/>
+          <Route path='/update/solidwaste/:id' element={<UpdateWaste />}></Route>
+          <Route path='/update/water/:id' element={<UpdateWater />}></Route>
+          <Route path='/update/air/:id' element={<UpdateAir />}></Route>
           <Route path="EnviPolicy" element={<PublicPageManagement />} />
           <Route path="accountmanagement" element={<AccountManagement />} />
           <Route path="userManagement" element={<UserManagement />} />
