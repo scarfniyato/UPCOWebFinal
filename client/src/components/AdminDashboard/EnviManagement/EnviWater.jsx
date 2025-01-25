@@ -72,27 +72,33 @@ const EnviWater = () => {
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
 
-      // -- Header / Title --
+
       pdf.setFontSize(9);
-      pdf.text("Republic of the Philippines", pdfWidth / 2 - 50, 35);
+      pdf.text("Republic of the Philippines", 212, 35);
       pdf.setFontSize(14);
-      pdf.text("Cavite State University", pdfWidth / 2 - 60, 45);
+      pdf.text("Cavite State University", 200, 45);
       pdf.setFontSize(12);
-      pdf.text("Pollution Control Office", pdfWidth / 2 - 55, 55);
+      pdf.text("Pollution Control Office", 205, 55);
       pdf.setFontSize(9);
-      pdf.text("Indang, Cavite", pdfWidth / 2 - 35, 65);
+      pdf.text("Indang, Cavite", 220, 65);
+
+      pdf.setFontSize(12);
+      pdf.text("Waste Data Report", 190, 90);
+      // 4.3) Add the UPCO logo in top-right corner (40x40)
+      const logoImage = await loadImage(UPCOLogo);
+      pdf.addImage(
+        logoImage,
+        'PNG',
+        150,
+        25,
+        40,
+        40
+      );
 
       // We'll use a smaller margin so we can display bigger images
       const margin = 20; 
       let currentY = 90; // start content after heading
       const contentWidth = pdfWidth - margin * 2;
-
-      pdf.setFontSize(12);
-      pdf.text('Water Data Report', pdfWidth / 2 - 40, currentY);
-
-      // -- Logo in top-right corner --
-      const logoImage = await loadImage(UPCOLogo);
-      pdf.addImage(logoImage, 'PNG', pdfWidth - 60, 15, 40, 40);
 
       // Move down a bit after the heading
       currentY += 30;

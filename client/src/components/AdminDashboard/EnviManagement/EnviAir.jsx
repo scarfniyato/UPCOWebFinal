@@ -24,7 +24,7 @@ const EnviAir = () => {
     setReportYear_Table(year);
   };
 
-  const handleMonthYearChange2 = (month,year) => {
+  const handleMonthYearChange2 = (month, year) => {
     setReportMonth_Chart(month);
     setReportYear_Chart(year);
   };
@@ -38,7 +38,7 @@ const EnviAir = () => {
       img.src = src;
     });
   };
-  
+
   const getCurrentDateFormatted = () => {
     const now = new Date();
     const year = now.getFullYear().toString().slice(2); // last two digits
@@ -46,26 +46,26 @@ const EnviAir = () => {
     const day = String(now.getDate()).padStart(2, '0');
     return `${year}${month}${day}`;
   };
-  
+
   const downloadReport = async () => {
     try {
       // 1) Capture the chart as an image
       const chartElement = document.getElementById('air-quality-chart');
       const chartCanvas = await html2canvas(chartElement, { scale: 2 });
       const chartImgData = chartCanvas.toDataURL('image/png');
-  
+
       // 2) Capture the table as an image
       const tableElement = document.getElementById('air-quality-table');
       const tableCanvas = await html2canvas(tableElement, { scale: 2 });
       const tableImgData = tableCanvas.toDataURL('image/png');
-  
+
       // 3) Create jsPDF instance
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'px',
         format: 'a4',
       });
-  
+
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
 
@@ -84,16 +84,16 @@ const EnviAir = () => {
 
       pdf.setFontSize(12);
       pdf.text('Air Data Report', pdfWidth / 2 - 30, 90);
-  
+
       // 3.1) Add your logo (UPCOLogo) if needed
       const logoImage = await loadImage(UPCOLogo);
       pdf.addImage(logoImage, 'PNG', 150, 25, 40, 40);
-  
+
       // -- Chart Title + Chart --
       const chartProps = pdf.getImageProperties(chartImgData);
       const chartAspectRatio = chartProps.height / chartProps.width;
       const chartDisplayHeight = contentWidth * chartAspectRatio;
-  
+
       let currentY = 120; // Starting Y for the chart
       pdf.setFontSize(10);
       pdf.text(
@@ -101,10 +101,10 @@ const EnviAir = () => {
         margin,
         115
       );
-  
+
       pdf.addImage(chartImgData, 'PNG', margin, currentY, contentWidth, chartDisplayHeight);
       currentY += chartDisplayHeight + 20; // gap after the chart
-  
+
       pdf.setFontSize(10);
       pdf.text(
         `Air Table Data For ${reportMonth_Table || 'All Months'} - ${reportYear_Table || 'All Years'}`,
@@ -112,12 +112,12 @@ const EnviAir = () => {
         currentY
       );
       const tableStartY = currentY + 10;
-  
+
       const tableProps = pdf.getImageProperties(tableImgData);
       const tableAspectRatio = tableProps.height / tableProps.width;
       const tableDisplayHeight = contentWidth * tableAspectRatio + 50;
       const availableHeight = pdfHeight - tableStartY - margin;
-  
+
       // Check if table fits on the current page
       if (tableDisplayHeight <= availableHeight) {
         // It fits on one page
@@ -125,7 +125,7 @@ const EnviAir = () => {
       } else {
         // Multi-page slicing
         const pageCount = Math.ceil(tableDisplayHeight / availableHeight);
-  
+
         for (let i = 0; i < pageCount; i++) {
           const offsetY = -(i * availableHeight);
           if (i > 0) {
@@ -141,19 +141,19 @@ const EnviAir = () => {
           );
         }
       }
-  
+
       // -- Footer on the last page --
       const finalPage = pdf.getNumberOfPages();
       pdf.setPage(finalPage);
       pdf.setFontSize(10);
       pdf.text('UPCO | Air Data Report', margin, pdfHeight - margin);
       pdf.text(`Generated on: ${new Date().toLocaleString()}`, margin, pdfHeight - margin + 12);
-  
+
       // 4) Save the PDF
       const formattedDate = getCurrentDateFormatted();
       const filename = `${formattedDate}_AirReport.pdf`;
       pdf.save(filename);
-  
+
     } catch (error) {
       console.error('Error generating PDF:', error);
     }
@@ -169,22 +169,20 @@ const EnviAir = () => {
    
           <div className="flex gap-x-64 w-full items-center justify-center">
              <div className="img_btn_container flex flex-1 flex-row mt-2 gap-1 w-full ">
-            <Link to="/enviwaste" className="img_btn">
-              <img src={land_icon} alt="Land Pollution" />
-            </Link>
-            <Link to="/enviair" className="active_link">
-              <img src={airActive_icon} alt="Air Pollution" />
-            </Link>
-            <Link to="/enviwater" className="img_btn">
-              <img src={water_icon} alt="Water Pollution" />
-            </Link>
-           </div>
-          </div>
-          <div>
+                <Link to="/enviwaste" className="img_btn">
+                <img src={land_icon} alt="Land Pollution" />
+                </Link>
+                <Link to="/enviair" className="active_link">
+                <img src={airActive_icon} alt="Air Pollution" />
+                </Link>
+                <Link to="/enviwater" className="img_btn">
+                <img src={water_icon} alt="Water Pollution" />
+                </Link>
+            </div>
+            <div>
             <button className="btn flex-none" onClick={downloadReport}>Download Report</button>
           </div>
-        </div>
-      </div>
+          </div>
 
         <div id="air-quality-chart">
           <div className="dataContainer" style={{ padding: '50px', overflowY: 'auto' }}>
@@ -205,7 +203,8 @@ const EnviAir = () => {
             </div>
           </div>
         </div>
-      </div>
+    </div>
+  </div>
   )
 };
 
