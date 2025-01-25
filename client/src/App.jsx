@@ -64,6 +64,12 @@ function App() {
           <Route path="landpollution" element={<LandPollution />} />
           <Route path="waterpollution" element={<WaterPollution />} />
         </Route>
+        <Route>
+          <Route path="landing" element={<LandingPage />} />
+          <Route path="airpollution" element={<AirPollution />} />
+          <Route path="landpollution" element={<LandPollution />} />
+          <Route path="waterpollution" element={<WaterPollution />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

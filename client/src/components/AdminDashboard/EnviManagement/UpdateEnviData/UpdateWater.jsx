@@ -256,6 +256,7 @@ function UpdateWater() {
 
             <div className="flex justify-center">
               <button className="btn w-full p-2 bg-blue-500 text-white rounded">Submit</button></div>
+
                                 </form>
                             </div>
                         </div>

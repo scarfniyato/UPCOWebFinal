@@ -120,6 +120,7 @@ const Map = () => {
   };
 
   return (
+
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
       <h1 className="text-center mb-2 fbold text-xl">CvSU - Main Map</h1>
       

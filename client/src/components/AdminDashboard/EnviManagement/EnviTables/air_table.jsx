@@ -193,28 +193,6 @@ function AirQualityTable({ onMonthYearChange }) {
     setSelectedMonth(e.target.value);
   };
 
-  // Handle Delete Action
-  const handleDelete = async (id) => {
-    if (!id) {
-      alert('No ID found. Cannot delete data without an ID.');
-      return;
-    }
-
-    if (window.confirm(`Are you sure you want to delete this waste entry?`)) {
-      try {
-        await axios.delete(`${BACKEND_URL}/delete_air/${id}`);
-        alert("Waste entry deleted successfully.");
-
-        // Since you’re deleting a record, you might want to refetch data or clear local data
-        setData(null);
-
-      } catch (error) {
-        console.error("Error deleting waste data:", error);
-        alert("Failed to delete the entry. Please try again.");
-      }
-    }
-  };
-
   // Handle Update Action
   const handleUpdate = (id) => {
     if (!id) {
@@ -314,12 +292,6 @@ function AirQualityTable({ onMonthYearChange }) {
                           onClick={() => handleUpdate(data.id)}
                         >
                           Update
-                        </button>
-                        <button
-                          className="delete-btn"
-                          onClick={() => handleDelete(data.id)}
-                        >
-                          Delete
                         </button>
                       </div>
                     </td>

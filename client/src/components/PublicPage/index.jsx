@@ -78,6 +78,7 @@ function PublicPage() {
             Month:  <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 5px' }}></span>
             Year: <strong>{latestYear || 'Loading...'} </strong>
           </p> */}
+
           <Map />
         </div>
 
