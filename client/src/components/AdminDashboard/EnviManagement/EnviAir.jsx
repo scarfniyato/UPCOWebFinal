@@ -102,15 +102,9 @@ const EnviAir = () => {
         115
       );
   
-      // If the chart is too tall for one page, you can further scale it down,
-      // but in many cases letting it spill over is fine or you can handle multi-page logic.
       pdf.addImage(chartImgData, 'PNG', margin, currentY, contentWidth, chartDisplayHeight);
       currentY += chartDisplayHeight + 20; // gap after the chart
   
-      // If the chart extends beyond the page, you can add a new page here if needed:
-      // e.g. if (currentY + 20 > pdfHeight) { pdf.addPage(); currentY = margin; }
-  
-      // -- Table Title + Table --
       pdf.setFontSize(10);
       pdf.text(
         `Air Table Data For ${reportMonth_Table || 'All Months'} - ${reportYear_Table || 'All Years'}`,

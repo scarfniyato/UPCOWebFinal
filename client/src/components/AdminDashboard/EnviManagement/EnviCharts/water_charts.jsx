@@ -17,7 +17,7 @@ import './style.css'; // Adjust the path if necessary
 // Define tank names outside the component to maintain a stable reference
 const tankNames = ["U-mall Water Tank", "Main Water Tank"];
 
-function WaterQualityChart() {
+function WaterQualityChart({ onMonthYearChange2 }) {
   // State to store all fetched data
   const [allData, setAllData] = useState([]);
 
@@ -128,6 +128,13 @@ function WaterQualityChart() {
     setChartData(formattedData);
   }, [allData]); // Removed 'tankNames' from dependencies since it's now stable
 
+  useEffect(() => {
+    // Only call if the parent gave us a callback
+    if (onMonthYearChange2) {
+      onMonthYearChange2(selectedMonthRange, selectedYear);
+    }
+  }, [selectedMonthRange, selectedYear, onMonthYearChange2]);
+
   // Chart options with dynamic title based on selected month range and year
   const options = {
     responsive: true,
@@ -205,7 +212,7 @@ function WaterQualityChart() {
 
       {/* Filters: Month Range and Year */}
       <div className="dropdowns" style={{ margin: '10px 0', textAlign: 'left' }}>
-        <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
+        <div className="dropdown-row" data-html2canvas-ignore="true" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
 
           <div className='text-md flex-auto font-bold justify-center'>Water Quality in CvSU - Main Campus</div>
           {/* Dropdown for selecting year range */}

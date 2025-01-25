@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"; // For programmatic navigation
 const PARAMETERS = ["pH", "Color", "FecalColiform", "TSS", "Chloride", "Nitrate", "Phosphate"];
 const SOURCE_TANKS = ["U-mall Water Tank", "Main Water Tank"];
 
-function WaterQualityTable() {
+function WaterQualityTable({ onMonthYearChange }) {
     // State variables
     const [allData, setAllData] = useState([]);
     const [selectedMonthRange, setSelectedMonthRange] = useState("January-June");
@@ -110,6 +110,13 @@ function WaterQualityTable() {
         aggregate();
     }, [allData]);
 
+    useEffect(() => {
+        // Only call if the parent gave us a callback
+        if (onMonthYearChange) {
+          onMonthYearChange(selectedMonthRange, selectedYear);
+        }
+      }, [selectedMonthRange, selectedYear, onMonthYearChange]);
+
     // Handle Delete Action per Tank
     const handleDelete = async (tankId, tankName) => {
         if (window.confirm(`Are you sure you want to delete the data for "${tankName}"?`)) {
@@ -207,7 +214,7 @@ function WaterQualityTable() {
                             </tr>
                         ))}
                         {/* Actions Row */}
-                        <tr>
+                        <tr data-html2canvas-ignore="true">
                             <td><strong>Actions</strong></td>
                             {SOURCE_TANKS.map((tank, idx) => {
                                 const tankData = tank === "U-mall Water Tank" ? uMallData : mainTankData;

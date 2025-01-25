@@ -13,19 +13,21 @@ import jsPDF from 'jspdf';
 import UPCOLogo from '../../../assets/UPCO_logo1.png';
 import './style.css';
 
-function EnviWater() {
-  // Store the selected month/year from <WasteTable />
+const EnviWater = () => {
+  // Store the selected month/year from <AirTable />
   const [reportMonth_Table, setReportMonth_Table] = useState('');
   const [reportYear_Table, setReportYear_Table] = useState('');
+  const [reportMonth_Chart, setReportMonth_Chart] = useState('');
   const [reportYear_Chart, setReportYear_Chart] = useState('');
 
-  // Callback from <WasteTable />
+  // Callback from <AirTable />
   const handleMonthYearChange = (month, year) => {
     setReportMonth_Table(month);
     setReportYear_Table(year);
   };
 
-  const handleYearChange = (year) => {
+  const handleMonthYearChange2 = (month, year) => {
+    setReportMonth_Chart(month);
     setReportYear_Chart(year);
   };
 
@@ -38,141 +40,155 @@ function EnviWater() {
       img.src = src;
     });
   };
-
+  
   const getCurrentDateFormatted = () => {
     const now = new Date();
-    const year = now.getFullYear().toString().slice(2); // Get last two digits of the year
-    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed, add 1 to make it 1-indexed
-    const day = now.getDate().toString().padStart(2, '0');
+    const year = now.getFullYear().toString().slice(2); // last two digits
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
     return `${year}${month}${day}`;
   };
-
+  
   const downloadReport = async () => {
     try {
-      // 0) Hide last column in the table
-      const tableWrapper = document.getElementById('waste-quality-table');
-      tableWrapper.classList.add('hide-last-column');
-
-      // 0.1) Remove scroll constraints from table
-      const scrollContainer = tableWrapper.querySelector('.scroll-container');
-      const originalMaxHeight = scrollContainer.style.maxHeight;
-      const originalOverflowY = scrollContainer.style.overflowY;
-      scrollContainer.style.maxHeight = 'unset';
-      scrollContainer.style.overflowY = 'visible';
-
-      // 2) Capture the chart
-      const chartElement = document.getElementById('waste-quality-chart');
-      const chartCanvas = await html2canvas(chartElement, { scale: 2 });
-      const chartImgData = chartCanvas.toDataURL('image/png');
-
-      // 3) Capture the table
-      const tableCanvas = await html2canvas(tableWrapper, { scale: 2 });
-      const tableImgData = tableCanvas.toDataURL('image/png');
-
-      // 3.1) Restore the table scroll constraints
-      scrollContainer.style.maxHeight = originalMaxHeight;
-      scrollContainer.style.overflowY = originalOverflowY;
-
-      // 4) Create the PDF object
+      // 1) Capture the WASTE chart as an image
+      const wasteChartElement = document.getElementById('water-quality-chart');
+      const wasteChartCanvas = await html2canvas(wasteChartElement, { scale: 2 });
+      const wasteChartImgData = wasteChartCanvas.toDataURL('image/png');
+  
+      // 2) Capture the WATER table as an image
+      const waterTableElement = document.getElementById('water-quality-table');
+      const waterTableCanvas = await html2canvas(waterTableElement, { scale: 2 });
+      const waterTableImgData = waterTableCanvas.toDataURL('image/png');
+  
+      // 3) Create jsPDF instance
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'px',
-        format: 'a4'
+        format: 'a4',
       });
-
+  
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
-
+  
+      // -- Heading / Title / Logo --
       pdf.setFontSize(9);
-      pdf.text("Republic of the Philippines", 212, 35);
+      pdf.text("Republic of the Philippines", pdfWidth / 2 - 50, 35);
       pdf.setFontSize(14);
-      pdf.text("Cavite State University", 200, 45);
+      pdf.text("Cavite State University", pdfWidth / 2 - 60, 45);
       pdf.setFontSize(12);
-      pdf.text("Pollution Control Office", 205, 55);
+      pdf.text("Pollution Control Office", pdfWidth / 2 - 55, 55);
       pdf.setFontSize(9);
-      pdf.text("Indang, Cavite", 220, 65);
-
+      pdf.text("Indang, Cavite", pdfWidth / 2 - 35, 65);
+  
+      // We'll use a margin to keep content away from edges
+      const margin = 30;
+      const contentWidth = pdfWidth - margin * 2;
+  
       pdf.setFontSize(12);
-      pdf.text("Waste Data Report", 190, 90);
-      // 4.3) Add the UPCO logo in top-right corner (40x40)
+      pdf.text('Waste & Water Data Report', pdfWidth / 2 - 60, 90);
+  
+      // OPTIONAL: Add a logo in the top-right corner
       const logoImage = await loadImage(UPCOLogo);
-      pdf.addImage(
-        logoImage,
-        'PNG',
-        150,
-        25,
-        40,
-        40
-      );
-
-      // 5) Add the chart image on this first page
-      //    (Below the heading which ends around y=50)
-
-      const chartProps = pdf.getImageProperties(chartImgData);
-      const chartHeight = (chartProps.height * pdfWidth) / chartProps.width;
-
+      pdf.addImage(logoImage, 'PNG', pdfWidth - 70, 15, 40, 40);
+  
+      // ---------------------------
+      //  1) WASTE CHART
+      // ---------------------------
+      const wasteChartProps = pdf.getImageProperties(wasteChartImgData);
+      const wasteChartAspectRatio = wasteChartProps.height / wasteChartProps.width;
+      const wasteChartDisplayHeight = contentWidth * wasteChartAspectRatio;
+  
+      // We'll start placing content around y=120, under the heading
+      let currentY = 120;
+  
+      // Sub-title for waste chart
       pdf.setFontSize(10);
       pdf.text(
-        `Waste Chart For ${reportYear_Chart || 'All Years'}`,
-        20,
-        115
+        `Waste Chart For ${reportMonth_Chart || 'All Months'} - ${reportYear_Chart || 'All Years'}`,
+        margin,
+        currentY - 5 // a bit above the chart
       );
-      // If the chart is tall, it might spill off the page; for this example, we assume it fits:
-      pdf.addImage(chartImgData, 'PNG', 60, 120, pdfWidth, chartHeight);
-
-      // Calculate where the table subheader should start
-      const subHeaderY = 105 + chartHeight + 10; // 10 pixels below the chart
+  
+      // Place the chart
+      pdf.addImage(
+        wasteChartImgData,
+        'PNG',
+        margin,
+        currentY,
+        contentWidth,
+        wasteChartDisplayHeight
+      );
+      currentY += wasteChartDisplayHeight + 20; // gap after chart
+  
+      // ---------------------------
+      //  2) WATER TABLE
+      // ---------------------------
       pdf.setFontSize(10);
-      pdf.text(`Waste Table Data For ${reportMonth_Table || 'All Months'} - ${reportYear_Table || 'All Years'}`, 20, subHeaderY);
-
-      const tableStartY = 105 + chartHeight + 10; // adding 10 pixels space
-
-      const tableProps = pdf.getImageProperties(tableImgData);
-      const tableScaledHeight = (tableProps.height * pdfWidth) / tableProps.width;
-      const availableHeight = pdfHeight - tableStartY;
-      let yOffset = 0;
-
-      if (tableScaledHeight <= availableHeight) {
-        // If the table fits in the remaining page space, add it directly
-        pdf.addImage(tableImgData, 'PNG', 0, tableStartY, pdfWidth, tableScaledHeight);
+      pdf.text(
+        `Water Table Data For ${reportMonth_Table || 'All Months'} - ${reportYear_Table || 'All Years'}`,
+        margin,
+        currentY
+      );
+      const tableStartY = currentY + 10;
+  
+      // Calculate scaled dimensions for water table
+      const waterTableProps = pdf.getImageProperties(waterTableImgData);
+      const waterTableAspectRatio = waterTableProps.height / waterTableProps.width;
+      const waterTableDisplayHeight = contentWidth * waterTableAspectRatio;
+  
+      // How much vertical space is left on this page:
+      let availableHeight = pdfHeight - tableStartY - margin;
+  
+      if (waterTableDisplayHeight <= availableHeight) {
+        // Fits on the remainder of this page
+        pdf.addImage(
+          waterTableImgData,
+          'PNG',
+          margin,
+          tableStartY,
+          contentWidth,
+          waterTableDisplayHeight
+        );
       } else {
-        // If the table does not fit, handle it like a multi-page table
-        const pageCount = Math.ceil(tableScaledHeight / availableHeight);
-
+        // If the table is too big, split it across pages
+        const pageCount = Math.ceil(waterTableDisplayHeight / availableHeight);
+  
         for (let i = 0; i < pageCount; i++) {
+          // For subsequent pages, add a new page
           if (i > 0) {
             pdf.addPage();
-            yOffset = -(i * availableHeight);
           }
+          // Negative offset to show the correct "slice"
+          const offsetY = -(i * availableHeight);
+  
           pdf.addImage(
-            tableImgData,
+            waterTableImgData,
             'PNG',
-            0,
-            tableStartY + yOffset,
-            pdfWidth,
-            tableScaledHeight
+            margin,
+            tableStartY + offsetY,
+            contentWidth,
+            waterTableDisplayHeight
           );
         }
       }
-
-      const pageCount = Math.ceil(tableScaledHeight / availableHeight);
-
-      pdf.setPage(pageCount + 1); // +1 because the chart also takes up a page
+  
+      // ---------------------------
+      //  3) Footer on the last page
+      // ---------------------------
+      const finalPage = pdf.getNumberOfPages();
+      pdf.setPage(finalPage);
       pdf.setFontSize(10);
-      pdf.text("UPCO | Waste Data Report", 20, pdfHeight - 30);
-      pdf.setFontSize(10);
-      pdf.text("Generated on: " + new Date().toLocaleString(), 20, pdfHeight - 20);
-
-    const formattedDate = getCurrentDateFormatted();
-    const filename = `${formattedDate}_WasteReport.pdf`;
-    pdf.save(filename);
-
+      pdf.text('UPCO | Waste & Water Data Report', margin, pdfHeight - margin);
+      pdf.text(`Generated on: ${new Date().toLocaleString()}`, margin, pdfHeight - margin + 12);
+  
+      // 4) Save the PDF
+      const formattedDate = getCurrentDateFormatted();
+      const filename = `${formattedDate}_WasteWaterReport.pdf`;
+      pdf.save(filename);
+  
     } catch (error) {
-      console.error("Error generating PDF:", error);
-    } finally {
-      // Show the last column again
-      const tableWrapper = document.getElementById('waste-quality-table');
-      tableWrapper.classList.remove('hide-last-column');
+      console.error('Error generating PDF:', error);
     }
   };
 
@@ -197,26 +213,31 @@ function EnviWater() {
             </Link>
           </div>
           <div>
-              <button className="btn flex-none">Download Report</button>
-            </div>
-        </div>
-
-        <div className="dataContainer" style={{ padding: '10px', overflowY: 'auto' }}>
-          <div className="bg-white rounded-3xl shadow-lg p-5">
-            <WaterQualityChart />
+            <button className="btn flex-none" onClick={downloadReport}>Download Report</button>
           </div>
         </div>
+
+        <div id="water-quality-chart">
+          <div className="dataContainer" style={{ padding: '10px', overflowY: 'auto' }}>
+            <div className="bg-white rounded-3xl shadow-lg p-5">
+              <WaterQualityChart onMonthYearChange2={handleMonthYearChange2} />
+            </div>
+          </div>
+        </div>
+
         <div className="addData_btn">
           <Link to="/addwater" className="btn">
             Add New Data
           </Link>
         </div>
-        <div className="dataContainer" style={{ padding: '30px', overflowY: 'auto' }}>
-          <div className="" style={{ maxHeight: '570px', overflowY: 'auto', paddingLeft: '30px', paddingRight: '30px' }}>
-            <WaterQualityTable />
+
+        <div id="water-quality-table">
+          <div className="dataContainer" style={{ padding: '30px', overflowY: 'auto' }}>
+            <div className="" style={{ maxHeight: '570px', overflowY: 'auto', paddingLeft: '30px', paddingRight: '30px' }}>
+              <WaterQualityTable onMonthYearChange={handleMonthYearChange} />
+            </div>
           </div>
         </div>
-
 
 
       </div>
