@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
 function AddWaste() {
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
@@ -65,31 +64,31 @@ function AddWaste() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center font-main">
-      <div className="dataContainer w-1/2">
-        <div className='justify-center ml-10'>
+    <div className="flex flex-col items-center justify-center min-h-screen font-main">
+      <div className="dataContainer w-full max-w-md p-8 bg-white shadow-md rounded-md">
+        <div className='justify-center'>
           <form onSubmit={handleSubmit}>
-            <h4 className="text-xl"><strong>Add Solid Waste Data</strong></h4>
-            <p>(Do not include commas in values)</p><br/>
-            {error && <p className="text-danger">{error}</p>}
+            <h4 className="text-2xl font-bold mb-4 text-center">Add Solid Waste Data</h4>
+            <p className="text-center mb-4">(Do not include commas in values)</p>
+            {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
 
             {/* Year */}
-            <div className='mb-2'>
-              <label  className='mr-2 fbold'>Year:</label>
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>Year:</label>
               <input
                 type="text"
                 placeholder='Enter Year'
-                className='form-control'
+                className='form-control w-full p-2 border border-gray-300 rounded'
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
               />
             </div>
 
             {/* Month (Dropdown) */}
-            <div className='mb-2'>
-              <label className='mr-2 fbold'>Month:</label>
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>Month:</label>
               <select
-                className='form-control dropdown text-sm'
+                className='form-control w-full p-2 border border-gray-300 rounded'
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
               >
@@ -103,43 +102,45 @@ function AddWaste() {
             </div>
 
             {/* Residual */}
-            <div className='mb-2'>
-              <label className='mr-2 fbold'>Residual (kg):</label>
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>Residual (kg):</label>
               <input
                 type="text"
                 placeholder='Enter Quantity'
-                className='form-control'
+                className='form-control w-full p-2 border border-gray-300 rounded'
                 value={residual}
                 onChange={(e) => setResidual(e.target.value)}
               />
             </div>
 
             {/* Recyclable */}
-            <div className='mb-2'>
-              <label className='mr-2 fbold'>Recyclable (kg):</label>
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>Recyclable (kg):</label>
               <input
                 type="text"
                 placeholder='Enter Quantity'
-                className='form-control'
+                className='form-control w-full p-2 border border-gray-300 rounded'
                 value={recyclable}
                 onChange={(e) => setRecyclable(e.target.value)}
               />
             </div>
 
             {/* Biodegradable */}
-            <div className='mb-2'>
-              <label className='mr-2 fbold'>Biodegradable (kg):</label>
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>Biodegradable (kg):</label>
               <input
                 type="text"
                 placeholder='Enter Quantity'
-                className='form-control'
+                className='form-control w-full p-2 border border-gray-300 rounded'
                 value={biodegradable}
                 onChange={(e) => setBiodegradable(e.target.value)}
               />
             </div>
 
             {/* Submit Button */}
-            <button className='btn'>Submit</button>
+            <div className='flex justify-center'>
+              <button className='btn w-full p-2 bg-blue-500 text-white rounded'>Submit</button>
+            </div>
           </form>
         </div>
       </div>

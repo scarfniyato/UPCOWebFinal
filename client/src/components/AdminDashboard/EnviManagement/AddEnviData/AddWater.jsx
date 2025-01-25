@@ -89,145 +89,150 @@ function AddWater() {
     };
 
     return (
-        <div className='bg'>
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <div className="dataContainer">
-                            <div className='text-center'>
-                                <form onSubmit={handleSubmit}>
-                                    <h4><strong>Add Water Quality Data </strong></h4> <p>(Do not include commas in values)</p>
-                                    {error && <p className="text-danger">{error}</p>}
-                                    
-                                    <div className="row">
-                                        <div className='col-md-6 mb-3'>
-                                            <label>Year:</label>
-                                            <input
-                                                type="text"
-                                                placeholder='Enter Year'
-                                                className='form-control'
-                                                value={year}
-                                                onChange={(e) => setYear(e.target.value)}
-                                            />
-                                        </div>
-                                        
-                                        <div className='col-md-6 mb-3'>
-                                            <label>Month Range:</label>
-                                            <select
-                                                className='form-control'
-                                                value={month}
-                                                onChange={(e) => setMonth(e.target.value)}
-                                            >
-                                                {options_month.map((option, index) => (
-                                                    <option key={index} value={option.value}>
-                                                        {option.label}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
+        <div className="flex flex-col items-center justify-center min-h-screen font-main">
+            <div className="dataContainer w-full max-w-4xl p-8 bg-white shadow-md rounded-md">
+                <div className='justify-center'>
+                    <form onSubmit={handleSubmit}>
+                        <h4 className="text-2xl font-bold mb-4 text-center">Add Water Quality Data</h4>
+                        <p className="text-center mb-4">(Do not include commas in values)</p>
+                        {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
 
-                                        <div className="col-md-6 mb-3">
-                                            <label htmlFor="sourceTankSelect" className="form-label">
-                                                Source Tank:
-                                            </label>
-                                            <select
-                                                id="sourceTankSelect"
-                                                className="form-select"
-                                                value={source_tank}
-                                                onChange={(e) => setSource_tank(e.target.value)}
-                                            >
-                                                <option value="">Select Source Tank</option>
-                                                {options_source_tank.map((source, index) => (
-                                                    <option key={index} value={source}>
-                                                        {source}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                        
-                                        <div className='col-md-6 mb-3'>
-                                            <label>pH:</label>
-                                            <input
-                                                type="text"
-                                                placeholder='Enter pH'
-                                                className='form-control'
-                                                value={pH}
-                                                onChange={(e) => setPH(e.target.value)}
-                                            />
-                                        </div>
-                                        
-                                        <div className='col-md-6 mb-3'>
-                                            <label>Color:</label>
-                                            <input
-                                                type="text"
-                                                placeholder='Enter Color Value'
-                                                className='form-control'
-                                                value={Color}
-                                                onChange={(e) => setColor(e.target.value)}
-                                            />
-                                        </div>
-                                        
-                                        <div className='col-md-6 mb-3'>
-                                            <label>Fecal Coliform:</label>
-                                            <input
-                                                type="text"
-                                                placeholder='Enter Fecal Coliform Value'
-                                                className='form-control'
-                                                value={FecalColiform}
-                                                onChange={(e) => setFecalColiform(e.target.value)}
-                                            />
-                                        </div>
-                                        
-                                        <div className='col-md-6 mb-3'>
-                                            <label>TSS:</label>
-                                            <input
-                                                type="text"
-                                                placeholder='Enter TSS Value'
-                                                className='form-control'
-                                                value={TSS}
-                                                onChange={(e) => setTSS(e.target.value)}
-                                            />
-                                        </div>
-                                        
-                                        <div className='col-md-6 mb-3'>
-                                            <label>Chloride:</label>
-                                            <input
-                                                type="text"
-                                                placeholder='Enter Chloride Value'
-                                                className='form-control'
-                                                value={Chloride}
-                                                onChange={(e) => setChloride(e.target.value)}
-                                            />
-                                        </div>
-                                        
-                                        <div className='col-md-6 mb-3'>
-                                            <label>Nitrate:</label>
-                                            <input
-                                                type="text"
-                                                placeholder='Enter Nitrate Value'
-                                                className='form-control'
-                                                value={Nitrate}
-                                                onChange={(e) => setNitrate(e.target.value)}
-                                            />
-                                        </div>
-                                        
-                                        <div className='col-md-6 mb-3'>
-                                            <label>Phosphate:</label>
-                                            <input
-                                                type="text"
-                                                placeholder='Enter Phosphate Value'
-                                                className='form-control'
-                                                value={Phosphate}
-                                                onChange={(e) => setPhosphate(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    
-                                    <button type="submit" className='btn'>Submit</button>
-                                </form>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {/* Year */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>Year:</label>
+                                <input
+                                    type="text"
+                                    placeholder='Enter Year'
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={year}
+                                    onChange={(e) => setYear(e.target.value)}
+                                />
+                            </div>
+
+                            {/* Month Range */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>Month Range:</label>
+                                <select
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={month}
+                                    onChange={(e) => setMonth(e.target.value)}
+                                >
+                                    {options_month.map((option, index) => (
+                                        <option key={index} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Source Tank */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>Source Tank:</label>
+                                <select
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={source_tank}
+                                    onChange={(e) => setSource_tank(e.target.value)}
+                                >
+                                    <option value="">Select Source Tank</option>
+                                    {options_source_tank.map((source, index) => (
+                                        <option key={index} value={source}>
+                                            {source}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* pH */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>pH:</label>
+                                <input
+                                    type="text"
+                                    placeholder='Enter pH'
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={pH}
+                                    onChange={(e) => setPH(e.target.value)}
+                                />
+                            </div>
+
+                            {/* Color */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>Color:</label>
+                                <input
+                                    type="text"
+                                    placeholder='Enter Color Value'
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={Color}
+                                    onChange={(e) => setColor(e.target.value)}
+                                />
+                            </div>
+
+                            {/* Fecal Coliform */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>Fecal Coliform:</label>
+                                <input
+                                    type="text"
+                                    placeholder='Enter Fecal Coliform Value'
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={FecalColiform}
+                                    onChange={(e) => setFecalColiform(e.target.value)}
+                                />
+                            </div>
+
+                            {/* TSS */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>TSS:</label>
+                                <input
+                                    type="text"
+                                    placeholder='Enter TSS Value'
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={TSS}
+                                    onChange={(e) => setTSS(e.target.value)}
+                                />
+                            </div>
+
+                            {/* Chloride */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>Chloride:</label>
+                                <input
+                                    type="text"
+                                    placeholder='Enter Chloride Value'
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={Chloride}
+                                    onChange={(e) => setChloride(e.target.value)}
+                                />
+                            </div>
+
+                            {/* Nitrate */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>Nitrate:</label>
+                                <input
+                                    type="text"
+                                    placeholder='Enter Nitrate Value'
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={Nitrate}
+                                    onChange={(e) => setNitrate(e.target.value)}
+                                />
+                            </div>
+
+                            {/* Phosphate */}
+                            <div className='mb-4'>
+                                <label className='block mb-2 font-bold'>Phosphate:</label>
+                                <input
+                                    type="text"
+                                    placeholder='Enter Phosphate Value'
+                                    className='form-control w-full p-2 border border-gray-300 rounded'
+                                    value={Phosphate}
+                                    onChange={(e) => setPhosphate(e.target.value)}
+                                />
                             </div>
                         </div>
-                    </div>
+
+                        {/* Submit Button */}
+                        <div className='flex justify-center'>
+                            <button className='btn w-full p-2 bg-blue-500 text-white rounded'>Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
