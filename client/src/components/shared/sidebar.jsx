@@ -9,7 +9,8 @@ const sidebar = () => {
   return (
     <div className='flex flex-col bg-dark text-white p-4 w-64'>
         <div className='flex items-center gap-2 px-1 mb-3'>  
-            <img src='/UPCO_logo.png' className='size-11'/>
+            <Link to="/landing">
+            <img src='/UPCO_logo.png' className='size-11'/></Link>
             <span className='font-bold'>UPCO | CVSU<br/>
             <span className='text-xs font-normal'>State of the Environment</span>
             </span>

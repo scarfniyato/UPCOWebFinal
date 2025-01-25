@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './navBarStyle.css'; // Import styles
 import logo from '../../../src/assets/logo.png'; // Import logo
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
-function Navbar() {
+function NavbarSimple() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home'); // State to track active section
 
@@ -38,35 +39,26 @@ function Navbar() {
       <div className="navdiv">
         {/* Logo Section */}
         <div className="logo">
-          <a href="#home">
+          <Link to="/landing">
             <img src={logo} alt="University Logo" />
-          </a>
+            </Link>
         </div>
 
         {/* Navigation Links */}
         <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
-          <ul>
-            <li>
-              <a href="#home" className={activeSection === 'home' ? 'active' : ''}>
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#state-of-environment" className={activeSection === 'state-of-environment' ? 'active' : ''}>
-                State of the Environment
-              </a>
-            </li>
-            <li>
-              <a href="#policies" className={activeSection === 'policies' ? 'active' : ''}>
-                Environmental Policies
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>
-                Contact
-              </a>
-            </li>
-          </ul>
+        <ul>
+          <li>
+            <Link to="/landing" className={activeSection === 'home' ? 'active' : ''}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to=" " className={activeSection === 'state-of-environment' ? 'active' : ''}>
+              State of the Environment
+            </Link>
+          </li>
+        </ul>
+
         </div>
 
         {/* Hamburger Menu */}
@@ -80,4 +72,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavbarSimple;

@@ -71,80 +71,86 @@ function AddAir() {
   };
 
   return (
-    <div className='bg'>
-      <div className="dataContainer" >
-      <div className='text-center'>
-        <form onSubmit={handleSubmit}>
-          <h4><strong>Add Air Quality Data</strong></h4>
-          <p>(Do not include commas in values)</p>
-          {error && <p className="text-danger">{error}</p>}
+    <div className="flex flex-col items-center justify-center min-h-screen font-main">
+      <div className="dataContainer w-full max-w-md p-8 bg-white shadow-md rounded-md">
+        <div className='justify-center'>
+          <form onSubmit={handleSubmit}>
+            <h4 className="text-2xl font-bold mb-4 text-center">Add Air Quality Data</h4>
+            <p className="text-center mb-4">(Do not include commas in values)</p>
+            {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
 
-          {/* Year */}
-          <div className='mb-2'>
-            <label>Year:</label>
-            <input 
-              type="text" 
-              placeholder='Enter Year' 
-              className='form-control'
-              value={year}
-              onChange={(e) => setYear(e.target.value)} 
-            />
-          </div>
+            {/* Year */}
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>Year:</label>
+              <input
+                type="text"
+                placeholder='Enter Year'
+                className='form-control w-full p-2 border border-gray-300 rounded'
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+              />
+            </div>
 
-          {/* Month (Dropdown) */}
-          <div className='mb-2'>
-            <label>Month:</label>
-            <select
-              className='form-control'
-              value={month}
-              onChange={(e) => setMonth(e.target.value)}
-            >
-              <option value="">Select Month</option>
-              {monthsList.map((m, idx) => (
-                <option key={idx} value={m}>
-                  {m}
-                </option>
-              ))}
-            </select>
-          </div>
+            {/* Month (Dropdown) */}
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>Month:</label>
+              <select
+                className='form-control w-full p-2 border border-gray-300 rounded'
+                value={month}
+                onChange={(e) => setMonth(e.target.value)}
+              >
+                <option value="">Select Month</option>
+                {monthsList.map((m, idx) => (
+                  <option key={idx} value={m}>
+                    {m}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className='mb-2'>
-            <label>CO:</label>
-            <input 
-              type="text" 
-              placeholder='Enter Data' 
-              className='form-control'
-              value={CO}
-              onChange={(e) => setCO(e.target.value)}
-            />
-          </div>
+            {/* CO */}
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>CO:</label>
+              <input
+                type="text"
+                placeholder='Enter Data'
+                className='form-control w-full p-2 border border-gray-300 rounded'
+                value={CO}
+                onChange={(e) => setCO(e.target.value)}
+              />
+            </div>
 
-          <div className='mb-2'>
-            <label>NO2:</label>
-            <input 
-              type="text" 
-              placeholder='Enter Data' 
-              className='form-control'
-              value={NO2}
-              onChange={(e) => setNO2(e.target.value)}
-            />
-          </div>
+            {/* NO2 */}
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>NO2:</label>
+              <input
+                type="text"
+                placeholder='Enter Data'
+                className='form-control w-full p-2 border border-gray-300 rounded'
+                value={NO2}
+                onChange={(e) => setNO2(e.target.value)}
+              />
+            </div>
 
-          <div className='mb-2'>
-            <label>SO2:</label>
-            <input 
-              type="text" 
-              placeholder='Enter Data' 
-              className='form-control'
-              value={SO2}
-              onChange={(e) => setSO2(e.target.value)}
-            />
-          </div>
+            {/* SO2 */}
+            <div className='mb-4'>
+              <label className='block mb-2 font-bold'>SO2:</label>
+              <input
+                type="text"
+                placeholder='Enter Data'
+                className='form-control w-full p-2 border border-gray-300 rounded'
+                value={SO2}
+                onChange={(e) => setSO2(e.target.value)}
+              />
+            </div>
 
-          <button className='btn'>Submit</button>
-        </form>
+            {/* Submit Button */}
+            <div className='flex justify-center'>
+              <button className='btn w-full p-2 bg-blue-500 text-white rounded'>Submit</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

@@ -73,7 +73,6 @@ function AddUserAccount() {
                         label="Enter Password"
                         type="password"
                     />
-                    
                     <Button
                         type="submit"
                         variant="contained"

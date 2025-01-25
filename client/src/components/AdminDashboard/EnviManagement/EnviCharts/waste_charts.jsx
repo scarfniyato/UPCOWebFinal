@@ -154,7 +154,7 @@ function WasteQualityChart({ onYearChange }) {
               className="form-select dropdown"
               value={selectedYear}
               onChange={handleYearChange}
-              style={{ fontSize: '13px', padding: '2px', width: '60px' }}
+              style={{ fontSize: '13px', padding: '2px', width: 'auto' }}
             >
               <option value="">All Years</option>
               {availableYears.map((year) => (
@@ -167,8 +167,8 @@ function WasteQualityChart({ onYearChange }) {
         </div>
       </div>
 
-      <div style={{ width: '900px', height: '400px' }}> {/* Adjust the width and height here */}
-        <Line data={chartData} options={options} />
+      <div style={{ width: '100%', height: '400px', alignItems: 'center'}}> {/* Adjust the width and height here */}
+        <Line data={chartData} options={options}/>
       </div>
 
       {/* Custom Legend */}

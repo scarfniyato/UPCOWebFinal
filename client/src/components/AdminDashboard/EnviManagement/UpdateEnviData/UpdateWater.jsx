@@ -125,19 +125,19 @@ function UpdateWater() {
     };
 
     return (
-        <div className='bg'>
-            <div className="container">
-                <div className="row justify-content-center">
+        <div>
+            <div className="container w-2/5">
+                <div className="row items-center ">
                     <div className="col-lg-8 col-md-10 col-sm-12">
                         <div className="dataContainer">
-                            <div className='text-center'>
+                            <div className='text-left pl-5'>
                                 <form onSubmit={handleUpdate}>
-                                    <h4><strong>Update Water Quality Data </strong></h4> <p>(Do not include commas in values)</p>
+                                    <h4><strong>Update Water Quality Data </strong></h4> <p>(Do not include commas in values)</p><br/>
                                     {error && <p className="text-danger">{error}</p>}
                                     
-                                    <div className="row">
+                                    <div className="row font-main">
                                         <div className='col-md-6 mb-3'>
-                                            <label>Year:</label>
+                                            <label className="fbold pr-2">Year:</label>
                                             <input
                                                 type="text"
                                                 placeholder='Enter Year'
@@ -148,7 +148,7 @@ function UpdateWater() {
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
-                                            <label>Month Range:</label>
+                                            <label className="fbold pr-2">Month Range:</label>
                                             <select
                                                 className='form-control'
                                                 value={month}
@@ -163,7 +163,7 @@ function UpdateWater() {
                                         </div>
 
                                         <div className="col-md-6 mb-3">
-                                            <label htmlFor="sourceTankSelect" className="form-label">
+                                            <label htmlFor="sourceTankSelect" className="form-label fbold pr-2">
                                                 Source Tank:
                                             </label>
                                             <select
@@ -182,7 +182,7 @@ function UpdateWater() {
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
-                                            <label>pH:</label>
+                                            <label className="fbold pr-2">pH:</label>
                                             <input
                                                 type="text"
                                                 placeholder='Enter pH'
@@ -193,7 +193,7 @@ function UpdateWater() {
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
-                                            <label>Color:</label>
+                                            <label className="fbold pr-2">Color:</label>
                                             <input
                                                 type="text"
                                                 placeholder='Enter Color Value'
@@ -204,7 +204,7 @@ function UpdateWater() {
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
-                                            <label>Fecal Coliform:</label>
+                                            <label className="fbold pr-2">Fecal Coliform:</label>
                                             <input
                                                 type="text"
                                                 placeholder='Enter Fecal Coliform Value'
@@ -215,7 +215,7 @@ function UpdateWater() {
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
-                                            <label>TSS:</label>
+                                            <label className="fbold pr-2">TSS:</label>
                                             <input
                                                 type="text"
                                                 placeholder='Enter TSS Value'
@@ -226,7 +226,7 @@ function UpdateWater() {
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
-                                            <label>Chloride:</label>
+                                            <label className="fbold pr-2">Chloride:</label>
                                             <input
                                                 type="text"
                                                 placeholder='Enter Chloride Value'
@@ -237,7 +237,7 @@ function UpdateWater() {
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
-                                            <label>Nitrate:</label>
+                                            <label className="fbold pr-2">Nitrate:</label>
                                             <input
                                                 type="text"
                                                 placeholder='Enter Nitrate Value'
@@ -248,7 +248,7 @@ function UpdateWater() {
                                         </div>
                                         
                                         <div className='col-md-6 mb-3'>
-                                            <label>Phosphate:</label>
+                                            <label className="fbold pr-2">Phosphate:</label>
                                             <input
                                                 type="text"
                                                 placeholder='Enter Phosphate Value'
@@ -258,8 +258,7 @@ function UpdateWater() {
                                             />
                                         </div>
                                     </div>
-                                    
-                                    <button type="submit" className='btn'>Submit</button>
+                                    <button type="submit" className='btn w-full'>Submit</button>
                                 </form>
                             </div>
                         </div>

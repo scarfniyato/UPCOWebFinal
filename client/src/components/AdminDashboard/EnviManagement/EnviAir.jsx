@@ -160,15 +160,15 @@ const EnviAir = () => {
   };
 
   return (
-    <div>
-      <div className="p-2">
-        <div className='flex gap-x-64 w-full'>
-          <div className='flex-1 flex items-center head'>Environmental Data Management</div>
-          <div className='items-center flex-none'><MdAccountCircle size={50} /></div>
-        </div>
-
-        <div className="flex gap-x-64 w-full items-center justify-center">
-          <div className="img_btn_container flex flex-1 flex-row mt-2 gap-1 w-full ">
+   <div>
+         <div className="p-2">
+           <div className='flex gap-x-64 w-full'>
+             <div className='flex-1 flex items-center head'>Environmental Data Management</div>
+             <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
+           </div>
+   
+          <div className="flex gap-x-64 w-full items-center justify-center">
+             <div className="img_btn_container flex flex-1 flex-row mt-2 gap-1 w-full ">
             <Link to="/enviwaste" className="img_btn">
               <img src={land_icon} alt="Land Pollution" />
             </Link>
@@ -178,6 +178,7 @@ const EnviAir = () => {
             <Link to="/enviwater" className="img_btn">
               <img src={water_icon} alt="Water Pollution" />
             </Link>
+           </div>
           </div>
           <div>
             <button className="btn flex-none" onClick={downloadReport}>Download Report</button>
