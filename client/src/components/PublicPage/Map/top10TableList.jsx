@@ -56,14 +56,14 @@ const Top10TableList = () => {
 
   useEffect(() => {
     fetchAvailableYears();
-    fetchLatestWasteData(); // Fetch and set the latest month and year
+    fetchLatestWasteData();
   }, []);
 
   useEffect(() => {
     fetchTop10Data();
   }, [month, year]);
 
-  // Generate the color scale dynamically using D3
+  //color coding using D3
   const colorScale = d3
     .scaleSequential(d3.interpolateYlOrRd)
     .domain([Math.min(...data.map((d) => d.totalKg)), Math.max(...data.map((d) => d.totalKg))]);
@@ -87,18 +87,7 @@ const Top10TableList = () => {
               style={{ textAlign: "center", textAlignLast: "center", width: "150px" }}
             >
               {[
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
+                "January","February","March","April","May","June","July","August","September","October","November","December",
               ].map((m) => (
                 <option key={m} value={m}>
                   {m}

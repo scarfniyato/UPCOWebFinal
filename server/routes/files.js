@@ -3,20 +3,20 @@ const router = express.Router();
 const multer = require('multer');
 const { google } = require('googleapis');
 const fs = require('fs');
-const File = require('../models/File'); // MongoDB Model
+const File = require('../models/File');
 
-// Multer setup for temporary file uploads
+//Multer setup for temporary file uploads
 const upload = multer({ dest: 'uploads/' });
 
-// Google Drive API setup
+//Google Drive API setup
 const auth = new google.auth.GoogleAuth({
-    keyFile: 'credentials.json', // Ensure this file exists in the server folder
+    keyFile: 'credentials.json',
     scopes: ['https://www.googleapis.com/auth/drive'],
 });
 const drive = google.drive({ version: 'v3', auth });
-const FOLDER_ID = '1gWUDsimvHzMd3wkKoueBvEIc-8cJ19rE'; // Replace with your Google Drive folder ID
+const FOLDER_ID = '1gWUDsimvHzMd3wkKoueBvEIc-8cJ19rE'; 
 
-// Upload a file
+//Upload file
 router.post('/upload', upload.array('file', 10), async (req, res) => {
     try {
         if (!req.files || req.files.length === 0) {
@@ -28,7 +28,7 @@ router.post('/upload', upload.array('file', 10), async (req, res) => {
         for (const file of req.files) {
             const filePath = file.path;
 
-            // Upload each file to Google Drive
+            //Upload each file to Google Drive
             const response = await drive.files.create({
                 requestBody: {
                     name: file.originalname,
@@ -42,7 +42,7 @@ router.post('/upload', upload.array('file', 10), async (req, res) => {
 
             const fileId = response.data.id;
 
-            // Make the file publicly accessible
+            //Make file publicly accessible
             await drive.permissions.create({
                 fileId,
                 requestBody: {
@@ -53,7 +53,7 @@ router.post('/upload', upload.array('file', 10), async (req, res) => {
 
             const fileLink = `https://drive.google.com/file/d/${fileId}/view`;
 
-            // Save metadata to MongoDB
+            //Save metadata to MongoDB
             const newFile = new File({
                 title: file.originalname,
                 link: fileLink,
@@ -62,23 +62,23 @@ router.post('/upload', upload.array('file', 10), async (req, res) => {
             });
             await newFile.save();
 
-            // Remove the local file
+            //Remove the local file
             fs.unlinkSync(filePath);
 
             uploadedFiles.push(newFile);
         }
 
-        res.status(201).json(uploadedFiles); // Send metadata of all uploaded files as response
+        res.status(201).json(uploadedFiles); //Send metadata of all uploaded files as response
     } catch (error) {
         console.error('Error uploading files:', error.message);
         res.status(500).send('Error uploading files.');
     }
 });
 
-// Fetch all files
+//Fetch all files
 router.get('/', async (req, res) => {
     try {
-        const files = await File.find(); // Fetch files from MongoDB
+        const files = await File.find(); //Fetch files from MongoDB
         res.json(files);
     } catch (error) {
         console.error('Error fetching files:', error.message);
@@ -86,7 +86,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Delete a file
+//Delete a file
 router.delete('/:id', async (req, res) => {
     try {
         console.log('Received delete request for file ID:', req.params.id);

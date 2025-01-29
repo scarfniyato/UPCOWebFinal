@@ -10,9 +10,6 @@ const jwt = require('jsonwebtoken');
 const connection = require("./db");
 const bodyParser = require('body-parser');
 
-//Import your models (if they’re needed in other routes)
-//const userModel = require('./models/Users');
-//const userModel2 = require('./models/solid_waste');
 const userModel3 = require('./models/wastedata');
 const userModel4 = require('./models/waterdata');
 const userModel5 = require('./models/airdata');
@@ -104,7 +101,6 @@ app.post("/admin-login", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 
 //---------------------------CHARTS---------------------------------

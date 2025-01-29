@@ -7,8 +7,8 @@ function ForgotPassword() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
-    const [isDisabled, setIsDisabled] = useState(false); // To disable the button
-    const [timer, setTimer] = useState(0); // Timer state
+    const [isDisabled, setIsDisabled] = useState(false); //disable the button if clicked for 60s
+    const [timer, setTimer] = useState(0); //timer
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ function ForgotPassword() {
             );
             setMessage(response.data.message);
 
-            // Start the timer
+            //start the timer
             setIsDisabled(true);
             setTimer(60);
         } catch (err) {
@@ -27,7 +27,7 @@ function ForgotPassword() {
         }
     };
 
-    // Effect to handle the timer countdown
+    //effect to handle the timer countdown
     useEffect(() => {
         let interval;
         if (timer > 0) {
@@ -35,9 +35,9 @@ function ForgotPassword() {
                 setTimer((prevTimer) => prevTimer - 1);
             }, 1000);
         } else if (timer === 0) {
-            setIsDisabled(false); // Re-enable the button after timer ends
+            setIsDisabled(false); //re-enable the button after timer ends
         }
-        return () => clearInterval(interval); // Cleanup interval on component unmount
+        return () => clearInterval(interval); //cleanup interval 
     }, [timer]);
 
     return (
@@ -72,7 +72,7 @@ function ForgotPassword() {
                         <button
                             type="submit"
                             className="btn"
-                            disabled={isDisabled} // Disable button when timer is running
+                            disabled={isDisabled} //disable button when timer is running
                         >
                             {isDisabled ? `Send Reset Link (${timer}s)` : "Send Reset Link"}
                         </button>

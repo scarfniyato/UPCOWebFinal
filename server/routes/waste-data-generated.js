@@ -23,11 +23,11 @@ router.get('/waste-data-generated', async (req, res) => {
   }
 });
 
-// Get all distinct years that exist in the database, sorted in descending order
+//Get all years exist in db in descending order
 router.get('/waste-data-years', async (req, res) => {
   try {
     const years = await College.distinct('year');
-    const sortedYears = years.sort((a, b) => b - a); // Sort years in descending order
+    const sortedYears = years.sort((a, b) => b - a); //Sort years in descending order
     res.json(sortedYears);
   } catch (error) {
     console.error('Error fetching years:', error);
@@ -35,7 +35,7 @@ router.get('/waste-data-years', async (req, res) => {
   }
 });
 
-// Get top 10 waste generators by month and year
+//Get top 10 waste generators by month and year
 router.get('/top10-waste-generators', async (req, res) => {
   const { month, year } = req.query;
 
@@ -45,8 +45,8 @@ router.get('/top10-waste-generators', async (req, res) => {
     }
 
     const top10Data = await College.find({ month, year: Number(year) })
-      .sort({ totalKg: -1 }) // Sort by totalKg in descending order
-      .limit(10); // Limit to top 10 results
+      .sort({ totalKg: -1 }) //Sort by totalKg in descending order
+      .limit(10); //Limit to top 10 results
 
     res.json(top10Data);
   } catch (error) {
@@ -55,14 +55,14 @@ router.get('/top10-waste-generators', async (req, res) => {
   }
 });
 
-// Get the latest waste data for each college
+//Get the latest waste data for each college
 router.get('/latest-waste-data', async (req, res) => {
   try {
     const latestData = await College.aggregate([
-      { $sort: { year: -1, month: -1 } }, // Sort by year and month in descending order
+      { $sort: { year: -1, month: -1 } }, //year: descending; month: ascending
       {
         $group: {
-          _id: '$id', // Group by college ID
+          _id: '$id', 
           id: { $first: '$id' },
           name: { $first: '$name' },
           totalKg: { $first: '$totalKg' },

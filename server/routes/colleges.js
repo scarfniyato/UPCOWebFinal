@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const College = require('../models/College'); // Make sure the model is imported
+const College = require('../models/College');
 
-// Fetch all colleges
+//Fetch all colleges
 router.get('/colleges', (req, res) => {
   const colleges = [
     { id: 1, name: 'College of Engineering and Information Technology' },
@@ -19,18 +19,17 @@ router.get('/colleges', (req, res) => {
   res.json(colleges);
 });
 
-// Get the latest month and year with data
+//Get latest month and year with data
 router.get('/latest-waste-data', async (req, res) => {
   try {
-    // Define a mapping for months to their numerical values
     const monthMapping = {
       January: 1, February: 2, March: 3, April: 4, May: 5, June: 6,
       July: 7, August: 8, September: 9, October: 10, November: 11, December: 12,
     };
 
-    // Fetch all records and sort by year and numerical month
+    //Fetch records then sort by year and numerical month
     const latestData = await College.find()
-      .sort({ year: -1, month: 1 }) // Sort year descending and month ascending
+      .sort({ year: -1, month: 1 }) //year: descending; month: ascending
       .then(data =>
         data.sort((a, b) => {
           if (b.year !== a.year) return b.year - a.year;
@@ -40,7 +39,7 @@ router.get('/latest-waste-data', async (req, res) => {
 
     if (!latestData) return res.status(404).json({ message: 'No data available' });
 
-    // Return the latest month and year
+    //Return the latest month and year
     res.json({ month: latestData.month, year: latestData.year });
   } catch (error) {
     console.error('Error fetching latest waste data:', error);
@@ -48,28 +47,28 @@ router.get('/latest-waste-data', async (req, res) => {
   }
 });
 
-// Check if waste data exists for a specific month and year
+//Check if waste data exists for a specific month and year
 router.get('/waste-data-exists', async (req, res) => {
   const { month, year } = req.query;
 
   try {
     const exists = await College.exists({ month, year: Number(year) });
-    res.json(!!exists); // Return true if exists, false otherwise
+    res.json(!!exists);
   } catch (error) {
     console.error('Error checking for existing waste data:', error);
     res.status(500).json({ message: 'Failed to check for existing data' });
   }
 });
 
-// Save waste data
+//For Saving waste data
 router.post('/waste-data', async (req, res) => {
   try {
-    const data = req.body; // Expect an array of data
+    const data = req.body; 
     if (!data || !Array.isArray(data)) {
       return res.status(400).json({ message: 'Invalid payload' });
     }
 
-    // Save all data into the database
+    //Save all data into the database
     await College.insertMany(data);
 
     res.status(201).json({ message: 'Data saved successfully' });

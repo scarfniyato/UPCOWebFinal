@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const UserModel = require("../models/User"); // Fixed import, no destructuring
+const UserModel = require("../models/User"); 
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 
-// Login route
+//Login route
 router.post("/admin-login", async (req, res) => {
     try {
         const { error } = validate(req.body);
@@ -16,7 +16,7 @@ router.post("/admin-login", async (req, res) => {
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword) return res.status(401).send({ message: "Invalid Email or Password" });
 
-        // Update lastActive to current timestamp
+        //Update lastActive to current timestamp
         user.lastActive = new Date();
         await user.save();
 
@@ -29,7 +29,7 @@ router.post("/admin-login", async (req, res) => {
 });
 
 
-// Logout route
+//Logout route
 router.post("/", async (req, res) => {
     try {
         const { userId } = req.body;
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
         const user = await UserModel.findById(userId);
         if (!user) return res.status(404).send({ message: "User not found" });
 
-        // Update lastActive field to now
+        //Update lastActive field to now
         user.lastActive = new Date();
         await user.save();
 
@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-// Validation function
+//Validation function
 const validate = (data) => {
     const schema = Joi.object({
         email: Joi.string().email().required().label("Email"),
