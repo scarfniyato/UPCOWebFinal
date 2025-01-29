@@ -29,7 +29,10 @@ function PublicPage() {
     try {
       const response = await fetch('http://localhost:3001/api/latest-waste-data');
       if (!response.ok) throw new Error('Failed to fetch latest data.');
+  
       const { month, year } = await response.json();
+  
+      // Ensure the latest month and year are set
       setLatestMonth(month);
       setLatestYear(year);
     } catch (error) {
@@ -75,8 +78,8 @@ function PublicPage() {
           <div className="dataContainer" style={{ padding: '30px' }}>
             <h5>CvSU Main Campus - Map</h5>
           <p style={{ marginBottom: '-10px' }}>
-            Month:  <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 5px' }}></span>
-            Year: <strong>{latestYear || 'Loading...'} </strong>
+            <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 1px' }}></span>
+            <strong>{latestYear || 'Loading...'} </strong>
           </p> 
 
             <Map />

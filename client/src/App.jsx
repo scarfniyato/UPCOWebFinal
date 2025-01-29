@@ -23,6 +23,7 @@ import LandingPage from './components/PublicPage/index';
 import AirPollution from './components/PublicPage/PubCharts/AirPollution';
 import LandPollution from './components/PublicPage/PubCharts/LandPollution';
 import WaterPollution from './components/PublicPage/PubCharts/WaterPollution';
+import WasteGeneratorForm from './components/PublicPage/Map/AdminInputForm';
 
 function AppRouter() {
   return (
@@ -55,6 +56,7 @@ function AppRouter() {
           <Route path="/dashboard/index" element={<AddAccount />} />
           <Route path="*" element={<div>Page Not Found</div>} />
         </Route>
+        <Route path='/admin-waste-generators-form' element={<WasteGeneratorForm setData={() => { }} />} />
 
       </Routes>
     </BrowserRouter>

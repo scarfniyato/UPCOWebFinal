@@ -42,32 +42,36 @@ const AdminInputForm = () => {
 
   const handleSave = async () => {
     try {
-      if (existingYears.includes(Number(year))) {
-        alert(`Data for the year ${year} already exists. Please choose a different year.`);
+      // Check if data for the selected month and year already exists
+      const response = await fetch(`http://localhost:3001/api/waste-data-exists?month=${month}&year=${year}`);
+      const dataExists = await response.json();
+  
+      if (dataExists) {
+        alert(`Data for ${month} ${year} already exists. Please choose a different month or year.`);
         return;
       }
-
+  
       const invalidEntries = formData.some((item) => !item.totalKg || item.totalKg.trim() === '');
       if (invalidEntries) {
         alert('Please fill in all "Total Solid Waste Generated" fields before saving.');
         return;
       }
-
+  
       const payload = formData.map((item) => ({
         ...item,
         month,
         year,
       }));
-
-      const response = await fetch('http://localhost:3001/api/waste-data', {
+  
+      const saveResponse = await fetch('http://localhost:3001/api/waste-data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
       });
-
-      if (response.ok) {
+  
+      if (saveResponse.ok) {
         setShowPopup(true);
         setExistingYears((prevYears) => [...prevYears, Number(year)]);
       } else {
@@ -78,6 +82,7 @@ const AdminInputForm = () => {
       alert('Error saving data.');
     }
   };
+  
 
   const handleGoBack = () => {
     setShowPopup(false);

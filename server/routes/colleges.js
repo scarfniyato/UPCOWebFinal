@@ -22,13 +22,42 @@ router.get('/colleges', (req, res) => {
 // Get the latest month and year with data
 router.get('/latest-waste-data', async (req, res) => {
   try {
-    const latestData = await College.findOne().sort({ year: -1, month: -1 });
+    // Define a mapping for months to their numerical values
+    const monthMapping = {
+      January: 1, February: 2, March: 3, April: 4, May: 5, June: 6,
+      July: 7, August: 8, September: 9, October: 10, November: 11, December: 12,
+    };
+
+    // Fetch all records and sort by year and numerical month
+    const latestData = await College.find()
+      .sort({ year: -1, month: 1 }) // Sort year descending and month ascending
+      .then(data =>
+        data.sort((a, b) => {
+          if (b.year !== a.year) return b.year - a.year;
+          return monthMapping[b.month] - monthMapping[a.month];
+        })[0]
+      );
+
     if (!latestData) return res.status(404).json({ message: 'No data available' });
 
+    // Return the latest month and year
     res.json({ month: latestData.month, year: latestData.year });
   } catch (error) {
     console.error('Error fetching latest waste data:', error);
     res.status(500).json({ message: 'Failed to fetch latest data' });
+  }
+});
+
+// Check if waste data exists for a specific month and year
+router.get('/waste-data-exists', async (req, res) => {
+  const { month, year } = req.query;
+
+  try {
+    const exists = await College.exists({ month, year: Number(year) });
+    res.json(!!exists); // Return true if exists, false otherwise
+  } catch (error) {
+    console.error('Error checking for existing waste data:', error);
+    res.status(500).json({ message: 'Failed to check for existing data' });
   }
 });
 

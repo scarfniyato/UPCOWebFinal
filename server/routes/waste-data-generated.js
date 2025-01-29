@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const College = require('../models/College');
 
-// Get filtered waste data by month and year
+//Get filtered waste data by month and year
 router.get('/waste-data-generated', async (req, res) => {
   const { month, year } = req.query;
 
