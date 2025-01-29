@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const CollegeSchema = new mongoose.Schema({
-  id: Number, // Add an id field to match markers
+  id: Number, //added id for markers since autohashed sa db
   name: String,
   totalKg: Number,
   month: String,

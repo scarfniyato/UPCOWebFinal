@@ -24,8 +24,6 @@ router.post("/send-reset-email", async (req, res) => {
     }
 });
 
-console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
-
 router.post("/:userId/:token", async (req, res) => {
     try {
         const { userId, token } = req.params;

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route , Navigate} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/shared/layout';
 import Dashboard from './components/dashboard';
 import PublicPageManagement from './components/AdminDashboard/PublicPageManagement/EnviPolicy';
@@ -29,7 +28,6 @@ function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Auth-related Routes */}
         <Route path="login" element={<Login />} />
         <Route path="forgotpass" element={<ForgotPassword />} />
         <Route path="/password-reset/:userId/:token" element={<ResetPassword />} />
