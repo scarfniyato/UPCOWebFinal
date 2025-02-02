@@ -67,12 +67,12 @@ function TotalWaste() {
   }, [latestYear]);
 
   return (
-    <div style={{ color: '#333333' }}>
+    <div className='items-center' style={{ color: '#333333' }}>
       {/* Display error if any */}
       {error && <div className="alert alert-danger">{error}</div>}
 
-      <div className='fbold text-5xl'>{totalWaste} kg</div>
-      <div className='fnormal text-xs'><br/>Total Solid Waste Generated For {latestMonth} {latestYear}</div>
+      <div className='fbold text-4xl'>{totalWaste} kg</div>
+      <span className='fnormal text-xs'>Total Solid Waste Generated For {latestMonth} {latestYear}</span>
     </div>
   );
 }

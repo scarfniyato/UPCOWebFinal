@@ -70,6 +70,7 @@ const EnviPolicy = () => {
         }
     };
     console.log("EnviPolicy component rendered");
+    
     return (
         
         <div className="envi-policy-container">

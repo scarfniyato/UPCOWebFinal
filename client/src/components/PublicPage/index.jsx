@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MapContainer } from 'react-leaflet';
 import Navbar from "./navBar.jsx";
 import './indexStyle.css';
 import Map from "./Map/Map.jsx";
@@ -81,8 +82,7 @@ function PublicPage() {
             <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 1px' }}></span>
             <strong>{latestYear || 'Loading...'} </strong>
           </p> 
-
-            <Map />
+            <Map/>
           </div>
 
           <div className="dataContainer" style={{ padding: '30px' }}>

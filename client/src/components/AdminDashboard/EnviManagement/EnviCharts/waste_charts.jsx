@@ -9,7 +9,7 @@ function WasteQualityChart({ onYearChange }) {
   const [selectedYear, setSelectedYear] = useState('');
   const [chartData, setChartData] = useState({
     labels: [],
-    datasets: []
+    datasets: [],
   });
 
   useEffect(() => {
@@ -21,22 +21,19 @@ function WasteQualityChart({ onYearChange }) {
         setAvailableYears(years);
         const latestYear = years.length > 0 ? years[years.length - 1] : '';
         setSelectedYear(latestYear);
-        const formattedData = formatChartData(data, latestYear);
-        setChartData(formattedData);
+        setChartData(formatChartData(data, latestYear));
       })
-      .catch(err => console.log('Error fetching data:', err));
+      .catch(err => console.error('Error fetching data:', err));
   }, []);
 
   useEffect(() => {
     if (selectedYear) {
       const filteredData = allData.filter(item => item.year === Number(selectedYear));
-      const formattedData = formatChartData(filteredData, selectedYear);
-      setChartData(formattedData);
+      setChartData(formatChartData(filteredData, selectedYear));
     }
   }, [selectedYear, allData]);
 
   useEffect(() => {
-    // Only call if the parent gave us a callback
     if (onYearChange) {
       onYearChange(selectedYear);
     }
@@ -56,7 +53,7 @@ function WasteQualityChart({ onYearChange }) {
         backgroundColor: 'rgba(255, 239, 205, 0.5)',
         fill: true,
         pointRadius: 3,
-        pointBackgroundColor: '#FF9F1A'
+        pointBackgroundColor: '#FF9F1A',
       },
       {
         label: 'Biodegradables',
@@ -65,7 +62,7 @@ function WasteQualityChart({ onYearChange }) {
         backgroundColor: 'rgba(23, 131, 230, 0.5)',
         fill: true,
         pointRadius: 3,
-        pointBackgroundColor: '#2489e1'
+        pointBackgroundColor: '#2489e1',
       },
       {
         label: 'Recyclables',
@@ -74,19 +71,15 @@ function WasteQualityChart({ onYearChange }) {
         backgroundColor: 'rgba(87, 141, 60, 0.3)',
         fill: true,
         pointRadius: 3,
-        pointBackgroundColor: '#4d8833'
+        pointBackgroundColor: '#4d8833',
       }
     ];
 
     months.forEach(month => {
       const monthData = data.filter(item => item.month === month);
-      const residualTotal = monthData.reduce((acc, cur) => acc + (cur.residual || 0), 0);
-      const biodegradableTotal = monthData.reduce((acc, cur) => acc + (cur.biodegradable || 0), 0);
-      const recyclableTotal = monthData.reduce((acc, cur) => acc + (cur.recyclable || 0), 0);
-
-      datasets[0].data.push(residualTotal);
-      datasets[1].data.push(biodegradableTotal);
-      datasets[2].data.push(recyclableTotal);
+      datasets[0].data.push(monthData.reduce((acc, cur) => acc + (cur.residual || 0), 0));
+      datasets[1].data.push(monthData.reduce((acc, cur) => acc + (cur.biodegradable || 0), 0));
+      datasets[2].data.push(monthData.reduce((acc, cur) => acc + (cur.recyclable || 0), 0));
     });
 
     return { labels: months, datasets };
@@ -94,6 +87,7 @@ function WasteQualityChart({ onYearChange }) {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     interaction: {
       mode: 'index',
       intersect: false,
@@ -102,89 +96,78 @@ function WasteQualityChart({ onYearChange }) {
       tooltip: {
         position: 'average',
         mode: 'index',
-        intersect: false
+        intersect: false,
       },
       legend: {
-        display: false,  // Disable the default legend
+        display: false,
       },
       title: {
         display: true,
         text: 'Solid Waste Generated Chart',
         font: {
-          size: 15
-        }
-      }
+          size: 15,
+        },
+      },
     },
     scales: {
       x: {
         title: {
           display: true,
-          text: 'Months'
+          text: 'Months',
         },
         ticks: {
           autoSkip: false,
           maxRotation: 45,
-          minRotation: 45
-        }
+          minRotation: 45,
+        },
       },
       y: {
         title: {
           display: true,
-          text: 'Weight (kg)'
-        }
-      }
-    }
-  };
-
-  const handleYearChange = (event) => {
-    setSelectedYear(event.target.value);
+          text: 'Weight (kg)',
+        },
+      },
+    },
   };
 
   return (
-    <div style={{ color: '#333333', padding: '20px' }}>
-
-      <div className="Dropdowns" data-html2canvas-ignore="true" style={{ margin: '0 0', textAlign: 'left' }}>
-        <div className="Dropdown" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
-
-          <div className='text-md flex-auto font-bold justify-center'>Solid Waste Generated in CvSU - Main Campus</div>
-          <div className="col-md-3 d-flex align-items-center">
-            <label htmlFor="yearSelect" style={{ marginTop: '15px', marginRight: '10px', whiteSpace: 'nowrap' }}></label>
-            <select
-              id="yearSelect"
-              className="form-select dropdown"
-              value={selectedYear}
-              onChange={handleYearChange}
-              style={{ fontSize: '13px', padding: '2px', width: 'auto' }}
-            >
-              <option value="">All Years</option>
-              {availableYears.map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+    <div className="w-full flex flex-col gap-3 text-[#333333]">
+      {/*Title & Year Selection*/}
+      <div className="w-full flex justify-between items-center border-b pb-2">
+        <h2 className="text-lg font-semibold text-gray-700">
+          Solid Waste Generated in CvSU - Main Campus
+        </h2>
+        {availableYears.length > 0 && (
+          <select
+            id="yearSelect"
+            className="border border-gray-300 rounded-md text-sm px-3 py-1 focus:ring focus:ring-green-300"
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+          >
+            <option value="">All Years</option>
+            {availableYears.map(year => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
-      <div style={{ width: '100%', height: '400px', alignItems: 'center'}}> {/* Adjust the width and height here */}
-        <Line data={chartData} options={options}/>
+      {/* Chart Container*/}
+      <div className="w-full h-[350px]">
+        <Line data={chartData} options={options} />
       </div>
 
-      {/* Custom Legend */}
-      <div className="chart-legend" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px' }}>
-        {chartData.datasets.map((dataset) => (
-          <div key={dataset.label} className="legend-item" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+      {/*Legend*/}
+      <div className="flex justify-center gap-4 mt-2">
+        {chartData.datasets.map(dataset => (
+          <div key={dataset.label} className="flex items-center gap-2">
             <span
-              className="legend-color"
-              style={{
-                backgroundColor: dataset.borderColor,
-                width: '20px',
-                height: '20px',
-                display: 'inline-block',
-              }}
+              className="w-5 h-5 inline-block rounded"
+              style={{ backgroundColor: dataset.borderColor }}
             ></span>
-            {dataset.label}
+            <span className="text-sm text-gray-600">{dataset.label}</span>
           </div>
         ))}
       </div>

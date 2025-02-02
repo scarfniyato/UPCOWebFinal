@@ -7,16 +7,15 @@ const linkClasses = 'flex item-center gap-3 font-ligh px-3 py-3 hover:text-blue 
 
 const sidebar = () => {
   return (
-    <div className='flex flex-col bg-dark text-white p-4 w-64'>
-        <div className='flex items-center gap-2 px-1 mb-3'>  
-            <Link to="/landing">
+    <div className='flex flex-col bg-dark text-white p-4 pt-6 w-64'>
+        <div className='flex items-center gap-3 px-1 mb-5'>  
+            <Link to="/">
             <img src='/UPCO_logo.png' className='size-11'/></Link>
-            <span className='font-bold'>UPCO | CVSU<br/>
+            <span className='text-xl font-bold '>UPCO | CVSU<br/>
             <span className='text-xs font-normal'>State of the Environment</span>
             </span>
-            
         </div>
-        <div className='flex-1 py-2 flex flex-col gap-0.5'>
+        <div className='flex-1 py-2 flex flex-col gap-5'>
             {Dashboard_Sidebar_Links.map((item)=>(
                 <SidebarLink key={item.key} item={item}/>
             ))}
