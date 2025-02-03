@@ -131,10 +131,10 @@ function WasteQualityChart({ onYearChange }) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-3 text-[#333333]">
+    <div className="w-full flex flex-col gap-3 text-[#333333] p-4">
       {/*Title & Year Selection*/}
       <div className="w-full flex justify-between items-center border-b pb-2">
-        <h2 className="text-lg font-semibold text-gray-700">
+        <h2 className="text-lg font-semibold">
           Solid Waste Generated in CvSU - Main Campus
         </h2>
         {availableYears.length > 0 && (
@@ -164,7 +164,7 @@ function WasteQualityChart({ onYearChange }) {
         {chartData.datasets.map(dataset => (
           <div key={dataset.label} className="flex items-center gap-2">
             <span
-              className="w-5 h-5 inline-block rounded"
+              className="w-5 h-5 inline-block rounded-full"
               style={{ backgroundColor: dataset.borderColor }}
             ></span>
             <span className="text-sm text-gray-600">{dataset.label}</span>

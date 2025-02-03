@@ -64,7 +64,7 @@ const Dashboard = () => {
       {/* Waste Chart */}
       <section className="grid grid-cols-2 gap-3 mt-3 mb-[9%] items-stretch h-96">
         <DashboardCard height="min-h-[500px] flex flex-col justify-between text-[#333333]">
-          <WasteChart className="w-full h-96" />
+          <WasteChart className="w-full h-[300px]" />
         </DashboardCard>
 
         {/*Top10Table and Map Section*/}
@@ -85,13 +85,13 @@ const Dashboard = () => {
       </section>
 
       {/* Charts Section */}
-      <section className="grid grid-cols-2 gap-3 mt-3">
+      <section className="grid grid-cols-2 gap-3 mt-2 h-[500px]">
         <DashboardCard>
-          <WaterCharts />
+          <WaterCharts className="w-full h-[300px]"/>
         </DashboardCard>
 
         <DashboardCard>
-          <AirCharts />
+          <AirCharts className="w-full h-[300px]"/>
         </DashboardCard>
       </section>
     </div>

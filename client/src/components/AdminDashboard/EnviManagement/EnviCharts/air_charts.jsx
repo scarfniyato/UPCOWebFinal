@@ -1,11 +1,8 @@
-// AirQualityChart.jsx 
 import React, { useEffect, useState, useRef } from 'react';
 import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import axios from 'axios';
-import './style.css'; // Ensure this file exists and styles the legend appropriately
 
-// Define AQI categories for each pollutant
 const aqiCategories = {
   CO: [
     { category: 'Good', min: 0, max: 1 },
@@ -33,28 +30,26 @@ const aqiCategories = {
   ]
 };
 
-// Define colors for each category
 const categoryColors = {
-  'Good': 'rgba(92,184,92,0.6)',            // Green
-  'Satisfactory': 'rgba(102,153,255,0.6)',  // Blue
-  'Moderately Polluted': 'rgba(255,193,7,0.6)', // Amber
-  'Poor': 'rgba(255,87,34,0.6)',            // Orange
-  'Very Poor': 'rgba(233,30,99,0.6)',       // Pink
-  'Severe': 'rgba(156,39,176,0.6)',         // Purple
-  'Unknown': 'rgba(158,158,158,0.6)'        // Gray  
+  'Good': 'rgba(92,184,92,0.6)',
+  'Satisfactory': 'rgba(102,153,255,0.6)',
+  'Moderately Polluted': 'rgba(255,193,7,0.6)',
+  'Poor': 'rgba(255,87,34,0.6)',
+  'Very Poor': 'rgba(233,30,99,0.6)',
+  'Severe': 'rgba(156,39,176,0.6)',
+  'Unknown': 'rgba(158,158,158,0.6)'
 };
 
 const categoryBackgroundColors = {
-  'Good': 'rgba(92,184,92,0.6)',            // Green
-  'Satisfactory': 'rgba(102,153,255,0.6)',  // Blue
-  'Moderately Polluted': 'rgba(255,193,7,0.6)', // Amber
-  'Poor': 'rgba(255,87,34,0.6)',            // Orange
-  'Very Poor': 'rgba(233,30,99,0.6)',       // Pink
-  'Severe': 'rgba(156,39,176,0.6)',         // Purple
-  'Unknown': 'rgba(158,158,158,0.6)'        // Gray   
+  'Good': 'rgba(92,184,92,0.6)',
+  'Satisfactory': 'rgba(102,153,255,0.6)',
+  'Moderately Polluted': 'rgba(255,193,7,0.6)',
+  'Poor': 'rgba(255,87,34,0.6)',
+  'Very Poor': 'rgba(233,30,99,0.6)',
+  'Severe': 'rgba(156,39,176,0.6)',
+  'Unknown': 'rgba(158,158,158,0.6)'
 };
 
-// Function to get AQI category based on pollutant and value
 const getAqiCategory = (pollutant, value) => {
   const categories = aqiCategories[pollutant];
   if (!categories) return 'Unknown';
@@ -68,7 +63,6 @@ const getAqiCategory = (pollutant, value) => {
   return 'Unknown';
 };
 
-// Define month order for comparison
 const monthOrder = {
   'January': 1,
   'February': 2,
@@ -85,55 +79,45 @@ const monthOrder = {
 };
 
 function AirQualityChart({ onMonthYearChange2 }) {
-  // Reference to store the original data for toggling
   const originalChartData = useRef({
     CO: 0,
     NO2: 0,
     SO2: 0
   });
 
-  // State for chart data
   const [chartData, setChartData] = useState({
-    labels: ['CO', 'NO₂', 'SO₂'], // Labels for the x-axis
+    labels: ['CO', 'NO₂', 'SO₂'],
     datasets: [
-      { 
-        label: 'Air Quality', // Single dataset label
-        data: [0, 0, 0], // Initialize with zeros
-        borderColor: [], // To be set dynamically
-        backgroundColor: [], // To be set dynamically
+      {
+        label: 'Air Quality',
+        data: [0, 0, 0],
+        borderColor: [],
+        backgroundColor: [],
         borderWidth: 1
       }
     ]
   });
 
-  // State for selected year and month
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
-  const [error, setError] = useState(null); // State for error handling
+  const [error, setError] = useState(null);
   const [loadingYears, setLoadingYears] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
-
-  // State for available years fetched from API
   const [availableYears, setAvailableYears] = useState([]);
-
-  // List of months for dropdowns
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  // Define the backend base URL using environment variables
-  const BACKEND_URL = 'http://localhost:3001'; // Update if different
+  const BACKEND_URL = 'http://localhost:3001';
 
   useEffect(() => {
-    // Fetch available years and set the latest year and month
     const fetchLatestData = async () => {
       setLoadingYears(true);
-      setError(null); // Clear previous errors
+      setError(null);
       try {
-        // Step 1: Fetch available years
         const yearsResponse = await axios.get(`${BACKEND_URL}/available_year_air`);
-        const sortedYears = yearsResponse.data.sort((a, b) => b - a); // Descending order
+        const sortedYears = yearsResponse.data.sort((a, b) => b - a);
         setAvailableYears(sortedYears);
 
         if (sortedYears.length === 0) {
@@ -142,11 +126,9 @@ function AirQualityChart({ onMonthYearChange2 }) {
           return;
         }
 
-        // Step 2: Select the latest year
         const latestYear = sortedYears[0];
         setSelectedYear(latestYear);
 
-        // Step 3: Fetch all data for the latest year to determine the latest month
         const dataResponse = await axios.get(`${BACKEND_URL}/airquality_data`, {
           params: { year: latestYear }
         });
@@ -159,7 +141,7 @@ function AirQualityChart({ onMonthYearChange2 }) {
           setChartData({
             labels: ['CO', 'NO₂', 'SO₂'],
             datasets: [
-              { 
+              {
                 label: 'Air Quality',
                 data: [0, 0, 0],
                 borderColor: [],
@@ -172,7 +154,6 @@ function AirQualityChart({ onMonthYearChange2 }) {
           return;
         }
 
-        // Step 4: Determine the latest month with available data
         let latestMonth = dataForYear[0].month;
         dataForYear.forEach(item => {
           if (monthOrder[item.month] > monthOrder[latestMonth]) {
@@ -181,7 +162,6 @@ function AirQualityChart({ onMonthYearChange2 }) {
         });
         setSelectedMonth(latestMonth);
       } catch (err) {
-        console.error('Error fetching latest data:', err);
         setError('Failed to load available years or data.');
       } finally {
         setLoadingYears(false);
@@ -192,20 +172,18 @@ function AirQualityChart({ onMonthYearChange2 }) {
   }, [BACKEND_URL]);
 
   useEffect(() => {
-    // Only call if the parent gave us a callback
     if (onMonthYearChange2) {
       onMonthYearChange2(selectedMonth, selectedYear);
     }
   }, [selectedMonth, selectedYear, onMonthYearChange2]);
 
   useEffect(() => {
-    // Fetch data whenever selectedYear or selectedMonth changes
     const fetchData = async () => {
       if (!selectedYear || !selectedMonth) {
         setChartData({
           labels: ['CO', 'NO₂', 'SO₂'],
           datasets: [
-            { 
+            {
               label: 'Air Quality',
               data: [0, 0, 0],
               borderColor: [],
@@ -218,7 +196,7 @@ function AirQualityChart({ onMonthYearChange2 }) {
       }
 
       setLoadingData(true);
-      setError(null); // Clear previous errors
+      setError(null);
       try {
         const response = await axios.get(`${BACKEND_URL}/airquality_data`, {
           params: {
@@ -230,14 +208,12 @@ function AirQualityChart({ onMonthYearChange2 }) {
         const data = response.data;
 
         if (data.length > 0) {
-          // Aggregate data if multiple entries are returned for the same month
           const aggregated = {
             CO: (data.reduce((sum, item) => sum + (item.CO || 0), 0) / data.length).toFixed(2),
             NO2: (data.reduce((sum, item) => sum + (item.NO2 || 0), 0) / data.length).toFixed(2),
             SO2: (data.reduce((sum, item) => sum + (item.SO2 || 0), 0) / data.length).toFixed(2),
           };
 
-          // Determine categories and colors for each pollutant
           const pollutants = ['CO', 'NO2', 'SO2'];
           const values = [aggregated.CO, aggregated.NO2, aggregated.SO2];
           const backgroundColors = [];
@@ -252,11 +228,10 @@ function AirQualityChart({ onMonthYearChange2 }) {
             borderColors.push(borderColor);
           });
 
-          // Update chart data
           setChartData({
             labels: ['CO', 'NO₂', 'SO₂'],
             datasets: [
-              { 
+              {
                 label: 'Air Quality',
                 data: values,
                 backgroundColor: backgroundColors,
@@ -266,24 +241,23 @@ function AirQualityChart({ onMonthYearChange2 }) {
             ]
           });
 
-          originalChartData.current = aggregated; // Store original data if needed
+          originalChartData.current = aggregated;
         } else {
-          // No data available for the selected month and year
           setError(`No available data for ${selectedMonth} ${selectedYear}.`);
           setChartData({
             labels: ['CO', 'NO₂', 'SO₂'],
             datasets: [
-              { 
+              {
                 label: 'Air Quality',
                 data: [0, 0, 0],
                 backgroundColor: [
-                  categoryBackgroundColors['Unknown'], 
-                  categoryBackgroundColors['Unknown'], 
+                  categoryBackgroundColors['Unknown'],
+                  categoryBackgroundColors['Unknown'],
                   categoryBackgroundColors['Unknown']
                 ],
                 borderColor: [
-                  categoryColors['Unknown'], 
-                  categoryColors['Unknown'], 
+                  categoryColors['Unknown'],
+                  categoryColors['Unknown'],
                   categoryColors['Unknown']
                 ],
                 borderWidth: 1
@@ -292,22 +266,21 @@ function AirQualityChart({ onMonthYearChange2 }) {
           });
         }
       } catch (err) {
-        console.error('Error fetching air quality data:', err);
         setError('Failed to load air quality data.');
         setChartData({
           labels: ['CO', 'NO₂', 'SO₂'],
           datasets: [
-            { 
+            {
               label: 'Air Quality',
               data: [0, 0, 0],
               backgroundColor: [
-                categoryBackgroundColors['Unknown'], 
-                categoryBackgroundColors['Unknown'], 
+                categoryBackgroundColors['Unknown'],
+                categoryBackgroundColors['Unknown'],
                 categoryBackgroundColors['Unknown']
               ],
               borderColor: [
-                categoryColors['Unknown'], 
-                categoryColors['Unknown'], 
+                categoryColors['Unknown'],
+                categoryColors['Unknown'],
                 categoryColors['Unknown']
               ],
               borderWidth: 1
@@ -322,15 +295,14 @@ function AirQualityChart({ onMonthYearChange2 }) {
     fetchData();
   }, [selectedYear, selectedMonth, BACKEND_URL]);
 
-  // Handle year change
   const handleYearChange = async (e) => {
     const newYear = parseInt(e.target.value, 10);
     setSelectedYear(newYear);
-    setSelectedMonth(''); // Reset month selection
+    setSelectedMonth('');
     setChartData({
       labels: ['CO', 'NO₂', 'SO₂'],
       datasets: [
-        { 
+        {
           label: 'Air Quality',
           data: [0, 0, 0],
           borderColor: [],
@@ -338,10 +310,8 @@ function AirQualityChart({ onMonthYearChange2 }) {
           borderWidth: 1
         }
       ]
-    }); // Clear existing data
-    setError(null); // Clear existing errors
-
-    // Fetch data for the new year to determine the latest month
+    });
+    setError(null);
     setLoadingYears(true);
     try {
       const dataResponse = await axios.get(`${BACKEND_URL}/airquality_data`, {
@@ -356,7 +326,7 @@ function AirQualityChart({ onMonthYearChange2 }) {
         setChartData({
           labels: ['CO', 'NO₂', 'SO₂'],
           datasets: [
-            { 
+            {
               label: 'Air Quality',
               data: [0, 0, 0],
               borderColor: [],
@@ -369,7 +339,6 @@ function AirQualityChart({ onMonthYearChange2 }) {
         return;
       }
 
-      // Determine the latest month with available data
       let latestMonth = dataForYear[0].month;
       dataForYear.forEach(item => {
         if (monthOrder[item.month] > monthOrder[latestMonth]) {
@@ -378,14 +347,12 @@ function AirQualityChart({ onMonthYearChange2 }) {
       });
       setSelectedMonth(latestMonth);
     } catch (err) {
-      console.error('Error fetching data for the selected year:', err);
       setError('Failed to load data for the selected year.');
     } finally {
       setLoadingYears(false);
     }
   };
 
-  // Handle month change
   const handleMonthChange = (e) => {
     setSelectedMonth(e.target.value);
   };
@@ -400,7 +367,7 @@ function AirQualityChart({ onMonthYearChange2 }) {
     },
     plugins: {
       legend: {
-        display: false, // Hide the default Chart.js legend
+        display: false,
       },
       title: {
         display: true,
@@ -411,10 +378,10 @@ function AirQualityChart({ onMonthYearChange2 }) {
       },
       tooltip: {
         callbacks: {
-          label: function(context) {
+          label: function (context) {
             const pollutant = context.label;
             const value = context.parsed.y;
-            const pollutantKey = pollutant.replace('₂', '2'); // 'NO₂' -> 'NO2', 'SO₂' -> 'SO2'
+            const pollutantKey = pollutant.replace('₂', '2');
 
             if (value === null || value === undefined || isNaN(value)) {
               return `${pollutant}: No data`;
@@ -429,75 +396,50 @@ function AirQualityChart({ onMonthYearChange2 }) {
   };
 
   return (
-    <div className="chart-container" style={{ color: '#333333' }}>
-      
-      {/* Dropdown for selecting month range */}
-      <div className="dropdowns" style={{ margin: '10px 0', textAlign: 'left' }} data-html2canvas-ignore="true">
-        <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '5px' }}>
-          <div className='text-md flex-auto font-bold justify-center'>Air Quality in CvSU - Main Campus</div>
-          <div className="Dropdown" style={{ display: 'flex', alignItems: 'center' }}>
-          <label htmlFor="monthSelect" style={{ marginTop: '15px', marginRight: '10px', whiteSpace: 'nowrap' }}></label>
+    <div className="p-6 text-gray-800  -mt-6">
+      <div className="w-full flex justify-between items-center border-b pb-2 mb-4">
+        <h2 className="text-lg font-semibold">Air Quality in CvSU - Main Campus</h2>
+        <div className="flex gap-4">
           <select
-            id="monthSelect"
-            className="form-select dropdown"
+            className="p-2 border rounded-md text-sm"
             value={selectedMonth}
             onChange={handleMonthChange}
-            style={{ fontSize: '10px', padding: '2px', width: '85px'}}
             disabled={loadingData || !selectedYear}
           >
-            <option value="">All Months</option>
+            <option value="">Select Month</option>
             {months.map((month, index) => (
-              <option key={index} value={month}>
-                {month}
-              </option>
+              <option key={index} value={month}>{month}</option>
             ))}
           </select>
 
-          {/* Dropdown for selecting year range */}
-
-          <div>
-          <div className="Dropdown" style={{ display: 'flex', alignItems: 'center'}}>
-          <label htmlFor="yearSelect" style={{ marginTop: '15px',marginRight: '10px', whiteSpace: 'nowrap' }}></label>
           <select
-            id="yearSelect"
-            className="form-select dropdown"
+            className="p-2 border rounded-md text-sm"
             value={selectedYear}
             onChange={handleYearChange}
             disabled={loadingYears}
-            style={{ fontSize: '10px', padding: '2px', width: '55px'}}
           >
-            <option value="">All Years</option>
+            <option value="">Select Year</option>
             {availableYears.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
+              <option key={year} value={year}>{year}</option>
             ))}
           </select>
-          </div>
-          </div>
         </div>
-      </div></div>
-
-      {/* Display Error Message */}
-      {error && <p className="error-message">{error}</p>}
-
-      {/* Loading Indicators */}
-      {(loadingYears || loadingData) && <p>Loading data...</p>}
-
-      {/* Bar Chart */}
-      <div className="chart-wrapper" style={{ height: '250px' }}> {/* Adjust the height here */}
-        {!loadingData && !error && (
-          <Bar data={chartData} options={options} />
-        )}
       </div>
 
-      {/* Custom Legend */}
+      {error && <p className="text-red-500 text-center">{error}</p>}
+      {(loadingYears || loadingData) && <p className="text-center text-blue-500">Loading data...</p>}
+
+      {/*Bar chart*/}
+      <div className="w-full" style={{ height: "280px" }}> 
+        <Bar data={chartData} options={options} />
+      </div>
+
       {!loadingData && !error && (
-        <div className="chart-legend" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px' }}>
+        <div className="mt-4 flex flex-wrap justify-center gap-6">
           {Object.keys(categoryColors).filter(cat => cat !== 'Unknown').map(category => (
-            <div key={category} className="legend-item" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <span className="legend-color" style={{ backgroundColor: categoryColors[category], width: '20px', height: '20px', display: 'inline-block' }}></span>
-              {category}
+            <div key={category} className="flex items-center gap-2">
+              <span className="w-5 h-5 rounded-full" style={{ backgroundColor: categoryColors[category] }}></span>
+              <span>{category}</span>
             </div>
           ))}
         </div>
