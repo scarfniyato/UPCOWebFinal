@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { MapContainer } from 'react-leaflet';
 import Navbar from "./navBar.jsx";
 import './indexStyle.css';
 import Map from "./Map/Map.jsx";
 import Top10TableList from "./Map/top10TableList.jsx";
 import PublicEnviPolicies from './publicEnviPolicies.jsx';
-import { Link } from "react-router-dom";
+import { scroller } from 'react-scroll';
+import HomeSection from './HomeSection';
+import ContactSection from './ContactSection';
 
 // Importing images dynamically
-import emailIcon from '../../../src/assets/email-icon.png';
-import UPCO_logo from '../../../src/assets/UPCO_logo.png';
-import cvsuBg from '../../../src/assets/cvsu_bg.png';
-import emaillIcon from '../../../src/assets/emailIcon.png';
-import phoneIcon from '../../../src/assets/phoneIcon.png';
-import locIcon from '../../../src/assets/locIcon.png';
-import land from '../../../src/assets/land.png';
-import water from '../../../src/assets/water.png';
-import air from '../../../src/assets/air.png';
-import leftLeaves from '../../../src/assets/leftLeaves.png';
-import rightLeaves from '../../../src/assets/rightLeaves.png'
+import landingPage_bg from '../../../src/assets/landingPage_bg.png';
+
 
 function PublicPage() {
   const [latestMonth, setLatestMonth] = useState('');
@@ -30,9 +22,9 @@ function PublicPage() {
     try {
       const response = await fetch('http://localhost:3001/api/latest-waste-data');
       if (!response.ok) throw new Error('Failed to fetch latest data.');
-  
+
       const { month, year } = await response.json();
-  
+
       // Ensure the latest month and year are set
       setLatestMonth(month);
       setLatestYear(year);
@@ -46,148 +38,61 @@ function PublicPage() {
     fetchLatestData();
   }, []);
 
+  const handleScroll = () => {
+    scroller.scrollTo('state-of-environment', {
+      duration: 1500,
+      delay: 0,
+      smooth: 'easeInOutQuad',
+      offset: -70, // Adjusts for fixed navbar height
+    });
+  };
+
   return (
-    <div>
+    <div
+      className="min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url(${landingPage_bg})` }}
+    >
       <Navbar />
-      <div className="leaves">
-        <img src={leftLeaves} className="leftLeaves" />
-        <img src={rightLeaves} className="rightLeaves" />
-        <section id="home" className="hero" style={{ backgroundImage: `url(${cvsuBg})` }}>
-          <div className="leftHero">
-            <h1>
-              Discover<br />State of the Environment at<br />Cavite State University<br />Indang Campus
-            </h1>
-            <p>
-              Stay informed and help create a cleaner,<br />
-              greener future for our campus community.
-            </p>
-            <p>Para sa Kalikasan, Para sa Kinabukasan!</p>
-            <button>Learn More</button>
-          </div>
+      <HomeSection handleScroll={handleScroll} />
 
-          <div className="rightHero">
-            <img src={UPCO_logo} alt="University Logo" />
-          </div>
-        </section>
+      {/* Error Display */}
+      {error && <div className="error">{error}</div>}
 
-        <div id="state-of-environment" className="outerContainer">
-          <div className="header">
-            <h1>State of the Environment</h1>
-            <h3>Cavite State University - Main Campus</h3>
-          </div>
 
-          <div className="dataContainer" style={{ padding: '30px' }}>
-            <h5>CvSU Main Campus - Map</h5>
-          <p style={{ marginBottom: '-10px' }}>
-            <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 1px' }}></span>
-            <strong>{latestYear || 'Loading...'} </strong>
-          </p> 
-            <Map/>
-          </div>
+      <div id="state-of-environment" className='text-center fbold border-bottom w-5/6 mx-auto mt-16'>
+        <h5 className="text-sm mt-3">Cavite State University - Indang Campus</h5>
+        <p1 className='text-3xl mt-5'>State of the Environment</p1>
+        <hr className="border-2 border-dark w-5/6 mx-auto mt-2" />
 
-          <div className="dataContainer" style={{ padding: '30px' }}>
-            <h5 className="fbold text-xl mb-4">Top 10 Solid Waste Generators</h5>
+
+        {/* Other Sections */}
+        <div className="flex justify-center items-center mt-12">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-4/6 ">
+            <h4 className="text-fcolor text-base font-bold">CvSU Main Campus - Map</h4>
+            <p className="text-gray-700 text-sm font-semibold my-2">{latestMonth || 'Loading...'} {latestYear || 'Loading...'}</p>
+            <Map />
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center mt-18">
+          <div className="bg-white rounded-lg shadow-lg p-4 w-4/6">
+            <h4 className="text-fcolor text-base font-bold">Top 10 Solid Waste Generators</h4>
             <Top10TableList />
           </div>
-
-          <div className="pollutions">
-            <div className="dataContainer" style={{ padding: '30px 0' }}>
-              <div className="dataContainer2">
-                <img src={land} alt="Land Pollution" />
-
-                <div className="btn">
-                  <Link to="/landpollution">
-                    Land Pollution</Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="dataContainer" style={{ padding: '30px 0' }}>
-              <div className="dataContainer2">
-                <img src={air} alt="Air Pollution" />
-                <button className="btn">
-                  <Link to="/airpollution">
-                    Air Pollution</Link>
-                </button>
-              </div>
-            </div>
-
-            <div className="dataContainer" style={{ padding: '30px 0' }}>
-              <div className="dataContainer2">
-                <img src={water} alt="Water Pollution" />
-
-                <button className="btn">
-                  <Link to="/waterpollution">
-                    Water Pollution</Link>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <div id="policies" className="outerContainer">
-          <div className="header">
-            <h1>Environmental Policies </h1>
-            <h3>of University Pollution Control Office</h3>
-          </div>
-          <button className="dataContainer">
-            <PublicEnviPolicies />
-          </button>
-        </div>
-
       </div>
 
-      <footer id="contact" className="contactSection">
-        <div className="contact-container">
-          {/* Logo Section */}
-          <div className="contact-logo">
-            <img src={UPCO_logo} alt="University Logo" />
-          </div>
 
-          {/* Contact Information Section */}
-          <div className="contact-info">
-            <h2>Contact Information</h2>
-
-            <div className="contactItem">
-              <img src={emaillIcon} alt="Email Icon" />
-              <div>
-                <p> Email: </p>
-                <h5>pco@cvsu.edu.ph</h5>
-              </div>
-            </div>
-
-            <div className="contactItem">
-              <img src={phoneIcon} alt="Phone Icon" />
-              <div>
-                <p>Phone:</p>
-                <h5>0997 364 2045</h5>
-              </div>
-            </div>
-
-            <div className="contactItem">
-              <img src={locIcon} alt="Location Icon" />
-              <div>
-                <p> Location: </p>
-                <h5>CvSU-Main Campus</h5>
-                <p style={{ marginBottom: '-10px' }}>
-                  Month:  <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 5px' }}></span>
-                  Year: <strong>{latestYear || 'Loading...'} </strong>
-                </p>
-              </div>
-            </div>
-          </div>
+      <div id="policies" className='text-center fbold border-bottom w-5/6 mx-auto mt-24'>
+        <h5 className="text-sm mt-3">Cavite State University - Indang Campus</h5>
+        <p1 className='text-3xl mt-5'>UPCO Environmental Policies</p1>
+        <hr className="border-2 border-dark w-5/6 mx-auto mt-2" />
+        <PublicEnviPolicies /> 
+      </div>
 
 
-          {/* Call-to-Action Section */}
-          <div className="contact-cta">
-            <h2>Have a question or feedback? Reach out to us</h2>
-            <div className="cta-content">
-              <img src={emailIcon} alt="Email Icon" className="cta-icon" />
-              <button className="email-btn" onClick={() => window.location.href = "mailto:pco@cvsu.edu.ph"}>Email Us</button>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <ContactSection />
+
     </div>
   );
 }
