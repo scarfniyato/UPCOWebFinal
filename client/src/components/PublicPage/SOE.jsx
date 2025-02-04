@@ -23,7 +23,7 @@ const SOE = () => {
                     classNames={{
                         tabList: 'w-full relative rounded-none',
                         cursor: 'w-full bg-[#22d3ee]',
-                        tab: 'max-w-fit px-1  outline-none', // Removes border on press
+                        tab: 'max-w-fit my-7 px-1  outline-none', // Removes border on press
                         tabContent: 'group-data-[selected=true]:text-[#06b6d4]'
                     }}
                     color="primary"
