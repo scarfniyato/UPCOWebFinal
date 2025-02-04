@@ -397,11 +397,11 @@ function AirQualityChart({ onMonthYearChange2 }) {
 
   return (
     <div className="p-6 text-gray-800  -mt-6">
-      <div className="w-full flex justify-between items-center border-b pb-2 mb-4">
-        <h2 className="text-lg font-semibold">Air Quality in CvSU - Main Campus</h2>
-        <div className="flex gap-4">
+      <div className="w-full flex justify-between items-center border-b pb-2 mb-4 justify-end">
+        {/*<h2 className="text-lg font-semibold">Air Quality in CvSU - Main Campus</h2>*/}
+        <div className="flex gap-4 justify-end">
           <select
-            className="p-2 border rounded-md text-sm"
+            className="h-5 w-30 text-xxs p-2 border rounded-md  px-3 py-1"
             value={selectedMonth}
             onChange={handleMonthChange}
             disabled={loadingData || !selectedYear}
@@ -413,7 +413,7 @@ function AirQualityChart({ onMonthYearChange2 }) {
           </select>
 
           <select
-            className="p-2 border rounded-md text-sm"
+            className="h-5 w-30 text-xxs p-2 border rounded-md  px-3 py-1"
             value={selectedYear}
             onChange={handleYearChange}
             disabled={loadingYears}
@@ -438,8 +438,8 @@ function AirQualityChart({ onMonthYearChange2 }) {
         <div className="mt-4 flex flex-wrap justify-center gap-6">
           {Object.keys(categoryColors).filter(cat => cat !== 'Unknown').map(category => (
             <div key={category} className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full" style={{ backgroundColor: categoryColors[category] }}></span>
-              <span>{category}</span>
+              <span className="w-4 h-4 rounded-full" style={{ backgroundColor: categoryColors[category] }}></span>
+              <span className='text-xxs'>{category}</span>
             </div>
           ))}
         </div>

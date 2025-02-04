@@ -131,7 +131,7 @@ function WasteQualityChart({ onYearChange }) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-3 text-[#333333] p-4">
+    <div className="w-full flex flex-col gap-3 text-[#333333] py-0 px-3">
       {/*Title & Year Selection*/}
       <div className="w-full flex justify-between items-center border-b pb-2">
         <h2 className="text-base font-semibold">
@@ -160,11 +160,11 @@ function WasteQualityChart({ onYearChange }) {
       </div>
 
       {/*Legend*/}
-      <div className="flex justify-center gap-4 mt-2">
+      <div className="flex justify-center gap-4">
         {chartData.datasets.map(dataset => (
           <div key={dataset.label} className="flex items-center gap-2">
             <span
-              className="w-5 h-5 inline-block rounded-full"
+              className="w-4 h-4 inline-block rounded-full"
               style={{ backgroundColor: dataset.borderColor }}
             ></span>
             <span className="text-sm text-gray-600">{dataset.label}</span>

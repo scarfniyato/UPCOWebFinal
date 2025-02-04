@@ -119,7 +119,7 @@ function WaterQualityChart({ onMonthYearChange2 }) {
       legend: { display: false },
       title: {
         display: true,
-        text: selectedMonthRange && selectedYear ? `Water Quality Comparison (${selectedMonthRange} - ${selectedYear})` : 'Water Quality Comparison',
+        text: selectedMonthRange && selectedYear ? `Water Quality Comparison in CvSU (${selectedMonthRange} - ${selectedYear})` : 'Water Quality Comparison',
         font: { size: 15 },
       },
       annotation: {
@@ -158,16 +158,16 @@ function WaterQualityChart({ onMonthYearChange2 }) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-3 text-[#333333] p-4">
+    <div className="w-full flex flex-col gap-3 text-[#333333] py-0 px-3">
       <div className="w-full flex justify-between items-center border-b pb-2">
-        <h2 className="text-lg font-semibold">
+        {/*<h2 className="text-lg font-semibold">
           Water Quality in CvSU - Main Campus
-        </h2>
-        <div className="flex gap-2">
+        </h2>*/}
+        <div className="flex gap-2 justify-end">
           {/* Month Selection */}
           <select
             id="monthRangeSelect"
-            className="border border-gray-300 rounded-md text-sm px-3 py-1 focus:ring focus:ring-green-300"
+            className="h-5 w-30 text-xxs border border-gray-300 rounded-md px-1 py-1 focus:ring focus:ring-green-300"
             value={selectedMonthRange}
             onChange={(e) => setSelectedMonthRange(e.target.value)}
           >
@@ -180,7 +180,7 @@ function WaterQualityChart({ onMonthYearChange2 }) {
           {availableYears.length > 0 && (
             <select
               id="yearSelect"
-              className="border border-gray-300 rounded-md text-sm px-3 py-1 focus:ring focus:ring-green-300"
+              className="h-5 w-20 text-xxs border border-gray-300 rounded-md px-3 py-1 focus:ring focus:ring-green-300"
               value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
             >
@@ -210,15 +210,15 @@ function WaterQualityChart({ onMonthYearChange2 }) {
         {chartData.datasets.map(dataset => (
           <div key={dataset.label} className="flex items-center gap-2">
             <span
-              className="w-5 h-5 inline-block rounded-full"
+              className="w-4 h-4 inline-block rounded-full"
               style={{ backgroundColor: dataset.borderColor }}
             ></span>
-            <span className="text-sm text-gray-600">{dataset.label}</span>
+            <span className="text-xxs text-gray-600">{dataset.label}</span>
           </div>
         ))}
         <div className="flex items-center gap-2">
           <span className="w-6 h-1 bg-red-600 block"></span>
-          <span className="text-sm text-gray-600">Class A-C Limit (5 mg/L)</span>
+          <span className="text-xxs text-gray-600">Class A-C Limit (5 mg/L)</span>
         </div>
       </div>
     </div>
