@@ -204,92 +204,89 @@ function AirQualityTable({ onMonthYearChange }) {
   };
 
   return (
-    <div className="container text-center">
-      {error && <p className="text-danger">{error}</p>}
+<div className="container text-center" style={{ color: '#333333' }}>
+      {error && <div className="alert alert-danger">{error}</div>}
 
       {loadingYears ? (
         <p>Loading latest year and month...</p>
       ) : (
         <>
           {/* Dropdowns for Year and Month */}
-          <div className="dropdowns my-4 text-left" data-html2canvas-ignore="true">
-            <div className="dropdown-row d-flex align-items-center gap-3">
-              {/* Year Dropdown */}
-              <div className="d-flex align-items-center gap-2">
-                <label htmlFor="year" className="mb-1">Year:</label>
-                <select
-                  id="year"
-                  value={selectedYear}
-                  onChange={handleYearChange}
-                  disabled={loadingYears || loadingData}
-                  className="form-select"
-                  style={{ padding: '4px' }}
-                >
-                  <option value="">Select Year</option>
-                  {years.map(year => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </div>
+          <div className="row mb-4" data-html2canvas-ignore="true">
+            <div className="col-md-8 d-flex align-items-center fbold text-xxs">
+              <label htmlFor="year" className="mr-2">Select Year:</label>
+              <select
+                id="year"
+                value={selectedYear}
+                onChange={handleYearChange}
+                disabled={loadingYears || loadingData}
+                className="form-select dropdown"
+                style={{ padding: '4px' }}
+              >
+                <option value="">Select Year</option>
+                {years.map(year => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
 
-              {/* Month Dropdown */}
-              <div className="d-flex align-items-center gap-2">
-                <label htmlFor="month" className="mb-1">Month:</label>
-                <select
-                  id="month"
-                  value={selectedMonth}
-                  onChange={handleMonthChange}
-                  disabled={loadingData || !selectedYear}
-                  className="form-select"
-                  style={{ padding: '4px' }}
-                >
-                  <option value="">Select Month</option>
-                  {months.map(month => (
-                    <option key={month} value={month}>
-                      {month}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <label htmlFor="month" className="ml-3 mr-2">Select Month:</label>
+              <select
+                id="month"
+                value={selectedMonth}
+                onChange={handleMonthChange}
+                disabled={loadingData || !selectedYear}
+                className="form-select dropdown"
+                style={{ padding: '4px' }}
+              >
+                <option value="">Select Month</option>
+                {months.map(month => (
+                  <option key={month} value={month}>
+                    {month}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
           {/* Data Table */}
-          <div className="table-responsive mt-4">
+          <div className="table-responsive mt-4 text-xs">
             {loadingData ? (
               <p>Loading data...</p>
             ) : data ? (
-              <table className="table table-bordered table-striped">
-                <thead className="columnName">
+              <table className="w-full border border-gray-400">
+                <thead className="text-left bg-dark text-white border border-gray-500">
                   <tr>
-                    <th className="text-center">Parameter</th>
-                    <th className="text-center">Value</th>
+                    <th className="py-2 px-4 border border-gray-500">Parameter</th>
+                    <th className="py-2 px-4 border border-gray-500">Value</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="text-left">
                   <tr>
-                    <td className="text-center">CO</td>
-                    <td className="text-center">{data.CO}</td>
+                    <td className="py-2 px-4 border border-gray-400">CO</td>
+                    <td className="py-2 px-4 border border-gray-400">{data.CO}</td>
                   </tr>
                   <tr>
-                    <td className="text-center">NO₂</td>
-                    <td className="text-center">{data.NO2}</td>
+                    <td className="py-2 px-4 border border-gray-400">NO₂</td>
+                    <td className="py-2 px-4 border border-gray-400">{data.NO2}</td>
                   </tr>
                   <tr>
-                    <td className="text-center">SO₂</td>
-                    <td className="text-center">{data.SO2}</td>
+                    <td className="py-2 px-4 border border-gray-400">SO₂</td>
+                    <td className="py-2 px-4 border border-gray-400">{data.SO2}</td>
                   </tr>
 
                   {/* Actions Row */}
-                  <tr data-html2canvas-ignore="true">
-                    <td className="text-center "><strong>Actions</strong></td>
-                    <td className="text-center">
+                  <tr>
+                    <td className="py-2 px-4 border border-gray-400"><strong>Actions</strong></td>
+                    <td className="py-2 px-4 border border-gray-400">
                       <div className="d-flex justify-content-center gap-2 flex-wrap">
                         <button
                           className="update-btn"
                           onClick={() => handleUpdate(data.id)}
+                          style={{ padding: '6px 12px', backgroundColor: '#068006', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                          onMouseOver={(e) => e.target.style.backgroundColor = '#068006'}
+                          onMouseOut={(e) => e.target.style.backgroundColor = '#068006'}
                         >
                           Update
                         </button>
@@ -307,51 +304,6 @@ function AirQualityTable({ onMonthYearChange }) {
     </div>
   );
 };
-// Basic inline styles for simplicity
-const styles = {
-  container: {
-    color: '#333333',
-    margin: 0,
-  },
-  dropdownContainer: {
-    display: 'flex',
-    gap: '20px',
-    marginBottom: '20px'
-  },
-  dropdown: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  select: {
-    padding: '8px',
-    fontSize: '16px'
-  },
-  tableContainer: {
-    marginTop: '20px'
-  },
-  table: {
-    width: '50%',
-    borderCollapse: 'collapse'
-  },
-  th: {
-    border: '1px solid #dddddd',
-    textAlign: 'left',
-    padding: '8px',
-    backgroundColor: '#f2f2f2',
-    color: '#333333'
-  },
-  td: {
-    border: '1px solid #dddddd',
-    textAlign: 'left',
-    padding: '8px',
-    color: '#333333'
-  },
-  stripedRow: {
-    backgroundColor: '#f2f2f2'
-  },
-  error: {
-    color: 'red'
-  }
-};
+
 
 export default AirQualityTable;

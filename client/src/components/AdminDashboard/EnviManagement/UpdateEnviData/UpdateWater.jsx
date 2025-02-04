@@ -115,21 +115,21 @@ function UpdateWater() {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center min-h-screen font-main">
-        <div className="dataContainer max-w-4xl p-8 bg-white shadow-md rounded-md">
-          <div className='justify-center'>
+      <div className="flex flex-col items-left justify-left min-h-screen font-main text-xs ">
+        <div className="dataContainer max-w-4xl p-8 bg-white shadow-md rounded-md ">
+          <div className='justify-left p-5'>
             <form onSubmit={handleUpdate}>
 
-              <h4 className="text-2xl font-bold mb-4 text-center">Update Water Quality Data</h4>
-              <p className="text-center mb-4">(Do not include commas in values)</p>
-              {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
+              <h4 className="text-xl font-bold mb-4 text-left">Update Water Quality Data</h4>
+              <p className="text-left -mt-3 mb-5">(Do not include commas in values)</p>
+              {error && <p className="text-left mb-4" style={{ color: 'red' }}>{error}</p>}
 
               <div className="mb-4">
-                <label className="block mb-2 font-bold">Year:</label>
+                <label className="block mb-0 font-bold">Year:</label>
                 <input
                   type="text"
                   placeholder="Enter Year"
-                  className="form-control w-full p-2 border border-gray-300 rounded"
+                  className="form-control w-[335px] p-2 border border-gray-300 rounded"
                   value={year}
                   readOnly
                 />
@@ -158,83 +158,83 @@ function UpdateWater() {
               </div>
 
               <div className="mb-4">
-                <label className="block mb-2 font-bold">pH:</label>
+                <label className="block mb-0 font-bold">pH:</label>
                 <input
                   type="text"
                   placeholder="Enter pH"
-                  className="form-control w-full p-2 border border-gray-300 rounded"
+                  className="form-control w-[335px] p-2 border border-gray-300 rounded"
                   value={pH}
                   onChange={(e) => setPH(e.target.value)}
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block mb-2 font-bold">Color:</label>
+                <label className="block mb-0 font-bold">Color:</label>
                 <input
                   type="text"
                   placeholder="Enter Color Value"
-                  className="form-control w-full p-2 border border-gray-300 rounded"
+                  className="form-control w-[335px] p-2 border border-gray-300 rounded"
                   value={Color}
                   onChange={(e) => setColor(e.target.value)}
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block mb-2 font-bold">Fecal Coliform:</label>
+                <label className="block mb-0 font-bold">Fecal Coliform:</label>
                 <input
                   type="text"
                   placeholder="Enter Fecal Coliform Value"
-                  className="form-control w-full p-2 border border-gray-300 rounded"
+                  className="form-control w-[335px] p-2 border border-gray-300 rounded"
                   value={FecalColiform}
                   onChange={(e) => setFecalColiform(e.target.value)}
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block mb-2 font-bold">TSS:</label>
+                <label className="block mb-0 font-bold">TSS:</label>
                 <input
                   type="text"
                   placeholder="Enter TSS Value"
-                  className="form-control w-full p-2 border border-gray-300 rounded"
+                  className="form-control w-[335px] p-2 border border-gray-300 rounded"
                   value={TSS}
                   onChange={(e) => setTSS(e.target.value)}
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block mb-2 font-bold">Chloride:</label>
+                <label className="block mb-0 font-bold">Chloride:</label>
                 <input
                   type="text"
                   placeholder="Enter Chloride Value"
-                  className="form-control w-full p-2 border border-gray-300 rounded"
+                  className="form-control w-[335px] p-2 border border-gray-300 rounded"
                   value={Chloride}
                   onChange={(e) => setChloride(e.target.value)}
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block mb-2 font-bold">Nitrate:</label>
+                <label className="block mb-0 font-bold">Nitrate:</label>
                 <input
                   type="text"
                   placeholder="Enter Nitrate Value"
-                  className="form-control w-full p-2 border border-gray-300 rounded"
+                  className="form-control w-[335px] p-2 border border-gray-300 rounded"
                   value={Nitrate}
                   onChange={(e) => setNitrate(e.target.value)}
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block mb-2 font-bold">Phosphate:</label>
+                <label className="block mb-0 font-bold">Phosphate:</label>
                 <input
                   type="text"
                   placeholder="Enter Phosphate Value"
-                  className="form-control w-full p-2 border border-gray-300 rounded"
+                  className="form-control w-[335px] p-2 border border-gray-300 rounded"
                   value={Phosphate}
                   onChange={(e) => setPhosphate(e.target.value)}
                 />
               </div>
 
-              <div className="flex justify-center">
+              <div className="flex justify-left">
                 <button className="btn w-full p-2 bg-blue-500 text-white rounded">Submit</button></div>
 
             </form>

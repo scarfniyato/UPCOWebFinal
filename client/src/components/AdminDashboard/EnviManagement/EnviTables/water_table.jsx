@@ -113,9 +113,9 @@ function WaterQualityTable({ onMonthYearChange }) {
     useEffect(() => {
         // Only call if the parent gave us a callback
         if (onMonthYearChange) {
-          onMonthYearChange(selectedMonthRange, selectedYear);
+            onMonthYearChange(selectedMonthRange, selectedYear);
         }
-      }, [selectedMonthRange, selectedYear, onMonthYearChange]);
+    }, [selectedMonthRange, selectedYear, onMonthYearChange]);
 
     // Handle Update Action per Tank
     const handleUpdate = (tankId) => {
@@ -127,19 +127,19 @@ function WaterQualityTable({ onMonthYearChange }) {
     const mainTankData = allData.find(record => record.source_tank === "Main Water Tank");
 
     return (
-        <div className="" style={{ color: '#333333' }}>
+        <div className="text-xs" style={{ color: '#333333' }}>
             {/* Filters: Month Range and Year */}
-            <div className="dropdowns" data-html2canvas-ignore="true" style={{ margin: '20px 0', textAlign: 'left' }}>
-                <div className="dropdown-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '20px' }}>
+            <div className="dropdowns text-xxs " data-html2canvas-ignore="true" style={{ margin: '20px 0', textAlign: 'center', alignItems: 'center' }}>
+                <div className="dropdown-row text-xxs " style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex', gap: '20px' }}>
                     {/* Dropdown for selecting year */}
-                    <div className="dropdown" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <label htmlFor="yearSelect" style={{ marginBottom: '5px' }}>Year:</label>
+                    <div className="dropdown text-xxs " style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <label htmlFor="yearSelect" className="mx-2">Year:</label>
                         <select
                             id="yearSelect"
-                            className="form-select"
+                            className="form-select text-xxs"
                             value={selectedYear || ''}
                             onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}
-                            style={{ fontSize: '16px', padding: '4px', width: '100%' }}
+                            style={{ background:"none", padding: '4px', width: '100%' }}
                         >
                             <option value="" disabled>Select Year</option>
                             {yearOptions.map((option) => (
@@ -150,15 +150,15 @@ function WaterQualityTable({ onMonthYearChange }) {
                         </select>
                     </div>
 
-                    
+
                     <div className="dropdown" data-html2canvas-ignore="true" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <label htmlFor="monthRangeSelect" style={{ marginBottom: '5px' }}>Month:</label>
+                        <label htmlFor="monthRangeSelect" className="mx-2">Month:</label>
                         <select
                             id="monthRangeSelect"
-                            className="form-select"
+                            className="form-select text-xxs"
                             value={selectedMonthRange}
                             onChange={(e) => setSelectedMonthRange(e.target.value)}
-                            style={{ fontSize: '16px', padding: '4px', width: '200px' }} // Increased width
+                            style={{ background:"none", padding: '4px', width: '200px' }} // Increased width
                         >
                             {monthOptions.map((option) => (
                                 <option key={option.value} value={option.value}>
@@ -179,36 +179,50 @@ function WaterQualityTable({ onMonthYearChange }) {
                 <p>No data available for the selected month range and year.</p>
             ) : (
                 /* Table displaying aggregated data */
-                <table className="table table-bordered table-striped">
-                    <thead className="">
-                        <tr>
-                            <th>Parameter</th>
+                <table className="table table-bordered table-striped" style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead className="text-white" style={{ backgroundColor: '#003f68' }}>
+                        <tr >
+                            <th  style={{ border: '1px solid #ddd', padding: '8px' }}>Parameter</th>
                             {SOURCE_TANKS.map((tank, index) => (
-                                <th key={index}>{tank}</th>
+                                <th key={index} style={{ border: '1px solid #ddd', padding: '8px' }}>{tank}</th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
                         {PARAMETERS.map((param, index) => (
                             <tr key={index}>
-                                <td>{param === "FecalColiform" ? "Fecal Coliform" : param}</td> {/* Display name properly */}
+                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                                    {param === "FecalColiform" ? "Fecal Coliform" : param}
+                                </td> {/* Display name properly */}
                                 {SOURCE_TANKS.map((tank, idx) => (
-                                    <td key={idx}>{aggregatedData[param] ? aggregatedData[param][tank] : "N/A"}</td>
+                                    <td key={idx} style={{ border: '1px solid #ddd', padding: '8px' }}>
+                                        {aggregatedData[param] ? aggregatedData[param][tank] : "N/A"}
+                                    </td>
                                 ))}
                             </tr>
                         ))}
                         {/* Actions Row */}
                         <tr data-html2canvas-ignore="true">
-                            <td><strong>Actions</strong></td>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}><strong>Actions</strong></td>
                             {SOURCE_TANKS.map((tank, idx) => {
                                 const tankData = tank === "U-mall Water Tank" ? uMallData : mainTankData;
                                 return (
-                                    <td key={idx}>
+                                    <td key={idx} style={{ border: '1px solid #ddd', padding: '8px' }}>
                                         {tankData ? (
                                             <>
                                                 <button
                                                     className="update-btn"
                                                     onClick={() => handleUpdate(tankData._id)}
+                                                    style={{
+                                                        padding: '6px 12px',
+                                                        backgroundColor: '#068006',
+                                                        color: '#fff',
+                                                        border: 'none',
+                                                        borderRadius: '4px',
+                                                        cursor: 'pointer'
+                                                    }}
+                                                    onMouseOver={(e) => e.target.style.backgroundColor = '#068006'}
+                                                    onMouseOut={(e) => e.target.style.backgroundColor = '#068006'}
                                                 >
                                                     Update
                                                 </button>

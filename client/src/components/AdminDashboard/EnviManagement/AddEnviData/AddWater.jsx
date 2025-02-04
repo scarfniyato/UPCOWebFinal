@@ -107,18 +107,18 @@ function AddWater() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen font-main">
+        <div className="flex flex-col items-center justify-center min-h-screen font-main text-xs">
             <div className="dataContainer w-full max-w-4xl p-8 bg-white shadow-md rounded-md">
                 <div className='justify-center'>
                     <form onSubmit={handleSubmit}>
                         <h4 className="text-2xl font-bold mb-4 text-center">Add Water Quality Data</h4>
-                        <p className="text-center mb-4">(Do not include commas in values)</p>
+                        <p className="text-center -mt-3 mb-5">(Do not include commas in values)</p>
                         {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {/* Year */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>Year:</label>
+                            <div className='mb-1'>
+                                <label className='block mb-0 font-bold'>Year:</label>
                                 <input
                                     type="text"
                                     placeholder='Enter Year'
@@ -129,8 +129,8 @@ function AddWater() {
                             </div>
 
                             {/* Month Range */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>Month Range:</label>
+                            <div className='mb-1'>
+                                <label className='block mb-0 font-bold'>Month Range:</label>
                                 <select
                                     className='form-control w-full p-2 border border-gray-300 rounded'
                                     value={month}
@@ -145,8 +145,8 @@ function AddWater() {
                             </div>
 
                             {/* Source Tank */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>Source Tank:</label>
+                            <div className='mb-1'>
+                                <label className='block mb-0 font-bold'>Source Tank:</label>
                                 <select
                                     className='form-control w-full p-2 border border-gray-300 rounded'
                                     value={source_tank}
@@ -162,8 +162,8 @@ function AddWater() {
                             </div>
 
                             {/* pH */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>pH:</label>
+                            <div className='mb-1'>
+                                <label className='block mb-0 font-bold'>pH:</label>
                                 <input
                                     type="text"
                                     placeholder='Enter pH'
@@ -174,8 +174,8 @@ function AddWater() {
                             </div>
 
                             {/* Color */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>Color:</label>
+                            <div className='mb-1'>
+                                <label className='block mb-0 font-bold'>Color:</label>
                                 <input
                                     type="text"
                                     placeholder='Enter Color Value'
@@ -186,8 +186,8 @@ function AddWater() {
                             </div>
 
                             {/* Fecal Coliform */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>Fecal Coliform:</label>
+                            <div className='mb-1'>
+                                <label className='block mb-0 font-bold'>Fecal Coliform:</label>
                                 <input
                                     type="text"
                                     placeholder='Enter Fecal Coliform Value'
@@ -198,8 +198,8 @@ function AddWater() {
                             </div>
 
                             {/* TSS */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>TSS:</label>
+                            <div className='mb-1'>
+                                <label className='block mb-0 font-bold'>TSS:</label>
                                 <input
                                     type="text"
                                     placeholder='Enter TSS Value'
@@ -210,8 +210,8 @@ function AddWater() {
                             </div>
 
                             {/* Chloride */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>Chloride:</label>
+                            <div className='mb-1'>
+                                <label className='block mb-0 font-bold'>Chloride:</label>
                                 <input
                                     type="text"
                                     placeholder='Enter Chloride Value'
@@ -222,8 +222,8 @@ function AddWater() {
                             </div>
 
                             {/* Nitrate */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>Nitrate:</label>
+                            <div className='mb-2'>
+                                <label className='block mb-0 font-bold'>Nitrate:</label>
                                 <input
                                     type="text"
                                     placeholder='Enter Nitrate Value'
@@ -234,8 +234,8 @@ function AddWater() {
                             </div>
 
                             {/* Phosphate */}
-                            <div className='mb-4'>
-                                <label className='block mb-2 font-bold'>Phosphate:</label>
+                            <div className='mb-2'>
+                                <label className='block mb-0 font-bold'>Phosphate:</label>
                                 <input
                                     type="text"
                                     placeholder='Enter Phosphate Value'

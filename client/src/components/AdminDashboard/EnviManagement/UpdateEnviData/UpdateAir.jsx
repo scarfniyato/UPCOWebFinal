@@ -87,30 +87,30 @@ function UpdateAir() {
     };
 
     return (
-        <div className='bg'>
-            <div className="dataContainer" >
-                <div className='text-center'>
+        <div className=' text-xs'>
+            <div className="dataContainer " >
+                <div className='text-left p-5'>
                     <form onSubmit={handleUpdate}>
-                        <h4 className="text-2xl font-bold mb-4 text-center">Update Air Quality Data</h4>
-                        <p className="text-center mb-4">(Do not include commas in values)</p>
+                        <h4 className="text-2xl font-bold mb-4 text-left">Update Air Quality Data</h4>
+                        <p className="text-left -mt-3 mb-5">(Do not include commas in values)</p>
                         {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
 
                         {/* Year */}
-                        <div className="mb-4">
-                            <label>Year:</label>
+                        <div className="mb-2">
+                            <label>Year: </label>
                             <input
                                 type="text"
-                                className='form-control'
+                                className='form-control fbold'
                                 value={year}
                                 readOnly  // makes it non-editable
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label>Month:</label>
+                            <label>Month: </label>
                             <input
                                 type="text"
-                                className='form-control'
+                                className='form-control fbold'
                                 value={month}
                                 readOnly  // makes it non-editable
                             />
@@ -123,7 +123,7 @@ function UpdateAir() {
                             <input
                                 type="text"
                                 placeholder="Enter Data"
-                                className="form-control w-full p-2 border border-gray-300 rounded"
+                                className="form-control w-[335px] p-2 border border-gray-300 rounded"
                                 value={CO}
                                 onChange={(e) => setNO2(e.target.value)}
                             />
@@ -135,7 +135,7 @@ function UpdateAir() {
                             <input
                                 type="text"
                                 placeholder="Enter Data"
-                                className="form-control w-full p-2 border border-gray-300 rounded"
+                                className="form-control w-[335px] p-2 border border-gray-300 rounded"
                                 value={NO2}
                                 onChange={(e) => setNO2(e.target.value)}
                             />
@@ -147,14 +147,14 @@ function UpdateAir() {
                             <input
                                 type="text"
                                 placeholder="Enter Data"
-                                className="form-control w-full p-2 border border-gray-300 rounded"
+                                className="form-control w-[335px] p-2 border border-gray-300 rounded"
                                 value={SO2}
                                 onChange={(e) => setSO2(e.target.value)}
                             />
                         </div>
 
                         {/* Submit Button */}
-                        <div className="flex justify-center">
+                        <div className="flex justify-left">
                             <button className="btn w-full p-2 bg-blue-500 text-white rounded">Submit</button>
                         </div>
                     </form>

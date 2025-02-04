@@ -87,33 +87,33 @@ function UpdateWaste() {
     };
 
     return (
-        <div className="bg">
+        <div className="text-xs">
             <div className="dataContainer" >
-                <div className="text-center">
+                <div className="text-left p-5">
 
                 <form onSubmit={handleUpdate}>
-                <h4 className="text-2xl font-bold mb-4 text-center">Update Waste Data</h4>
-            <p className="text-center mb-4">(Do not include commas in values)</p>
-            {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
+                <h4 className="text-2xl font-bold mb-4 text-left">Update Waste Data</h4>
+            <p className="text-left -mt-3 mb-5">(Do not include commas in values)</p>
+            {error && <p className="text-left mb-4" style={{ color: 'red' }}>{error}</p>}
 
             {/* Year */}
             <div className="mb-4">
-              <label className="block mb-2 font-bold">Year:</label>
+              <label className="block mb-0 font-bold">Year:</label>
               <input
                 type="text"
                 placeholder="Enter Year"
-                className="form-control w-full p-2 border border-gray-300 rounded"
+                className="form-control w-[335px] p-2 border border-gray-300 rounded"
                 value={year}
                 readOnly  
               />
             </div>
 
             <div className="mb-4">
-              <label className="block mb-2 font-bold">Month:</label>
+              <label className="block mb-0 font-bold">Month:</label>
               <input
                 type="text"
                 placeholder="Enter Month"
-                className="form-control w-full p-2 border border-gray-300 rounded"
+                className="form-control w-[335px] p-2 border border-gray-300 rounded"
                 value={month}
                 readOnly  
               />
@@ -121,11 +121,11 @@ function UpdateWaste() {
 
             {/* Residual */}
             <div className="mb-4">
-              <label className="block mb-2 font-bold">Residual (kg):</label>
+              <label className="block mb-0 font-bold">Residual (kg):</label>
               <input
                 type="number"
                 placeholder="Enter Quantity"
-                className="form-control w-full p-2 border border-gray-300 rounded"
+                className="form-control w-[335px] p-2 border border-gray-300 rounded"
                 value={residual}
                 onChange={(e) => setResidual(e.target.value)}
                 min="0"
@@ -134,11 +134,11 @@ function UpdateWaste() {
 
             {/* Biodegradable */}
             <div className="mb-4">
-              <label className="block mb-2 font-bold">Biodegradable (kg):</label>
+              <label className="block mb-0 font-bold">Biodegradable (kg):</label>
               <input
                 type="number"
                 placeholder="Enter Quantity"
-                className="form-control w-full p-2 border border-gray-300 rounded"
+                className="form-control w-[335px] p-2 border border-gray-300 rounded"
                 value={biodegradable}
                 onChange={(e) => setBiodegradable(e.target.value)}
                 min="0"
@@ -147,11 +147,11 @@ function UpdateWaste() {
 
             {/* Recyclable */}
             <div className="mb-4">
-              <label className="block mb-2 font-bold">Recyclable (kg):</label>
+              <label className="block mb-0 font-bold">Recyclable (kg):</label>
               <input
                 type="number"
                 placeholder="Enter Quantity"
-                className="form-control w-full p-2 border border-gray-300 rounded"
+                className="form-control w-[335px] p-2 border border-gray-300 rounded"
                 value={recyclable}
                 onChange={(e) => setRecyclable(e.target.value)}
                 min="0"
@@ -159,8 +159,8 @@ function UpdateWaste() {
             </div>
 
             {/* Submit Button */}
-            <div className="flex justify-center">
-              <button className="btn w-full p-2 bg-blue-500 text-white rounded">Submit</button>
+            <div className="flex justify-left">
+              <button className="btn w-[335px] p-2 bg-blue-500 text-white rounded">Submit</button>
             </div>
                 </form>
 

@@ -1,34 +1,28 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "../style.css"
+import "../style.css";
 
 function WasteTable({ onMonthYearChange }) {
-  // State variables
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [error, setError] = useState("");
-
-  // New state for fetching available years
   const [availableYears, setAvailableYears] = useState([]);
   const [yearError, setYearError] = useState("");
   const [loadingYears, setLoadingYears] = useState(false);
 
-  // Define months as a constant array in ascending order
   const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
 
-  // 1. Fetch available years for the year dropdown in ascending order
   useEffect(() => {
     const fetchAvailableYears = async () => {
       setLoadingYears(true);
       setYearError("");
       try {
         const response = await axios.get("http://localhost:3001/available_year_waste");
-        // Sort the array in ascending order (oldest -> newest).
         const sortedYears = response.data.sort((a, b) => a - b);
         setAvailableYears(sortedYears);
       } catch (err) {
@@ -41,8 +35,6 @@ function WasteTable({ onMonthYearChange }) {
     fetchAvailableYears();
   }, []);
 
-  // 2. Fetch filtered users based on selectedMonth & selectedYear
-  //    If both are empty, fetch ALL data from the server.
   useEffect(() => {
     const fetchFilteredUsers = async () => {
       try {
@@ -53,22 +45,15 @@ function WasteTable({ onMonthYearChange }) {
         const response = await axios.get(`http://localhost:3001/filterUsers?${queryParams.toString()}`);
         let data = response.data;
 
-        /**
-         * Sort the data by:
-         * 1) Year ascending (oldest to newest)
-         * 2) Month ascending (January -> December within each year)
-         */
         data.sort((a, b) => {
-          // First compare by year ascending
           if (a.year !== b.year) {
             return a.year - b.year;
           }
-          // If same year, compare by month index ascending
           return months.indexOf(a.month) - months.indexOf(b.month);
         });
 
         setFilteredUsers(data);
-        setError(""); // clear previous errors
+        setError("");
       } catch (err) {
         console.error("Error fetching filtered users:", err);
         setFilteredUsers([]);
@@ -79,13 +64,11 @@ function WasteTable({ onMonthYearChange }) {
   }, [selectedMonth, selectedYear]);
 
   useEffect(() => {
-    // Only call if the parent gave us a callback
     if (onMonthYearChange) {
       onMonthYearChange(selectedMonth, selectedYear);
     }
   }, [selectedMonth, selectedYear, onMonthYearChange]);
 
-  // Function to calculate total waste
   const calculateTotal = (item) => {
     const residual = parseFloat(item.residual) || 0;
     const biodegradable = parseFloat(item.biodegradable) || 0;
@@ -94,98 +77,81 @@ function WasteTable({ onMonthYearChange }) {
   };
 
   return (
-    <div className=""  style={{ color: '#333333' }}>
+    <div className="" style={{ color: '#333333' }}>
       {yearError && <div className="alert alert-danger">{yearError}</div>}
-
       {loadingYears && <p>Loading available years...</p>}
 
       <div className="row mb-4" data-html2canvas-ignore="true">
-        <div className="col-md-8 d-flex align-items-center fbold">
-          <label htmlFor="monthSelect" style={{ marginRight: '10px', whiteSpace: 'nowrap' }}>
-            Select Month:
-          </label>
+        <div className="col-md-8 d-flex align-items-center fbold text-xxs">
+          <label htmlFor="monthSelect" className="mr-2">Select Month:</label>
           <select
             id="monthSelect"
             className="form-select dropdown"
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
-            style={{ marginRight: '20px', padding: '4px' }}
           >
             <option value="">All Months</option>
             {months.map((month, index) => (
-              <option key={index} value={month}>
-                {month}
-              </option>
+              <option key={index} value={month}>{month}</option>
             ))}
           </select>
 
-          <label htmlFor="yearSelect" style={{ marginRight: '10px', whiteSpace: 'nowrap' }}>
-            Select Year:
-          </label>
+          <label htmlFor="yearSelect" className="ml-3 mr-2">Select Year:</label>
           <select
             id="yearSelect"
             className="form-select dropdown"
             value={selectedYear}
             onChange={(e) => setSelectedYear(e.target.value)}
             disabled={loadingYears}
-            style={{ padding: '4px' }}
           >
             <option value="">All Years</option>
             {availableYears.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
+              <option key={year} value={year}>{year}</option>
             ))}
           </select>
         </div>
       </div>
 
-      {/* Display Error Message for waste data fetch */}
       {error && <div className="alert alert-danger">{error}</div>}
 
-      {/* Table: Individual Solid Waste Entries */}
-      <div className="">
-        <div className="">
-          <div className="table-responsive">
-            <table className="w-full">
-              <thead className="text-left bg-dark text-white">
-                <tr>
-                  <th className="py-2 px-4">Year</th>
-                  <th className="py-2 px-4">Month</th>
-                  <th className="py-2 px-4">Residuals</th>
-                  <th className="py-2 px-4">Biodegradables</th>
-                  <th className="py-2 px-4">Recyclables</th>
-                  <th className="py-2 px-4">Total</th>
-                  <th className="py-2 px-4">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="text-left">
-                {filteredUsers.length > 0 ? (
-                  filteredUsers.map((item) => (
-                    <tr key={item._id}>
-                      <td className="py-2 px-4">{item.year}</td>
-                      <td className="py-2 px-4">{item.month}</td>
-                      <td className="py-2 px-4">{item.residual ?? "N/A"}</td>
-                      <td className="py-2 px-4">{item.biodegradable ?? "N/A"}</td>
-                      <td className="py-2 px-4">{item.recyclable ?? "N/A"}</td>
-                      <td className="py-2 px-4">{calculateTotal(item)}</td>
-                      <td className="flex items-center justify-center">
-                        <Link to={`/dashboard/update/solidwaste/${item._id}`} className="update-btn">
-                          Update
-                        </Link>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="7" className="text-center">
-                      No data available.
+      <div className="text-xs">
+        <div className="table-responsive">
+          <table className="w-full border border-gray-400">
+            <thead className="text-left bg-dark text-white border border-gray-500">
+              <tr>
+                <th className="py-2 px-4 border border-gray-500">Year</th>
+                <th className="py-2 px-4 border border-gray-500">Month</th>
+                <th className="py-2 px-4 border border-gray-500">Residuals</th>
+                <th className="py-2 px-4 border border-gray-500">Biodegradables</th>
+                <th className="py-2 px-4 border border-gray-500">Recyclables</th>
+                <th className="py-2 px-4 border border-gray-500">Total</th>
+                <th className="py-2 px-4 border border-gray-500">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="text-left">
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((item) => (
+                  <tr key={item._id} className="border border-gray-400">
+                    <td className="py-2 px-4 border border-gray-400">{item.year}</td>
+                    <td className="py-2 px-4 border border-gray-400">{item.month}</td>
+                    <td className="py-2 px-4 border border-gray-400">{item.residual ?? "N/A"}</td>
+                    <td className="py-2 px-4 border border-gray-400">{item.biodegradable ?? "N/A"}</td>
+                    <td className="py-2 px-4 border border-gray-400">{item.recyclable ?? "N/A"}</td>
+                    <td className="py-2 px-4 border border-gray-400">{calculateTotal(item)}</td>
+                    <td className="py-2 px-4 border border-gray-400">
+                      <Link to={`/dashboard/update/solidwaste/${item._id}`} className="update-btn">
+                        Update
+                      </Link>
                     </td>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" className="text-center border border-gray-400">No data available.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

@@ -71,21 +71,21 @@ const AddAir = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen font-main">
+    <div className="flex flex-col items-left justify-left min-h-screen font-main text-xs">
       <div className="dataContainer w-full max-w-md p-8 bg-white shadow-md rounded-md">
-        <div className='justify-center'>
+        <div className='justify-left p-5'>
           <form onSubmit={handleSubmit}>
-            <h4 className="text-2xl font-bold mb-4 text-center">Add Air Quality Data</h4>
-            <p className="text-center mb-4">(Do not include commas in values)</p>
-            {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
+            <h4 className="text-xl font-bold mb-4 text-left">Add Air Quality Data</h4>
+            <p className="text-left -mt-3 mb-5">(Do not include commas in values)</p>
+            {error && <p className="text-left mb-4" style={{ color: 'red' }}>{error}</p>}
 
             {/* Year */}
             <div className='mb-4'>
-              <label className='block mb-2 font-bold'>Year:</label>
+              <label className='block mb-0 font-bold'>Year:</label>
               <input
                 type="text"
                 placeholder='Enter Year'
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
               />
@@ -93,9 +93,9 @@ const AddAir = () => {
 
             {/* Month (Dropdown) */}
             <div className='mb-4'>
-              <label className='block mb-2 font-bold'>Month:</label>
+              <label className='block mb-0 font-bold'>Month:</label>
               <select
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
               >
@@ -110,11 +110,11 @@ const AddAir = () => {
 
             {/* CO */}
             <div className='mb-4'>
-              <label className='block mb-2 font-bold'>CO:</label>
+              <label className='block mb-0 font-bold'>CO:</label>
               <input
                 type="text"
                 placeholder='Enter Data'
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={CO}
                 onChange={(e) => setCO(e.target.value)}
               />
@@ -122,11 +122,11 @@ const AddAir = () => {
 
             {/* NO2 */}
             <div className='mb-4'>
-              <label className='block mb-2 font-bold'>NO2:</label>
+              <label className='block mb-0 font-bold'>NO2:</label>
               <input
                 type="text"
                 placeholder='Enter Data'
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={NO2}
                 onChange={(e) => setNO2(e.target.value)}
               />
@@ -134,18 +134,18 @@ const AddAir = () => {
 
             {/* SO2 */}
             <div className='mb-4'>
-              <label className='block mb-2 font-bold'>SO2:</label>
+              <label className='block mb-0 font-bold'>SO2:</label>
               <input
                 type="text"
                 placeholder='Enter Data'
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={SO2}
                 onChange={(e) => setSO2(e.target.value)}
               />
             </div>
 
             {/* Submit Button */}
-            <div className='flex justify-center'>
+            <div className='flex justify-left'>
               <button className='btn w-full p-2 bg-blue-500 text-white rounded'>Submit</button>
             </div>
           </form>

@@ -70,13 +70,13 @@ function AddWaste() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen font-main">
-      <div className="dataContainer w-full max-w-md p-8 bg-white shadow-md rounded-md">
-        <div className='justify-center'>
+    <div className="flex flex-col items-left justify-left min-h-screen font-main text-xs">
+      <div className="dataContainer w-full max-w-md p-8 bg-white shadow-md rounded-md ">
+        <div className='justify-left p-5'>
           <form onSubmit={handleSubmit}>
-            <h4 className="text-2xl font-bold mb-4 text-center">Add Solid Waste Data</h4>
-            <p className="text-center mb-4">(Do not include commas in values)</p>
-            {error && <p className="text-center mb-4" style={{ color: 'red' }}>{error}</p>}
+            <h4 className="text-xl font-bold mb-4 text-left">Add Solid Waste Data</h4>
+            <p className="text-left -mt-3 mb-5">(Do not include commas in values)</p>
+            {error && <p className="text-left mb-4" style={{ color: 'red' }}>{error}</p>}
 
             {/* Year */}
             <div className='mb-4'>
@@ -84,7 +84,7 @@ function AddWaste() {
               <input
                 type="text"
                 placeholder='Enter Year'
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
               />
@@ -94,7 +94,7 @@ function AddWaste() {
             <div className='mb-4'>
               <label className='block mb-2 font-bold'>Month:</label>
               <select
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
               >
@@ -109,11 +109,11 @@ function AddWaste() {
 
             {/* Residual */}
             <div className='mb-4'>
-              <label className='block mb-2 font-bold'>Residual (kg):</label>
+              <label className='block mb-0 font-bold'>Residual (kg):</label>
               <input
                 type="text"
                 placeholder='Enter Quantity'
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={residual}
                 onChange={(e) => setResidual(e.target.value)}
               />
@@ -121,11 +121,11 @@ function AddWaste() {
 
             {/* Recyclable */}
             <div className='mb-4'>
-              <label className='block mb-2 font-bold'>Recyclable (kg):</label>
+              <label className='block mb-0 font-bold'>Recyclable (kg):</label>
               <input
                 type="text"
                 placeholder='Enter Quantity'
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={recyclable}
                 onChange={(e) => setRecyclable(e.target.value)}
               />
@@ -133,18 +133,18 @@ function AddWaste() {
 
             {/* Biodegradable */}
             <div className='mb-4'>
-              <label className='block mb-2 font-bold'>Biodegradable (kg):</label>
+              <label className='block mb-0 font-bold'>Biodegradable (kg):</label>
               <input
                 type="text"
                 placeholder='Enter Quantity'
-                className='form-control w-full p-2 border border-gray-300 rounded'
+                className='form-control w-[335px] p-2 border border-gray-300 rounded'
                 value={biodegradable}
                 onChange={(e) => setBiodegradable(e.target.value)}
               />
             </div>
 
             {/* Submit Button */}
-            <div className='flex justify-center'>
+            <div className='flex justify-left'>
               <button className='btn w-full p-2 bg-blue-500 text-white rounded'>Submit</button>
             </div>
           </form>
