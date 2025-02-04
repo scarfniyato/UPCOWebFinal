@@ -9,23 +9,23 @@ const HomeSection = ({ handleScroll }) => {
     <div>
       <section
         id="home"
-        className="relative flex flex-col md:flex-row items-center justify-between h-screen bg-cover bg-center text-white px-40"
+        className="relative flex flex-col md:flex-row items-center justify-between h-screen bg-cover bg-center text-white px-36"
         style={{
           backgroundImage: `url(${cvsuBg}), linear-gradient(rgba(0, 58, 85, 0.3), rgba(0, 58, 85, 0.3))`
         }}
       >
         {/* Left Side Content */}
         <div className="md:w-1/2 text-left">
-          <h1 className="text-4xl font-extrabold leading-tight text-outline drop-shadow-dark">
+          <h1 className="text-4xl font-bold leading-snug text-outline drop-shadow-dark">
             Discover<br />
             State of the Environment at <br />
             Cavite State University <br />
             Indang Campus
           </h1>
-          <p className="mt-10 text-lg font-medium text-outline drop-shadow-light">
+          <p className="mt-10 text-base font-medium text-outline drop-shadow-light">
             Stay informed and help create a cleaner, <br /> greener future for our campus community.
           </p>
-          <p className="mt-10 mb-10 text-lg font-semibold text-outline drop-shadow-light">
+          <p className="mt-10 mb-10 text-base font-semibold text-outline drop-shadow-light">
             Para sa Kalikasan, Para sa Kinabukasan!
           </p>
           <CustomButton onPress={handleScroll}>Learn More</CustomButton>
