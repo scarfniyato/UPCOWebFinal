@@ -84,8 +84,8 @@ const EnviPolicy = () => {
                 </Link>
             </header>
 
-            <div className='Main Box bg-white mt-11 p-6 rounded-2xl shadow-lg'>
-                <div className='fbold mb-3 text-lg'>Environmental Management Policies<hr /></div>
+            <div className='Main Box bg-white mt-3 p-6 rounded-lg shadow-lg text-xs'>
+                <div className='fbold mb-3 text-sm'>Environmental Management Policies<hr /></div>
                 <div className='font-main flex items-center justify-center'>
                     <table className="files-table w-full border-separate">
                         <thead>
@@ -121,8 +121,8 @@ const EnviPolicy = () => {
                     </table>
                 </div>
 
-                <div className='mt-16'>
-                    <h2 className='fbold mb-3 text-lg'>Add Environmental Management Policy<hr /></h2>
+                <div className='mt-5'>
+                    <h2 className='fbold mb-3 text-sm'>Add Environmental Management Policy<hr /></h2>
                     <form onSubmit={handleFileUpload} className="upload-form text-dark"></form>
                     <input
                         type="file"
