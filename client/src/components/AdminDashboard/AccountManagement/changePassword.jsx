@@ -49,32 +49,27 @@ const ChangePassword = () => {
                     <MdAccountCircle size={40} className="text-gray-700 hover:text-green-500 transition duration-300" />
                 </Link>
             </header>
-            <div className='w-full rounded-xl bg-white mt-6 p-6 shadow-md'>
 
-                <Typography variant="h6" gutterBottom style={{ fontFamily: "Montserrat" }}>
-                    Manage Your Account Here!
-                </Typography>
+            <div className='w-full rounded-xl bg-white mt-6 p-6 shadow-md text-xs'>
 
-                <form onSubmit={handleSubmit}>
+                <div className='fbold mb-3 text-sm'>Change Password<hr /></div>
+
+                <form onSubmit={handleSubmit} className="text-xs">
                     <TextField
                         label="Enter email"
                         type="email"
-                        fullWidth
+                        className="w-[400px] text-xs"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         margin="normal"
                     />
 
-                    <Typography variant="h6" gutterBottom style={{ fontFamily: "Montserrat" }}>
-                        Change Password
-                    </Typography>
-
-                    <div className="fnormal">
+                    <div className="fnormal text-xs">
                         <TextField
                             label="Enter new password"
                             type="password"
-                            fullWidth
+                            className="w-[400px] text-xs"
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             required
@@ -84,7 +79,7 @@ const ChangePassword = () => {
                         <TextField
                             label="Confirm password"
                             type="password"
-                            fullWidth
+                            className="w-[400px] text-xs mx-10"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
@@ -107,7 +102,7 @@ const ChangePassword = () => {
                     <Button
                         type="submit"
                         variant="contained"
-                        fullWidth
+                        className="w-[400px] text-xs"
                         style={{ marginTop: "20px", fontFamily: "Montserrat", backgroundColor: "#003A55", color: "#FFFFFF" }}
                     >
                         Update Password
