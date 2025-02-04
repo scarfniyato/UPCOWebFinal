@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {Table,TableBody,TableCell,TableHead,TableRow,Typography,Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle,} from "@mui/material";
+import { Table, TableBody, TableCell, TableHead, TableRow, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, } from "@mui/material";
 import { MdAccountCircle } from "react-icons/md";
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const UserManagement = () => {
     const fetchAccounts = async () => {
         try {
             //will fetch data from backend
-            const response = await axios.get("http://localhost:3001/api/users"); 
+            const response = await axios.get("http://localhost:3001/api/users");
             console.log("Fetched accounts:", response.data); //debug log
             setAccounts(response.data); //will update state with the fetched accounts
         } catch (error) {
@@ -61,54 +61,59 @@ const UserManagement = () => {
 
     return (
         <div>
-            <div className='flex gap-x-64 w-full'>
-                <div className='flex-1 flex items-center head'>User Management</div>
-                <div className='items-center flex-none'><Link to="/dashboard/accounts"><MdAccountCircle size={50}/></Link></div>
-            </div>
+            {/* Header */}
+            <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
+                <h1 className="text-lg font-semibold text-[#333333]">
+                    User Management
+                </h1>
+                <Link to="/dashboard/accounts" className="flex items-center space-x-2">
+                    <MdAccountCircle size={40} className="text-gray-700 hover:text-green-500 transition duration-300" />
+                </Link>
+            </header>
             <div className="bg-white mt-6 p-6 rounded-xl shadow-md">
                 <div className="btn1 w-40 text-center mb-4">
                     <Link to="/dashboard/index">
-                    <Button color="white">Add Account</Button></Link>
+                        <Button color="white">Add Account</Button></Link>
                 </div>
-            <div>
-            <Table>
-                <TableHead>
-                    <TableRow className="bg-gray-200">
-                        <TableCell>Name</TableCell>
-                        <TableCell>Email</TableCell>
-                        <TableCell>Date Created</TableCell> {/* New column */}
-                        <TableCell>Action</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {accounts.map((account) => (
-                        <TableRow key={account._id}>
-                            <TableCell>{account.name}</TableCell>
-                            <TableCell>{account.email}</TableCell>
-                            <TableCell>{formatDate(account.createdAt)}</TableCell> {/* Display formatted date */}
-                            <TableCell>
-                                <Button onClick={() => handleDeleteClick(account._id)}>
-                                    Delete
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            </div>
-            <Dialog open={openDialog} onClose={handleCancelDelete}>
-                <DialogTitle>Confirm Delete</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Are you sure you want to delete this account?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCancelDelete} >Cancel</Button>
-                    <Button onClick={handleConfirmDelete} >Delete this account</Button>
-                </DialogActions>
-            </Dialog>
-        </div></div>
+                <div>
+                    <Table>
+                        <TableHead>
+                            <TableRow className="bg-gray-200">
+                                <TableCell>Name</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Date Created</TableCell> {/* New column */}
+                                <TableCell>Action</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {accounts.map((account) => (
+                                <TableRow key={account._id}>
+                                    <TableCell>{account.name}</TableCell>
+                                    <TableCell>{account.email}</TableCell>
+                                    <TableCell>{formatDate(account.createdAt)}</TableCell> {/* Display formatted date */}
+                                    <TableCell>
+                                        <Button onClick={() => handleDeleteClick(account._id)}>
+                                            Delete
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+                <Dialog open={openDialog} onClose={handleCancelDelete}>
+                    <DialogTitle>Confirm Delete</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Are you sure you want to delete this account?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCancelDelete} >Cancel</Button>
+                        <Button onClick={handleConfirmDelete} >Delete this account</Button>
+                    </DialogActions>
+                </Dialog>
+            </div></div>
     );
 };
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button, TextField, Typography, Grid, Paper } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
-import { MdAccountCircle } from "react-icons/md";   
+import { MdAccountCircle } from "react-icons/md";
 
 const ChangePassword = () => {
     const [email, setEmail] = useState("");
@@ -40,32 +40,37 @@ const ChangePassword = () => {
 
     return (
         <>
-        <div className='flex gap-x-64 w-full'>
-            <div className='flex-1 flex items-center head'>Account Management</div>
-            <div className='items-center flex-none'><Link to="/accountmanagement"><MdAccountCircle size={50}/></Link></div>
-        </div>
-        <div className='w-full rounded-xl bg-white mt-6 p-6 shadow-md'>
-                
+            {/* Header */}
+            <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
+                <h1 className="text-lg font-semibold text-[#333333]">
+                    Account Management
+                </h1>
+                <Link to="/dashboard/accounts" className="flex items-center space-x-2">
+                    <MdAccountCircle size={40} className="text-gray-700 hover:text-green-500 transition duration-300" />
+                </Link>
+            </header>
+            <div className='w-full rounded-xl bg-white mt-6 p-6 shadow-md'>
+
+                <Typography variant="h6" gutterBottom style={{ fontFamily: "Montserrat" }}>
+                    Manage Your Account Here!
+                </Typography>
+
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        label="Enter email"
+                        type="email"
+                        fullWidth
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        margin="normal"
+                    />
+
                     <Typography variant="h6" gutterBottom style={{ fontFamily: "Montserrat" }}>
-                        Manage Your Account Here!
+                        Change Password
                     </Typography>
 
-                    <form onSubmit={handleSubmit}>
-                        <TextField
-                            label="Enter email"
-                            type="email"
-                            fullWidth
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            margin="normal"
-                        />
-
-                        <Typography variant="h6" gutterBottom style={{ fontFamily: "Montserrat" }}>
-                            Change Password
-                        </Typography>
-
-                        <div className="fnormal">
+                    <div className="fnormal">
                         <TextField
                             label="Enter new password"
                             type="password"
@@ -85,30 +90,30 @@ const ChangePassword = () => {
                             required
                             margin="normal"
                         />
-                        </div>
+                    </div>
 
-                        {error && (
-                            <Typography color="error" variant="body2" style={{ marginTop: "10px" }}>
-                                {error}
-                            </Typography>
-                        )}
+                    {error && (
+                        <Typography color="error" variant="body2" style={{ marginTop: "10px" }}>
+                            {error}
+                        </Typography>
+                    )}
 
-                        {success && (
-                            <Typography color="primary" variant="body2" style={{ marginTop: "10px" }}>
-                                {success}
-                            </Typography>
-                        )}
+                    {success && (
+                        <Typography color="primary" variant="body2" style={{ marginTop: "10px" }}>
+                            {success}
+                        </Typography>
+                    )}
 
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            fullWidth
-                            style={{ marginTop: "20px",  fontFamily: "Montserrat", backgroundColor: "#003A55", color: "#FFFFFF" }}
-                        >
-                            Update Password
-                        </Button>
-                    </form>
-        </div>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                        style={{ marginTop: "20px", fontFamily: "Montserrat", backgroundColor: "#003A55", color: "#FFFFFF" }}
+                    >
+                        Update Password
+                    </Button>
+                </form>
+            </div>
         </>
     );
 };

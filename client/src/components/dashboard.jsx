@@ -32,7 +32,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-1">
+    <div >
       {/* Header */}
       <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
         <h1 className="text-lg font-semibold text-[#333333]">
@@ -70,12 +70,12 @@ const Dashboard = () => {
 
       {/*Top10Table Section*/}
       <section className="grid grid-cols-12 gap-3 m-0 items-stretch h-96 w-full">
-        <DashboardCard className="col-span-4 h-96 w-full bg-white rounded-lg border-1 border-gray">
+        <DashboardCard className="col-span-5 h-96 w-full bg-white rounded-lg border-1 border-gray">
           <Top10 className="text-xxs p-2 h-full text-shadow-sm " />
         </DashboardCard>
 
         {/* Map Section */}
-        <DashboardCard className="col-span-8 h-96 w-full p-[30px] bg-white rounded-lg border-1 border-gray">
+        <DashboardCard className="col-span-7 h-96 w-full p-[30px] bg-white rounded-lg border-1 border-gray">
           <h5>CvSU Main Campus - Map</h5>
           <p style={{ marginBottom: '-10px' }}>
             <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 1px' }}></span>

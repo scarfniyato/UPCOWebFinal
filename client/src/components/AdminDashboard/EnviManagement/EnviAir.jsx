@@ -160,29 +160,34 @@ const EnviAir = () => {
   };
 
   return (
-   <div>
-         <div className="p-2">
-           <div className='flex gap-x-64 w-full'>
-             <div className='flex-1 flex items-center head'>Environmental Data Management</div>
-             <div className='items-center flex-none'><Link to="/dashboard/accounts"><MdAccountCircle size={50}/></Link></div>
-           </div>
-   
-          <div className="flex gap-x-64 w-full items-center justify-center">
-             <div className="img_btn_container flex flex-1 flex-row mt-2 gap-1 w-full ">
-                <Link to="/dashboard/waste" className="img_btn">
-                <img src={land_icon} alt="Land Pollution" />
-                </Link>
-                <Link to="/dashboard/air" className="active_link">
-                <img src={airActive_icon} alt="Air Pollution" />
-                </Link>
-                <Link to="/dashboard/water" className="img_btn">
-                <img src={water_icon} alt="Water Pollution" />
-                </Link>
-            </div>
-            <div>
-            <button className="btn flex-none" onClick={downloadReport}>Download Report</button>
+    <div>
+      {/* Header */}
+      <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
+        <h1 className="text-lg font-semibold text-[#333333]">
+          Environmental Data Management
+        </h1>
+        <Link to="/dashboard/accounts" className="flex items-center space-x-2">
+          <MdAccountCircle size={40} className="text-gray-700 hover:text-green-500 transition duration-300" />
+        </Link>
+      </header>
+
+      <div className="p-2">
+        <div className="flex gap-x-64 w-full items-center justify-center">
+          <div className="img_btn_container flex flex-1 flex-row mb-2 gap-1 w-full ">
+            <Link to="/dashboard/waste" className="img_btn">
+              <img src={land_icon} alt="Land Pollution" style={{ width: '70px', height: '70px' }} />
+            </Link>
+            <Link to="/dashboard/air" className="active_link">
+              <img src={airActive_icon} alt="Air Pollution" style={{ width: '80px', height: '80px' }} />
+            </Link>
+            <Link to="/dashboard/water" className="img_btn">
+              <img src={water_icon} alt="Water Pollution" style={{ width: '70px', height: '70px' }} />
+            </Link>
           </div>
+          <div>
+            <button className="btn flex-none w-20 h-8 text-xs " onClick={downloadReport}>Download Report</button>
           </div>
+        </div>
 
         <div id="air-quality-chart">
           <div className="dataContainer" style={{ padding: '50px', overflowY: 'auto' }}>
@@ -199,12 +204,12 @@ const EnviAir = () => {
         <div id="air-quality-table">
           <div className="dataContainer" style={{ padding: '30px', overflowY: 'auto' }}>
             <div className="" style={{ maxHeight: '570px', overflowY: 'auto', paddingLeft: '30px', paddingRight: '30px' }}>
-              <AirQualityTable onMonthYearChange={handleMonthYearChange}/>
+              <AirQualityTable onMonthYearChange={handleMonthYearChange} />
             </div>
           </div>
         </div>
+      </div>
     </div>
-  </div>
   )
 };
 

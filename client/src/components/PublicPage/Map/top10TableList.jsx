@@ -61,13 +61,15 @@ const Top10TableList = ({ className = "", style = {} }) => {
     .domain([Math.min(...data.map((d) => d.totalKg || 0)), Math.max(...data.map((d) => d.totalKg || 1))]);
 
   return (
-    <div className={`w-full h-full flex flex-col p-3 ${className}`} style={style}>
+    <div className={`w-full h-full flex flex-col pt-2 ${className}`} style={style}>
 
       {/* Dropdown Filters */}
-      <div className="flex gap-2 text-[#333333] justify-end">
+      <div className="flex gap-2 text-[#333333] ">
+              {/*Title*/}
+      <h2 className="text-xs font-semibold text-gray-700 mb-2">Top 10 Solid Waste Generators</h2>
         <select
           id="monthYearSelect"
-          className="border border-gray-300 rounded-md text-xs px-2 py-1 focus:ring focus:ring-green-300"
+          className="h-5 w-30 text-xxs border border-gray-300 rounded-md text-xs px-1 py-0 focus:ring focus:ring-green-300"
           value={`${month} ${year}`}  // Combining month and year as the value
           onChange={(e) => {
             const [selectedMonth, selectedYear] = e.target.value.split(' ');  // Split to get month and year
@@ -86,8 +88,6 @@ const Top10TableList = ({ className = "", style = {} }) => {
         </select>
       </div>
 
-      {/*Title*/}
-      <h2 className="text-sm font-semibold text-gray-700 m-2">Top 10 Solid Waste Generators</h2>
 
       {/* Table Section */}
       <div className="w-full flex-1 text-black overflow-auto">

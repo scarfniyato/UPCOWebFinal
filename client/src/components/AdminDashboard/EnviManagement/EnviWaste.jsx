@@ -162,9 +162,9 @@ const EnviWaste = () => {
       pdf.setFontSize(10);
       pdf.text("Generated on: " + new Date().toLocaleString(), 20, pdfHeight - 20);
 
-    const formattedDate = getCurrentDateFormatted();
-    const filename = `${formattedDate}_WasteReport.pdf`;
-    pdf.save(filename);
+      const formattedDate = getCurrentDateFormatted();
+      const filename = `${formattedDate}_WasteReport.pdf`;
+      pdf.save(filename);
 
     } catch (error) {
       console.error("Error generating PDF:", error);
@@ -177,32 +177,37 @@ const EnviWaste = () => {
 
   return (
     <div>
-      <div className="p-2" id="pdf-content">
-        <div className='flex gap-x-64 w-full'>
-          <div className='flex-1 flex items-center head'>Environmental Data Management</div>
-          <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
-        </div>
+      {/* Header */}
+      <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
+        <h1 className="text-lg font-semibold text-[#333333]">
+          Environmental Data Management
+        </h1>
+        <Link to="/dashboard/accounts" className="flex items-center space-x-2">
+          <MdAccountCircle size={40} className="text-gray-700 hover:text-green-500 transition duration-300" />
+        </Link>
+      </header>
 
+      <div className="p-2" id="pdf-content">
         <div className="flex gap-x-64 w-full items-center justify-center">
-          <div className="img_btn_container flex flex-1 flex-row mt-2 gap-1 w-full ">
+          <div className="img_btn_container flex flex-1 flex-row mb-2 gap-1 w-full ">
             <Link to="/dashboard/waste" className="active_link">
-              <img src={landActive_icon} alt="Land Pollution" />
+              <img src={landActive_icon} alt="Land Pollution" style={{ width: '80px', height: '80px' }} />
             </Link>
             <Link to="/dashboard/air" className="img_btn">
-              <img src={air_icon} alt="Air Pollution" />
+              <img src={air_icon} alt="Air Pollution" style={{ width: '70px', height: '70px' }} />
             </Link>
             <Link to="/dashboard/water" className="img_btn">
-              <img src={water_icon} alt="Water Pollution" />
+              <img src={water_icon} alt="Water Pollution" style={{ width: '70px', height: '70px' }} />
             </Link>
           </div>
 
           <div>
-            <button className="btn flex-none" onClick={downloadReport}>Download Report</button>
+            <button className="btn flex-none w-20 h-8 text-xs " onClick={downloadReport}>Download Report</button>
           </div>
         </div>
 
         <div id="waste-quality-chart">
-          <div className="dataContainer" style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+          <div className="dataContainer" style={{ padding: '50px', overflowY: 'auto' }}>
             <WasteQualityChart onYearChange={handleYearChange} />
           </div>
         </div>

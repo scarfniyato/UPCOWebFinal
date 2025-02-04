@@ -70,69 +70,74 @@ const EnviPolicy = () => {
         }
     };
     console.log("EnviPolicy component rendered");
-    
+
     return (
-        
+
         <div className="envi-policy-container">
-                <div className='flex gap-x-64 w-full'>
-                    <div className='flex-1 flex items-center head'>Public Page Management</div>
-                    <div className='items-center flex-none'><Link to="/accountmanagement"><MdAccountCircle size={50}/></Link></div>
-                </div>
+            {/* Header */}
+            <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
+                <h1 className="text-lg font-semibold text-[#333333]">
+                    Public Page Management
+                </h1>
+                <Link to="/dashboard/accounts" className="flex items-center space-x-2">
+                    <MdAccountCircle size={40} className="text-gray-700 hover:text-green-500 transition duration-300" />
+                </Link>
+            </header>
 
-                <div className='Main Box bg-white mt-11 p-6 rounded-2xl shadow-lg'>
-                    <div className='fbold mb-3 text-lg'>Environmental Management Policies<hr/></div>
-                    <div className='font-main flex items-center justify-center'>
-                        <table className="files-table w-full border-separate">
-                            <thead>
-                                <tr>
-                                    <th>File Name</th>
-                                    <th>Uploaded File</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {files.length > 0 ? (
-                                    files.map((file) => (
-                                        <tr key={file._id}>
-                                            <td>{file.title}</td>
-                                            <td>
-                                                <a href={file.link} target="_blank" rel="noopener noreferrer">
-                                                    View File
-                                                </a>
-                                            </td>
-                                            <td>{new Date(file.date).toLocaleDateString()}</td> {/* Format the date */}
-                                            <td>
-                                                <button onClick={() => handleDelete(file._id)}>Delete</button>
-                                            </td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan="4">No files uploaded yet.</td>
+            <div className='Main Box bg-white mt-11 p-6 rounded-2xl shadow-lg'>
+                <div className='fbold mb-3 text-lg'>Environmental Management Policies<hr /></div>
+                <div className='font-main flex items-center justify-center'>
+                    <table className="files-table w-full border-separate">
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th>Uploaded File</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {files.length > 0 ? (
+                                files.map((file) => (
+                                    <tr key={file._id}>
+                                        <td>{file.title}</td>
+                                        <td>
+                                            <a href={file.link} target="_blank" rel="noopener noreferrer">
+                                                View File
+                                            </a>
+                                        </td>
+                                        <td>{new Date(file.date).toLocaleDateString()}</td> {/* Format the date */}
+                                        <td>
+                                            <button onClick={() => handleDelete(file._id)}>Delete</button>
+                                        </td>
                                     </tr>
-                                )}
-                            </tbody>
-                        </table>
-                        </div>
-
-                        <div className='mt-16'>
-                            <h2 className='fbold mb-3 text-lg'>Add Environmental Management Policy<hr/></h2>
-                            <form onSubmit={handleFileUpload} className="upload-form text-dark"></form>
-                                <input
-                                    type="file"
-                                    accept="application/pdf"
-                                    multiple // Allow multiple file selection
-                                    onChange={handleFileChange}
-                                    ref={fileInputRef} // Attach the reference for resetting
-                                    className='bg-lblue py-2 px-5 rounded-full'
-                                />
-                                <button type="submit" disabled={isUploading} className='bg-dark text-white py-2 px-5 rounded-full'>
-                                    {isUploading ? 'Uploading...' : 'Add File'}
-                                </button>
-                        </div>
-                    </div>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="4">No files uploaded yet.</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
+
+                <div className='mt-16'>
+                    <h2 className='fbold mb-3 text-lg'>Add Environmental Management Policy<hr /></h2>
+                    <form onSubmit={handleFileUpload} className="upload-form text-dark"></form>
+                    <input
+                        type="file"
+                        accept="application/pdf"
+                        multiple // Allow multiple file selection
+                        onChange={handleFileChange}
+                        ref={fileInputRef} // Attach the reference for resetting
+                        className='bg-lblue py-2 px-5 rounded-full'
+                    />
+                    <button type="submit" disabled={isUploading} className='bg-dark text-white py-2 px-5 rounded-full'>
+                        {isUploading ? 'Uploading...' : 'Add File'}
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 };
 

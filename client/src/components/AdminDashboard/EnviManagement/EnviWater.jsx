@@ -96,7 +96,7 @@ const EnviWater = () => {
       );
 
       // We'll use a smaller margin so we can display bigger images
-      const margin = 20; 
+      const margin = 20;
       let currentY = 90; // start content after heading
       const contentWidth = pdfWidth - margin * 2;
 
@@ -117,7 +117,7 @@ const EnviWater = () => {
       const chartProps = pdf.getImageProperties(chartImgData);
       const chartAspectRatio = chartProps.height / chartProps.width;
       // Potential "larger" width
-      let chartDisplayWidth = contentWidth * scaleFactorChart; 
+      let chartDisplayWidth = contentWidth * scaleFactorChart;
       // If it's too big for the page, revert to contentWidth
       if (chartDisplayWidth > pdfWidth) chartDisplayWidth = contentWidth;
       const chartDisplayHeight = chartDisplayWidth * chartAspectRatio;
@@ -214,34 +214,36 @@ const EnviWater = () => {
 
   return (
     <div>
+      {/* Header */}
+      <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
+        <h1 className="text-lg font-semibold text-[#333333]">
+          Environmental Data Management
+        </h1>
+        <Link to="/dashboard/accounts" className="flex items-center space-x-2">
+          <MdAccountCircle size={40} className="text-gray-700 hover:text-green-500 transition duration-300" />
+        </Link>
+      </header>
       <div className="p-2">
-        <div className='flex gap-x-64 w-full'>
-          <div className='flex-1 flex items-center head'>Environmental Data Management</div>
-          <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
-        </div>
-
         <div className="flex gap-x-64 w-full items-center justify-center">
-          <div className="img_btn_container flex flex-1 flex-row mt-2 gap-1 w-full ">
+          <div className="img_btn_container flex flex-1 flex-row mb-2 gap-1 w-full ">
             <Link to="/dashboard/waste" className="img_btn">
-              <img src={land_icon} alt="Land Pollution" />
+              <img src={land_icon} alt="Land Pollution" style={{ width: '70px', height: '70px' }} />
             </Link>
             <Link to="/dashboard/air" className="img_btn">
-              <img src={air_icon} alt="Air Pollution" />
+              <img src={air_icon} alt="Air Pollution" style={{ width: '70px', height: '70px' }} />
             </Link>
             <Link to="/dashboard/water" className="active_link">
-              <img src={waterActive_icon} alt="Water Pollution" />
+              <img src={waterActive_icon} alt="Water Pollution" style={{ width: '80px', height: '80px' }} />
             </Link>
           </div>
           <div>
-            <button className="btn flex-none" onClick={downloadReport}>Download Report</button>
+            <button className="btn flex-none w-20 h-8 text-xs " onClick={downloadReport}>Download Report</button>
           </div>
         </div>
 
         <div id="water-quality-chart">
-          <div className="dataContainer" style={{ padding: '10px', overflowY: 'auto' }}>
-            <div className="bg-white rounded-3xl shadow-lg p-5">
+          <div className="dataContainer" style={{ padding: '50px', overflowY: 'auto' }}>
               <WaterQualityChart onMonthYearChange2={handleMonthYearChange2} />
-            </div>
           </div>
         </div>
 
