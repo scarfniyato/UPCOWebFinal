@@ -11,7 +11,7 @@ import waterActive_icon from './../../assets/waterActive_icon.png';
 import landActive_icon from './../../assets/landActive_icon.png';
 
 const SOE = () => {
-    const [activeTab, setActiveTab] = useState("air");
+    const [activeTab, setActiveTab] = useState("land");
 
     return (
         <div className="flex justify-center items-center mt-12">
@@ -28,24 +28,7 @@ const SOE = () => {
                     }}
                     color="primary"
                     variant="underlined"
-                >
-                    <Tab
-                        key="air"
-                        title={
-                            <div className="flex items-center relative group">
-                                <img
-                                    src={activeTab === "air" ? airActive_icon : air_icon}
-                                    alt="Air Pollution Icon"
-                                    className="transition-transform duration-300 hover:scale-110 focus:outline-none"
-                                />
-                                <span className="absolute bottom-[-45px] left-1/2 transform -translate-x-1/2 bg-gray-700 bg-opacity-90 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100">
-                                    Air Pollution
-                                </span>
-                            </div>
-                        }
-                    >
-                        <AirPollution />
-                    </Tab>
+                >   
                     <Tab
                         key="land"
                         title={
@@ -63,6 +46,24 @@ const SOE = () => {
                     >
                         <LandPollution />
                     </Tab>
+                    <Tab
+                        key="air"
+                        title={
+                            <div className="flex items-center relative group">
+                                <img
+                                    src={activeTab === "air" ? airActive_icon : air_icon}
+                                    alt="Air Pollution Icon"
+                                    className="transition-transform duration-300 hover:scale-110 focus:outline-none"
+                                />
+                                <span className="absolute bottom-[-45px] left-1/2 transform -translate-x-1/2 bg-gray-700 bg-opacity-90 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100">
+                                    Air Pollution
+                                </span>
+                            </div>
+                        }
+                    >
+                        <AirPollution />
+                    </Tab>
+                    
                     <Tab
                         key="water"
                         title={

@@ -15,24 +15,24 @@ const HomeSection = ({ handleScroll }) => {
         }}
       >
         {/* Left Side Content */}
-        <div className="md:w-1/2 text-left">
-          <h1 className="text-4xl font-bold leading-snug text-outline drop-shadow-dark">
-            Discover<br />
-            State of the Environment at <br />
-            Cavite State University <br />
+        <div className="md:w-3/4 text-left">
+          <h1 className="text-[43px] font-bold leading-snug text-outline-light drop-shadow-light -mb-5 mt-5">
+            Discover <br />State of the Environment <br />
+            at Cavite State University <br />
             Indang Campus
           </h1>
-          <p className="mt-10 text-base font-medium text-outline drop-shadow-light">
-            Stay informed and help create a cleaner, <br /> greener future for our campus community.
-          </p>
-          <p className="mt-10 mb-10 text-base font-semibold text-outline drop-shadow-light">
+          <p className="mt-8 mb-7 text-base font-semibold text-outline-light drop-shadow-md">
             Para sa Kalikasan, Para sa Kinabukasan!
           </p>
-          <CustomButton onPress={handleScroll}>Learn More</CustomButton>
+          <p className="mb-3 text-base font-medium text-outline-light drop-shadow-md ">
+            Stay informed and help create a cleaner, <br /> greener future for our campus community.
+          </p>
+          
+          <CustomButton onPress={handleScroll} className='drop-shadow-md '>Learn More</CustomButton>
         </div>
 
         {/* Right Side Logo */}
-        <div className="md:w-1/2 flex justify-end">
+        <div className="md:w-1/2 flex justify-end -mr-10">
           <img
             src={UPCO_logo}
             alt="University Logo"

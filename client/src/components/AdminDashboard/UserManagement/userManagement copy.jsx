@@ -60,7 +60,7 @@ const UserManagement = () => {
     };
 
     return (
-<div>
+<div className="text-xs">
             {/* Header */}
             <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
                 <h1 className="text-lg font-semibold text-[#333333]">User Management</h1>
@@ -71,9 +71,15 @@ const UserManagement = () => {
 
             {/* User Table */}
             <div className="bg-white mt-4 p-6 rounded-xl shadow-md text-xs">
-                <div className="mb-4 text-center">
+                <div className="mb-4 text-right">
                     <Link to="/dashboard/index">
-                        <Button variant="contained" className="text-xs color-[#003f68]">Add Account</Button>
+                        <Button
+                        style={{background:"#003f68"}}
+                            variant="contained"
+                            className="text-xs bg-[#003f68] text-white hover:bg-[#003f68] text-xs" // Custom color and hover effect
+                        >
+                            Add Account
+                        </Button>
                     </Link>
                 </div>
 
@@ -122,7 +128,7 @@ const UserManagement = () => {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleCancelDelete} color="primary">
+                        <Button onClick={handleCancelDelete} style={{color:"#003f68"}}>
                             Cancel
                         </Button>
                         <Button onClick={handleConfirmDelete} color="secondary">
