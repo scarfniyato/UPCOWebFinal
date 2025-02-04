@@ -44,19 +44,19 @@ const Dashboard = () => {
       </header>
 
       {/* Stats Section */}
-      <section className="grid grid-cols-3 gap-3 mt-3 mb-3 items-stretch h-24 ">
-        <DashboardCard height="h-24">
+      <section className="grid grid-cols-12 gap-3 mt-3 mb-3 items-stretch h-24 ">
+        <DashboardCard className="col-span-3 bg-white rounded-lg items-center border-1 border-gray" height="h-24">
           <div>
             <h2 className="text-4xl font-bold text-[#333333] -mb-3">98</h2>
-            <span className="font-normal text-xs text-[#333333]">Public Page Total Visits</span>
+            <span className="font-normal text-xxs text-[#333333]">Public Page Total Visits</span>
           </div>
         </DashboardCard>
 
-        <DashboardCard height="h-24">
+        <DashboardCard className="col-span-4 bg-white rounded-lg items-center border-1 border-gray" height="h-24">
           <TotalWaste />
         </DashboardCard>
 
-        <DashboardCard height="h-24">
+        <DashboardCard className="col-span-5 bg-white rounded-lg items-center border-1 border-gray" height="h-24">
           <AirQualityResult />
         </DashboardCard>
       </section>

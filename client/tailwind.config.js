@@ -32,7 +32,7 @@ export default {
         24: '6rem',
       },
       fontSize: {
-        'xxs': '.60rem',
+        'xxs': '.65rem',
         '3xl': '1.75rem',
         '4xl': '2.25rem',
       },
