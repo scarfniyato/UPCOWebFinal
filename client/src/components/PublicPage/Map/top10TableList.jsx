@@ -62,70 +62,62 @@ const Top10TableList = ({ className = "", style = {} }) => {
 
   return (
     <div className={`w-full h-full flex flex-col p-3 ${className}`} style={style}>
-      
-      {/*Title & Filters Section */}
-      <div className="flex justify-between items-center border-b pb-2">
-        <h2 className="text-sm font-semibold text-gray-700">Top 10 Solid Waste Generators</h2>
 
-        {/*Dropdown Filters */}
-        <div className="flex gap-2 text-[#333333]">
-          <select
-            id="monthSelect"
-            className="border border-gray-300 rounded-md text-xs px-2 py-1 focus:ring focus:ring-green-300"
-            value={month}
-            onChange={(e) => setMonth(e.target.value)}
-          >
-            {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-              .map((m) => (
-                <option key={m} value={m}>
-                  {m}
+      {/* Dropdown Filters */}
+      <div className="flex gap-2 text-[#333333] justify-end">
+        <select
+          id="monthYearSelect"
+          className="border border-gray-300 rounded-md text-xs px-2 py-1 focus:ring focus:ring-green-300"
+          value={`${month} ${year}`}  // Combining month and year as the value
+          onChange={(e) => {
+            const [selectedMonth, selectedYear] = e.target.value.split(' ');  // Split to get month and year
+            setMonth(selectedMonth);  // Set the month
+            setYear(selectedYear);    // Set the year
+          }}
+        >
+          {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+            .map((m) => (
+              availableYears.map((availableYear) => (
+                <option key={`${m} ${availableYear}`} value={`${m} ${availableYear}`}>
+                  {m} {availableYear}
                 </option>
-              ))}
-          </select>
-
-          <select
-            id="yearSelect"
-            className="border border-gray-300 rounded-md text-xs px-2 py-1 focus:ring focus:ring-green-300"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-          >
-            {availableYears.map((availableYear) => (
-              <option key={availableYear} value={availableYear}>
-                {availableYear}
-              </option>
+              ))
             ))}
-          </select>
-        </div>
+        </select>
       </div>
+
+      {/*Title*/}
+      <h2 className="text-sm font-semibold text-gray-700 m-2">Top 10 Solid Waste Generators</h2>
 
       {/* Table Section */}
       <div className="w-full flex-1 text-black overflow-auto">
-        <table className="w-full border-collapse text-xs">
+        <table className="w-full border-collapse ">
           <thead className="bg-gray-200">
-            <tr className="text-gray-700 text-xs">
-              <th className="px-3 py-2 text-center">No.</th>
-              <th className="px-3 py-2 text-center">College</th>
-              <th className="px-3 py-2 text-center">Total Waste (kg)</th>
+            <tr className="text-gray-700">
+              <th className="px-3 py-2 text-center text-[11px]">No.</th>
+              <th className="px-3 py-2 text-center text-[11px]">College</th>
+              <th className="px-3 py-2 text-center text-[11px]">Total Waste (kg)</th>
             </tr>
           </thead>
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan="3" className="text-center py-2 text-gray-500 text-xs">
+                <td colSpan="3" className="text-center py-2 text-gray-500">
                   Loading...
                 </td>
               </tr>
             ) : data.length > 0 ? (
               data.map((item, index) => (
-                <tr key={index} className="border-b border-gray-300" style={{ backgroundColor: colorScale(item.totalKg || 0) }}>
-                  <td className="px-3 py-2">{index + 1}</td>
-                  <td className="px-3 py-2">{item.name}</td>
-                  <td className="px-3 py-2">{item.totalKg} kg</td>
+                <tr key={index} className="border-b border-gray-300" style={{ 
+                  backgroundColor: colorScale(item.totalKg || 0)}}>
+                  <td className="px-3 py-2 text-xs font-bold rounded" style={{ textShadow: "0px 0px 0px rgba(252, 141, 61, 100)" }}>{index + 1}</td>
+                  <td className="px-3 py-2 bg-white text-[11px]">{item.name}</td>
+                  <td className="px-3 py-2 bg-white text-xs" >{item.totalKg} kg</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="3" className="text-center py-2 text-gray-500 text-xs">
+                <td colSpan="3" className="text-center py-2 text-gray-500">
                   No data available for the selected filters.
                 </td>
               </tr>

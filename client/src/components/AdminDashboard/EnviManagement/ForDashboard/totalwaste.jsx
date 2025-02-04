@@ -71,7 +71,7 @@ function TotalWaste() {
       {/* Display error if any */}
       {error && <div className="alert alert-danger">{error}</div>}
 
-      <div className='fbold text-4xl'>{totalWaste} kg</div>
+      <div className='fbold text-4xl -mb-3'>{totalWaste} kg</div>
       <span className='fnormal text-xs'>Total Solid Waste Generated For {latestMonth} {latestYear}</span>
     </div>
   );

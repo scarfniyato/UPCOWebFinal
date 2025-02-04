@@ -169,12 +169,12 @@ function AirQualityResult() {
         <p>{error}</p>
       ) : (
         <>
-          <div className='fbold text-4xl'>{concludedStatus}</div>
+          <div className='fbold text-4xl -mt-3 -mb-3'>{concludedStatus}</div>
           {/* Display the latest month & year we found */}
-          <div className='fnormal text-sm  mt-2'>
+          <div className='fnormal text-sm  mt-1 -mb-3'>
             Air Quality For {latestMonth} {latestYear}
           </div>
-          <span className='text-xs text-fcolor'>
+          <span className='text-xxs text-fcolor'>
             (Based on AQI of the US Environmental Protection)
           </span>
         </>

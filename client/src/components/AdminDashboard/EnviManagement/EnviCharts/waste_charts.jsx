@@ -134,7 +134,7 @@ function WasteQualityChart({ onYearChange }) {
     <div className="w-full flex flex-col gap-3 text-[#333333] p-4">
       {/*Title & Year Selection*/}
       <div className="w-full flex justify-between items-center border-b pb-2">
-        <h2 className="text-lg font-semibold">
+        <h2 className="text-base font-semibold">
           Solid Waste Generated in CvSU - Main Campus
         </h2>
         {availableYears.length > 0 && (
@@ -155,7 +155,7 @@ function WasteQualityChart({ onYearChange }) {
       </div>
 
       {/* Chart Container*/}
-      <div className="w-full h-[350px]">
+      <div className="w-full h-[250px]">
         <Line data={chartData} options={options} />
       </div>
 

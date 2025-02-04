@@ -11,7 +11,7 @@ import Map from './PublicPage/Map/Map';
 import { Card, CardBody } from "@heroui/react";
 
 /** Reusable Dashboard Card Component (Now Supports Custom Height & Centering) */
-const DashboardCard = ({ children, height = "h-full", className = "bg-white rounded-lg items-center " }) => (
+const DashboardCard = ({ children, height = "h-full", className = "bg-white rounded-lg items-center border-1 border-gray" }) => (
   <Card className={`shadow-sm ${height} ${className}`}>
     <CardBody className="h-full flex flex-col items-center justify-center text-center shadow-none">
       {children}
@@ -44,54 +44,57 @@ const Dashboard = () => {
       </header>
 
       {/* Stats Section */}
-      <section className="grid grid-cols-3 gap-3 mt-5 items-stretch h-32">
-        <DashboardCard height="h-32">
+      <section className="grid grid-cols-3 gap-3 mt-3 mb-3 items-stretch h-24 ">
+        <DashboardCard height="h-24">
           <div>
-            <h2 className="text-4xl font-bold text-[#333333]">98</h2>
-            <span className="fnormal text-xs shadow-[#ffffff]">Public Page Total Visits</span>
+            <h2 className="text-4xl font-bold text-[#333333] -mb-3">98</h2>
+            <span className="font-normal text-xs text-[#333333]">Public Page Total Visits</span>
           </div>
         </DashboardCard>
 
-        <DashboardCard height="h-32">
+        <DashboardCard height="h-24">
           <TotalWaste />
         </DashboardCard>
 
-        <DashboardCard height="h-32">
+        <DashboardCard height="h-24">
           <AirQualityResult />
         </DashboardCard>
       </section>
 
       {/* Waste Chart */}
-      <section className="grid grid-cols-2 gap-3 mt-3 mb-[9%] items-stretch h-96">
-        <DashboardCard height="min-h-[500px] flex flex-col justify-between text-[#333333]">
+      <section className="flex flex-col mt-[12px]  items-stretch h-[400px]">
+        <DashboardCard className="min-h-[400px] flex flex-col justify-between text-[#333333] bg-white rounded-lg border-1 border-gray">
           <WasteChart className="w-full h-[300px]" />
         </DashboardCard>
+      </section>
 
-        {/*Top10Table and Map Section*/}
-        <section className="grid grid-cols-2 gap-3 m-0 items-stretch h-96">
-          <DashboardCard height="h-96">
-            <Top10 className="text-xs p-2 h-full" style={{ fontSize: "12px" }} />
-          </DashboardCard>
+      {/*Top10Table Section*/}
+      <section className="grid grid-cols-12 gap-3 m-0 items-stretch h-96 w-full">
+        <DashboardCard className="col-span-4 h-96 w-full bg-white rounded-lg border-1 border-gray">
+          <Top10 className="text-xxs p-2 h-full text-shadow-sm " />
+        </DashboardCard>
 
-          <DashboardCard className="h-96 w-full p-30px h-auto">
-            <h5>CvSU Main Campus - Map</h5>
-            <p style={{ marginBottom: '-10px' }}>
-              <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 1px' }}></span>
-              <strong>{latestYear || 'Loading...'} </strong>
-            </p>
-            <Map />
-          </DashboardCard>
-        </section>
+        {/* Map Section */}
+        <DashboardCard className="col-span-8 h-96 w-full p-[30px] bg-white rounded-lg border-1 border-gray">
+          <h5>CvSU Main Campus - Map</h5>
+          <p style={{ marginBottom: '-10px' }}>
+            <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 1px' }}></span>
+            <strong>{latestYear || 'Loading...'}</strong>
+          </p>
+
+          {/* Use Map with dynamic width and height */}
+          <Map width="100%" height="500px" latestMonth={latestMonth} latestYear={latestYear} />
+        </DashboardCard>
       </section>
 
       {/* Charts Section */}
       <section className="grid grid-cols-2 gap-3 mt-2 h-[500px]">
         <DashboardCard>
-          <WaterCharts className="w-full h-[300px]"/>
+          <WaterCharts className="w-full h-[300px]" />
         </DashboardCard>
 
         <DashboardCard>
-          <AirCharts className="w-full h-[300px]"/>
+          <AirCharts className="w-full h-[300px]" />
         </DashboardCard>
       </section>
     </div>

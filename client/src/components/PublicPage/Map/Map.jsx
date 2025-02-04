@@ -4,12 +4,14 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import mapBackground from '../../../assets/CvSUMapCropped.png';
 import locationPin from '../../../assets/locationPin.png';
+import * as d3 from 'd3'; // Import D3 for colorScale
 
 const Map = () => {
   const [top10Data, setTop10Data] = useState([]);
   const [latestMonth, setLatestMonth] = useState('');
   const [latestYear, setLatestYear] = useState('');
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const imageWidth = 1200;
   const imageHeight = 800;
@@ -32,9 +34,28 @@ const Map = () => {
     { id: 10, name: 'College of Education', lat: 242, lng: 915 },
   ];
 
+  // Fetch the top 10 waste-generating data
+  const fetchTop10Data = async () => {
+    if (!latestMonth || !latestYear) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/top10-waste-generators?month=${latestMonth}&year=${latestYear}`
+      );
+      if (!response.ok) throw new Error('Failed to fetch top 10 data.');
+      const data = await response.json();
+      setTop10Data(data);
+      setIsLoading(false); // Data fetched successfully
+    } catch (error) {
+      console.error('Error fetching top 10 data:', error);
+      setError('Failed to load data. Please try again later.');
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch the latest available month and year
   const fetchLatestData = async () => {
     try {
-      // Fetch the latest available month and year
       const response = await fetch('http://localhost:3001/api/latest-waste-data');
       if (!response.ok) throw new Error('Failed to fetch latest data.');
       const { month, year } = await response.json();
@@ -46,50 +67,40 @@ const Map = () => {
     }
   };
 
-  const colorCoding = ['#FF0000', '#FF4500', '#FFD700', '#ADFF2F', '#7FFF00', '#32CD32', '#228B22', '#006400', '#008080', '#2F4F4F'];
+  // D3 color scale for waste data (this will match the one in top10TableList.jsx)
+  const colorScale = d3
+    .scaleSequential(d3.interpolateYlOrRd)
+    .domain([Math.min(...top10Data.map((d) => d.totalKg || 0)), Math.max(...top10Data.map((d) => d.totalKg || 1))]);
 
-  const fetchTop10Data = async () => {
-    if (!latestMonth || !latestYear) return;
-
-    try {
-      const response = await fetch(
-        `http://localhost:3001/api/top10-waste-generators?month=${latestMonth}&year=${latestYear}`
-      );
-      if (!response.ok) throw new Error('Failed to fetch top 10 data.');
-      const data = await response.json();
-      setTop10Data(data);
-    } catch (error) {
-      console.error('Error fetching top 10 data:', error);
-      setError('Failed to load data. Please try again later.');
-    }
-  };
-
-  useEffect(() => {
-    fetchLatestData();
-  }, []);
-
-  useEffect(() => {
-    fetchTop10Data();
-  }, [latestMonth, latestYear]);
-
+  // Create custom marker for map
   const getCustomMarker = (id) => {
     const index = top10Data.findIndex((college) => college.id === id);
     if (index === -1) return null;
 
-    const color = colorCoding[index];
+    // Get the color from the colorScale using totalKg
+    const color = colorScale(top10Data[index].totalKg);
 
+    // Return the custom marker with background color
     return L.divIcon({
       className: 'custom-marker',
       html: `
-        <div style="position: relative; width: 50px; height: 70px;">
+       <div style="position: relative; width: 50px; height: 70px; ">
           <div style="
             position: absolute;
-            top: 20%;
+            width: 100px; 
+            height: 100px;
+            top: -40%;
             left: 28%;
             transform: translateX(-50%);
-            border-radius: 50%;
+            border-radius: 100%;
+            background-color: ${color};
             border: 3px solid ${color};
-            box-shadow: 0 0 70px 45px ${color}80; 
+            box-shadow: 
+              0 0 30px 15px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.2), 
+      0 0 50px 20px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.4),
+      0 0 70px 30px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.6),
+      0 0 90px 40px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.8),
+      0 0 120px 50px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 1);
           "></div>
           <img src="${locationPin}" alt="Location Pin" style="
             position: absolute;
@@ -99,23 +110,34 @@ const Map = () => {
             width: 30px;
             height: 40px;
           "/>
-        </div>
-      `,
+        </div>`,
       iconSize: [30, 70],
     });
   };
 
+  // Use effect to fetch data when month/year changes
+  useEffect(() => {
+    fetchLatestData(); // Fetch the latest month and year
+  }, []);
+
+  // Fetch top 10 data whenever month or year changes
+  useEffect(() => {
+    fetchTop10Data();
+  }, [latestMonth, latestYear]);
+
   return (
     <div style={{ display: 'flex', justifyContent: 'right', padding: '20px' }}>
       {error && <div className="error-message">{error}</div>}
+      {isLoading && <div className="loading-message">Loading data...</div>} {/* Loading state */}
+
       <MapContainer
         center={[imageHeight / 2.3, imageWidth / 1.5]}
         zoom={0}
         minZoom={-1}
         scrollWheelZoom
         style={{
-          height: '550px',
-          width: '1000px',
+          height: '550px', // Use a fixed height for MapContainer
+          width: '100%',
         }}
         crs={L.CRS.Simple}
         maxBounds={bounds}
@@ -133,21 +155,15 @@ const Map = () => {
             >
               <Popup>
                 <h3>{marker.name}</h3>
+                {/* Check if the data for the marker is available before showing it */}
                 {top10Data.find((college) => college.id === marker.id) ? (
                   <>
-                    <p>
-                      <strong>Total Waste Generated:</strong>{' '}
-                      {top10Data.find((college) => college.id === marker.id)?.totalKg} kg
-                    </p>
-                    <p>
-                      <strong>Month:</strong> {latestMonth}
-                    </p>
-                    <p>
-                      <strong>Year:</strong> {latestYear}
-                    </p>
+                    <p><strong>Total Waste Generated:</strong> {top10Data.find((college) => college.id === marker.id)?.totalKg} kg</p>
+                    <p><strong>Month:</strong> {latestMonth}</p>
+                    <p><strong>Year:</strong> {latestYear}</p>
                   </>
                 ) : (
-                  <p>No data available</p>
+                  <p>No data available</p> // Only display "No data" if data is absent
                 )}
               </Popup>
             </Marker>
