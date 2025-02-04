@@ -60,60 +60,78 @@ const UserManagement = () => {
     };
 
     return (
-        <div>
+<div>
             {/* Header */}
             <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
-                <h1 className="text-lg font-semibold text-[#333333]">
-                    User Management
-                </h1>
+                <h1 className="text-lg font-semibold text-[#333333]">User Management</h1>
                 <Link to="/dashboard/accounts" className="flex items-center space-x-2">
                     <MdAccountCircle size={40} className="text-gray-700 hover:text-green-500 transition duration-300" />
                 </Link>
             </header>
-            <div className="bg-white mt-6 p-6 rounded-xl shadow-md">
-                <div className="btn1 w-40 text-center mb-4">
+
+            {/* User Table */}
+            <div className="bg-white mt-4 p-6 rounded-xl shadow-md text-xs">
+                <div className="mb-4 text-center">
                     <Link to="/dashboard/index">
-                        <Button color="white">Add Account</Button></Link>
+                        <Button variant="contained" className="text-xs color-[#003f68]">Add Account</Button>
+                    </Link>
                 </div>
-                <div>
-                    <Table>
+
+                <div className="overflow-x-auto">
+                    <Table className="text-xs w-full">
                         <TableHead>
                             <TableRow className="bg-gray-200">
-                                <TableCell>Name</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Date Created</TableCell> {/* New column */}
-                                <TableCell>Action</TableCell>
+                                <TableCell className="text-xs">Name</TableCell>
+                                <TableCell className="text-xs">Email</TableCell>
+                                <TableCell className="text-xs">Date Created</TableCell>
+                                <TableCell className="text-xs">Action</TableCell>
                             </TableRow>
                         </TableHead>
+
                         <TableBody>
-                            {accounts.map((account) => (
-                                <TableRow key={account._id}>
-                                    <TableCell>{account.name}</TableCell>
-                                    <TableCell>{account.email}</TableCell>
-                                    <TableCell>{formatDate(account.createdAt)}</TableCell> {/* Display formatted date */}
-                                    <TableCell>
-                                        <Button onClick={() => handleDeleteClick(account._id)}>
-                                            Delete
-                                        </Button>
+                            {accounts.length > 0 ? (
+                                accounts.map((account) => (
+                                    <TableRow key={account._id}>
+                                        <TableCell>{account.name}</TableCell>
+                                        <TableCell>{account.email}</TableCell>
+                                        <TableCell>{formatDate(account.createdAt)}</TableCell>
+                                        <TableCell>
+                                            <Button onClick={() => handleDeleteClick(account._id)} color="secondary" variant="outlined" size="small">
+                                                Delete
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={4} className="text-center">
+                                        No accounts found.
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                            )}
                         </TableBody>
                     </Table>
                 </div>
+
+                {/* Delete Confirmation Dialog */}
                 <Dialog open={openDialog} onClose={handleCancelDelete}>
                     <DialogTitle>Confirm Delete</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Are you sure you want to delete this account?
+                            Are you sure you want to delete this account? This action cannot be undone.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleCancelDelete} >Cancel</Button>
-                        <Button onClick={handleConfirmDelete} >Delete this account</Button>
+                        <Button onClick={handleCancelDelete} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={handleConfirmDelete} color="secondary">
+                            Delete Account
+                        </Button>
                     </DialogActions>
                 </Dialog>
-            </div></div>
+            </div>
+        </div>
     );
 };
 
