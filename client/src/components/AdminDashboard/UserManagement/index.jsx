@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { MdAccountCircle } from "react-icons/md"; 
+import { MdAccountCircle } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 function AddUserAccount() {
@@ -36,20 +36,23 @@ function AddUserAccount() {
 
     return (
         <div>
-        <div className='flex gap-x-64 w-full'>
-            <div className='flex-1 flex items-center head'>User Management</div>
-            <div className='items-center flex-none'><MdAccountCircle size={50}/></div>
-        </div>
-        <div className="className='w-full rounded-xl bg-white mt-6 p-6 shadow-md'">
+            {/* Header */}
+            <header className="flex justify-between items-center w-full bg-white p-3 shadow-md rounded-lg">
+                <h1 className="text-lg font-semibold text-[#333333]">
+                    User Management
+                </h1>
+                <Link to="/dashboard/accounts" className="flex items-center space-x-2">
+                    <MdAccountCircle size={40} className="text-gray-700 hover:text-green-500 transition duration-300" />
+                </Link>
+            </header>
+            <div className='w-full rounded-lg bg-white mt-4 p-6 shadow-md text-xs'>
                 <form onSubmit={handleSubmit}>
-                    <Typography variant="h6" gutterBottom style={{ fontFamily: "Montserrat" }}>
-                        <strong>Add User Account</strong>
-                    </Typography>
+                    <div className='fbold mb-3 text-sm'>Add Account<hr /></div>
                     <TextField
                         onChange={(e) => setName(e.target.value)}
                         name="name"
                         required
-                        className="inputField"
+                        className="inputField h-10"
                         style={row}
                         label="Enter Name"
                         type="text"
@@ -58,7 +61,7 @@ function AddUserAccount() {
                         onChange={(e) => setEmail(e.target.value)}
                         name="email"
                         required
-                        className="inputField"
+                        className="inputField h-10"
                         style={row}
                         label="Enter Email"
                         type="email"
@@ -67,7 +70,7 @@ function AddUserAccount() {
                         onChange={(e) => setPassword(e.target.value)}
                         name="password"
                         required
-                        className="inputField"
+                        className="inputField "
                         fullWidth
                         style={row}
                         label="Enter Password"
@@ -77,13 +80,13 @@ function AddUserAccount() {
                         type="submit"
                         variant="contained"
                         fullWidth
-                        style={{ marginTop: "20px",  fontFamily: "Montserrat", backgroundColor: "#003A55", color: "#FFFFFF" }}
+                        style={{ marginTop: "20px", fontFamily: "Montserrat", backgroundColor: "#003A55", color: "#FFFFFF" }}
                     >
                         Create Account
                     </Button>
                 </form>
+            </div>
         </div>
-    </div>
     );
 }
 
