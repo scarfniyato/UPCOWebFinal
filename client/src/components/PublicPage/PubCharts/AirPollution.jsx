@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../navbar2';
 import AirChart from '../../AdminDashboard/EnviManagement/EnviCharts/air_charts';
 import land_icon from '../../../assets/land_icon.png';
 import water_icon from '../../../assets/water_icon.png';

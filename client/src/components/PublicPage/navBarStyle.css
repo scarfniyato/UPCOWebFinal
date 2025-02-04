@@ -8,7 +8,8 @@
 
 /* Body (Prevent Scrolling when Menu is Active) */
 body.no-scroll {
-  overflow: hidden; /* Prevent scrolling when mobile menu is open */
+  overflow: hidden;
+  /* Prevent scrolling when mobile menu is open */
 }
 
 /* Navbar Styles */
@@ -21,26 +22,36 @@ body.no-scroll {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 70px;
+  max-height: 65px;
   box-shadow: 0 3px 20px rgba(84, 84, 84, 0.168), 0 6px 25px rgba(0, 0, 0, 0.297);
-  height: 80px;
-  max-height: 80px;
+  height: 65px;
 }
+
+.navbar.hidden {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
 
 /* Navbar Wrapper */
 .navdiv {
   display: flex;
-  align-items: center; /* Aligns logo and links vertically */
-  justify-content: space-between; /* Centers logo and links together */
+  align-items: center;
+  /* Aligns logo and links vertically */
+  justify-content: space-between;
+  /* Centers logo and links together */
   width: 100%;
-  max-width: 1300px; /* Limit the width for better responsiveness */
-  margin: 0 40px; /* Add margin to the sides */
+  max-width: 1300px;
+  /* Limit the width for better responsiveness */
+  margin: 0 40px;
+  /* Add margin to the sides */
 }
 
 /* Logo */
 .logo img {
   display: flex;
-  max-height: 80px;
+  cursor: pointer;
+  max-height: 50px;
 }
 
 /* Nav Links (Desktop View) */
@@ -63,18 +74,14 @@ body.no-scroll {
 
 .nav-links a {
   color: white;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 12px 23px;
+  padding: 5px 15px;
   text-decoration: none;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
+  border-radius: 2px;
   position: relative;
-  
-}
-
-.nav-links a:hover::before {
-  opacity: 0.25;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .nav-links a::before {
@@ -84,12 +91,39 @@ body.no-scroll {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.773);
+  box-shadow: 0 0 10px rgba(255, 176, 103, 0.7);
+  /* Soft glow effect */
   border-radius: 8px;
   opacity: 0;
   transition: opacity 0.3s;
   z-index: -1;
 }
+
+.nav-links a:hover::before {
+  opacity: 0.25;
+}
+
+/* Active link style */
+.nav-links a.active {
+  color: #ffa62b;
+  /* Highlight active link */
+  font-weight: bold;
+  border-bottom: 2px solid #ffa62b;
+  /* Add underline effect */
+  background-color: transparent;
+  /* Ensure no background for active link */
+  pointer-events: none;
+  /* Disable pointer events to prevent hover */
+}
+
+/* Disable hover effect for active link */
+.nav-links a.active::before {
+  opacity: 0;
+  /* Ensure no background effect for active link */
+}
+
+
 
 /* Hamburger Menu (Hidden in Desktop View) */
 .hamburger {
@@ -97,7 +131,6 @@ body.no-scroll {
   flex-direction: column;
   cursor: pointer;
   gap: 5px;
-  
 }
 
 .hamburger div {
@@ -110,46 +143,48 @@ body.no-scroll {
 /* Mobile View */
 @media (max-width: 999px) {
   .nav-links {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      position: fixed; /* Use fixed to ensure it stays in place */
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 100vh;
-      background-color: #003A55;
-      justify-content: center;
-      transition: all 0.3s ease-in-out;
-      overflow-y: auto; /* Allow scrolling within the menu if content overflows */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    /* Use fixed to ensure it stays in place */
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #003A55;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+    /* Allow scrolling within the menu if content overflows */
   }
 
   .nav-links.active {
-      display: flex;
+    display: flex;
   }
 
   .nav-links ul {
-      flex-direction: column;
+    flex-direction: column;
   }
 
   .nav-links li {
-      margin: 15px 0;
+    margin: 15px 0;
   }
 
   .hamburger {
-      display: flex;
+    display: flex;
   }
 
   /* Hamburger Animation */
   .hamburger.active .line1 {
-      transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(5px, 5px);
   }
 
   .hamburger.active .line2 {
-      opacity: 0;
+    opacity: 0;
   }
 
   .hamburger.active .line3 {
-      transform: rotate(-45deg) translate(5px, -5px);
+    transform: rotate(-45deg) translate(5px, -5px);
   }
 }

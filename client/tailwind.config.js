@@ -1,3 +1,4 @@
+const { heroui } = require('@heroui/theme');
 /** @type {import('tailwindcss').Config} */
 
 export default {
@@ -44,7 +45,21 @@ export default {
     },
   },
   plugins: [
-    require('tailwindcss-textshadow'),
-  ],
+    function ({ addUtilities }) {
+      require('@tailwindcss/line-clamp'),
+      require('tailwindcss-textshadow'),
+      
+      addUtilities({
+        ".text-outline": {
+          textShadow:
+            "-0.5px -0.5px 1px rgba(0,0,0,0.3),0.5px -0.5px 1px rgba(0,0,0,0.3),-0.5px 0.5px 1px rgba(0,0,0,0.3),0.5px 0.5px 1px rgba(0,0,0,0.3)",
+        }, ".drop-shadow-dark": {
+          filter: "drop-shadow(2px 2px 4px rgba(0,0,0,0.8))",
+        }, ".drop-shadow-light": {
+          filter: "drop-shadow(2px 2px 4px rgba(0,0,0,0.7))",
+        },
+      });
+    }, heroui()],
+
 }
 
