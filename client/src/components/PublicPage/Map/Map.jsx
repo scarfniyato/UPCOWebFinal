@@ -4,6 +4,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import mapBackground from '../../../assets/CvSUMapCropped.png';
 import locationPin from '../../../assets/locationPin.png';
+import locationPin1 from '../../../assets/locationPin1.png';
 import * as d3 from 'd3'; // Import D3 for colorScale
 
 const Map = () => {
@@ -67,7 +68,7 @@ const Map = () => {
     }
   };
 
-  // D3 color scale for waste data (this will match the one in top10TableList.jsx)
+  // D3 color scale for waste data
   const colorScale = d3
     .scaleSequential(d3.interpolateYlOrRd)
     .domain([Math.min(...top10Data.map((d) => d.totalKg || 0)), Math.max(...top10Data.map((d) => d.totalKg || 1))]);
@@ -80,53 +81,59 @@ const Map = () => {
     // Get the color from the colorScale using totalKg
     const color = colorScale(top10Data[index].totalKg);
 
-    // Return the custom marker with background color
-    return L.divIcon({
-      className: 'custom-marker',
+    // Generate a shadow color based on the same colorScale value
+    const shadowColor = colorScale(top10Data[index].totalKg);
+
+    // Generate a shadow style dynamically based on the shadow color
+    const shadowStyle = `
+      0 0 30px 15px ${shadowColor}, 
+      0 0 50px 20px ${shadowColor}, 
+      0 0 70px 30px ${shadowColor}, 
+      0 0 90px 40px ${shadowColor}, 
+      0 0 120px 50px ${shadowColor}
+    `;
+
+    // Marker with shadow (behind)
+    const markerWithShadow = L.divIcon({
+      className: 'custom-marker-with-shadow',
       html: `
-       <div style="position: relative; width: 50px; height: 70px; ">
-          <div style="
-            position: absolute;
-            width: 100px; 
-            height: 100px;
-            top: -40%;
-            left: 28%;
-            transform: translateX(-50%);
-            border-radius: 100%;
-            background-color: ${color};
-            border: 3px solid ${color};
-            box-shadow: 
-              0 0 30px 15px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.2), 
-      0 0 50px 20px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.4),
-      0 0 70px 30px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.6),
-      0 0 90px 40px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.8),
-      0 0 120px 50px rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 1);
-          "></div>
-          <img src="${locationPin}" alt="Location Pin" style="
-            position: absolute;
-            top: -5%;
-            left: 28%;
-            transform: translate(-50%, 0);
-            width: 30px;
-            height: 40px;
-          "/>
-        </div>`,
+        <div style="position: relative; width: 50px; height: 70px;">
+          <div class="marker" style="background-color: ${color}; border: 1px solid ${color}; box-shadow: ${shadowStyle}; 
+            position: absolute; top: 40%; left: 15%; opacity: 0.7;">
+          </div>
+        </div>
+        <img src="${locationPin}" alt="Location Pin" style="position: absolute; top: -5%; left: 28%; transform: translate(-50%, 0); width: 30px; height: 40px;"/>
+      `,
       iconSize: [30, 70],
     });
+
+    // Global markerWithoutShadow (with dynamic color based on `colorScale`)
+    const markerWithoutShadow = L.divIcon({
+      className: 'custom-marker-without-shadow',
+      html: `
+      <div style="position: relative; width: 50px; height: 70px;">
+          <div class="marker" style="background-color: ${color}; border: 1.5px solid rgb(19, 19, 19); 
+            position: absolute; top: 40%; left: -3%; width: 20px; height: 10px; border-radius: 50%; outline: black;">
+          </div>
+        </div>
+        <img src="${locationPin1}" alt="Location Pin" style="position: absolute; top: -5%; left: 28%; transform: translate(-50%, 0); width: 30px; height: 40px; "/>
+      `,
+      iconSize: [30, 70], // Ensure a slightly different size for the front marker
+    });
+
+    return { markerWithShadow, markerWithoutShadow };
   };
 
-  // Use effect to fetch data when month/year changes
   useEffect(() => {
     fetchLatestData(); // Fetch the latest month and year
   }, []);
 
-  // Fetch top 10 data whenever month or year changes
   useEffect(() => {
     fetchTop10Data();
   }, [latestMonth, latestYear]);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'right', padding: '20px' }}>
+    <div style={{ display: 'flex', justifyContent: 'right', padding: '20px', overflowY: 'auto' }}>
       {error && <div className="error-message">{error}</div>}
       {isLoading && <div className="loading-message">Loading data...</div>} {/* Loading state */}
 
@@ -144,18 +151,22 @@ const Map = () => {
         maxBoundsViscosity={1.0}
       >
         <ImageOverlay url={mapBackground} bounds={bounds} />
+
+        {/* Render all shadow markers first */}
         {markerData.map((marker) => {
-          const customMarker = getCustomMarker(marker.id);
+          const { markerWithShadow } = getCustomMarker(marker.id);
+
+          if (!markerWithShadow) return null; // Skip rendering if marker is invalid
 
           return (
             <Marker
-              key={marker.id}
+              key={`shadow-${marker.id}`}
               position={[marker.lat, marker.lng]}
-              icon={customMarker || L.icon({ iconUrl: locationPin, iconSize: [30, 40] })}
+              icon={markerWithShadow}
+              zIndexOffset={-10} // Ensure shadow marker is behind the foreground marker
             >
               <Popup>
                 <h3>{marker.name}</h3>
-                {/* Check if the data for the marker is available before showing it */}
                 {top10Data.find((college) => college.id === marker.id) ? (
                   <>
                     <p><strong>Total Waste Generated:</strong> {top10Data.find((college) => college.id === marker.id)?.totalKg} kg</p>
@@ -163,7 +174,36 @@ const Map = () => {
                     <p><strong>Year:</strong> {latestYear}</p>
                   </>
                 ) : (
-                  <p>No data available</p> // Only display "No data" if data is absent
+                  <p>No data available</p>
+                )}
+              </Popup>
+            </Marker>
+          );
+        })}
+
+        {/* Render non-shadow markers after */}
+        {markerData.map((marker) => {
+          const { markerWithoutShadow } = getCustomMarker(marker.id);
+
+          if (!markerWithoutShadow) return null; // Skip rendering if marker is invalid
+
+          return (
+            <Marker
+              key={`no-shadow-${marker.id}`}
+              position={[marker.lat, marker.lng]}
+              icon={markerWithoutShadow} // Using the global markerWithoutShadow
+              zIndexOffset={100} // Ensure this marker is above the shadow marker
+            >
+              <Popup>
+                <h3>{marker.name}</h3>
+                {top10Data.find((college) => college.id === marker.id) ? (
+                  <>
+                    <p><strong>Total Waste Generated:</strong> {top10Data.find((college) => college.id === marker.id)?.totalKg} kg</p>
+                    <p><strong>Month:</strong> {latestMonth}</p>
+                    <p><strong>Year:</strong> {latestYear}</p>
+                  </>
+                ) : (
+                  <p>No data available</p>
                 )}
               </Popup>
             </Marker>
