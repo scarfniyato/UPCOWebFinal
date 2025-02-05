@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdAccountCircle } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import WaterCharts from './AdminDashboard/EnviManagement/EnviCharts/water_charts';
@@ -30,6 +30,36 @@ const Dashboard = () => {
     [0, 0],
     [imageHeight, imageWidth],
   ];
+
+    // Fetch the latest month and year
+    const fetchLatestData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/latest-waste-data');
+        if (!response.ok) throw new Error('Failed to fetch latest data.');
+  
+        const { month, year } = await response.json();
+  
+        // Ensure the latest month and year are set
+        setLatestMonth(month);
+        setLatestYear(year);
+      } catch (error) {
+        console.error('Error fetching latest data:', error);
+        setError('Failed to load latest data. Please try again later.');
+      }
+    };
+  
+    useEffect(() => {
+      fetchLatestData();
+    }, []);
+  
+    const handleScroll = () => {
+      scroller.scrollTo('state-of-environment', {
+        duration: 1500,
+        delay: 0,
+        smooth: 'easeInOutQuad',
+        offset: -70, // Adjusts for fixed navbar height
+      });
+    };
 
   return (
     <div >
@@ -75,15 +105,14 @@ const Dashboard = () => {
         </DashboardCard>
 
         {/* Map Section */}
-        <DashboardCard className="col-span-7 h-96 w-full p-[30px] bg-white rounded-lg border-1 border-gray">
-          <h5>CvSU Main Campus - Map</h5>
-          <p style={{ marginBottom: '-10px' }}>
-            <strong>{latestMonth || 'Loading...'}</strong> <span style={{ margin: '0 1px' }}></span>
-            <strong>{latestYear || 'Loading...'}</strong>
-          </p>
-
-          {/* Use Map with dynamic width and height */}
-          <Map width="100%" height="500px" latestMonth={latestMonth} latestYear={latestYear} />
+        <DashboardCard className="col-span-7 h-96 w-full bg-white rounded-lg border-1 border-gray">
+            <h4 className="text-fcolor text-sm font-bold ">CvSU Main Campus - Map</h4>
+            <p className="text-gray-700 text-xs font-semibold mb-1 shadow-none">
+              {latestMonth || 'Loading...'} {latestYear || 'Loading...'}
+            </p>
+            <div className="w-full h-full overflow-hidden">
+              <Map />
+            </div>
         </DashboardCard>
       </section>
 

@@ -13,7 +13,6 @@ import SOE from './SOE.jsx';
 // Importing images dynamically
 import landingPage_bg from '../../../src/assets/landingPage_bg.png';
 
-
 function PublicPage() {
   const [latestMonth, setLatestMonth] = useState('');
   const [latestYear, setLatestYear] = useState('');

@@ -15,7 +15,7 @@ const sidebar = () => {
             <span className='text-xs font-normal'>State of the Environment</span>
             </span>
         </div>
-        <div className='flex-1 py-2 flex flex-col gap-3'>
+        <div className='flex-1 py-2 flex flex-col gap-2 '>
             {Dashboard_Sidebar_Links.map((item)=>(
                 <SidebarLink key={item.key} item={item}/>
             ))}
